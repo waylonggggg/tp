@@ -286,7 +286,7 @@ _{Explain here how the data archiving feature will be implemented}_
 ### User stories
 
 - Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`.
-  - HAM below refers to Hall Attendance Managers.
+- HAM below refers to Hall Attendance Managers.
 
 | Index | Priority | As a …                             | I can …                                                      | So that I can…                                                                           |
 |-----: | :------: | :---------------------------------- | :----------------------------------------------------------- |:-----------------------------------------------------------------------------------------|
