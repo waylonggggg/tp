@@ -272,18 +272,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
+**Target user**: Hall attendance managers
+
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Resolve the distress of the Temasek Hall attendance manager caused by the current complex and unorganized CCA attendance system.
+* Provide a simple and easy-to-use software that effectively tracks all CCA attendances for hall students.
+* Accommodate the manager’s “lazy” nature by streamlining workflows and reducing complexity.
+* Prioritize typing over mouse usage to align with the manager’s preferences.
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**:  It provides a centralized tracking system for the CCA attendance for hall students in different CCAs, which is required for the point calculation. Students are grouped by CCAs, and each student has an attendance/point tracker. CLI commands allow point allocation to be done quickly.
 
 ### User stories
+> HAM below refers to Hall Attendance Managers.
+
 | Index | Priority | As a …                            | I can …                                                                                                         | So that I can…                                                                                                           |
 | ----: | :------: | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | 1     | `* * *`  | As a HAM,                          | I can create new students in the list,                                                                          | so that I can store their information.                                                                                   |
