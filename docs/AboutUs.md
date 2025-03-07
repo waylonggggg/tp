@@ -31,14 +31,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Cai Zhenze
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/nova1729.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[Nova1729](http://github.com/Nova1729)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Deliverables and deadlines  
+* Responsibilities: Ensure that we submit our assignments before the deadline
 
 ### Jean Doe
 
