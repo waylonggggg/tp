@@ -276,7 +276,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* Resolve the distress of the Temasek Hall attendance manager caused by the current complex and unorganized CCA attendance system.
+* Resolve the distress of the Hall attendance manager caused by the current complex and unorganized CCA attendance system.
 * Provide a simple and easy-to-use software that effectively tracks all CCA attendances for hall students.
 * Accommodate the manager’s “lazy” nature by streamlining workflows and reducing complexity.
 * Prioritize typing over mouse usage to align with the manager’s preferences.
