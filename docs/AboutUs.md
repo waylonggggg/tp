@@ -11,24 +11,21 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Judy Park (Seoyoung)
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/judy1x4.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/judy1x4)]
 
-* Role: Project Advisor
+* Role: Testing
 
-### Jane Doe
+### Waylon
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/waylonggggg.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/waylonggggg)]
 
-* Role: Team Lead
+* Role: Code Quality
 * Responsibilities: UI
 
 ### Cai Zhenze
@@ -42,13 +39,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jean Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/thegrimbee.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/thegrimbee)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Documentation
+* Responsibilities: Quality of documents
 
 ### James Doe
 
