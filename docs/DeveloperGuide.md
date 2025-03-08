@@ -369,7 +369,13 @@ _{Explain here how the data archiving feature will be implemented}_
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CLI**: Command Line Interface, a text-based interface that allows users to interact with the system by typing commands
+* **GUI**: Graphical User Interface, a visual interface that allows users to interact with the system using graphical elements such as CLI, buttons, etc.
+* **Index**: A number that represents the position of student or CCA. It is shown in the UI on the left side of the student or CCA details
+* **HAM**: Hall attendance manager, i.e. the one in charge of taking attendance of the students
+* **Role**: The position the student has in the CCA, e.g. Captain, President
+
+*{More to be added}*
 
 --------------------------------------------------------------------------------------------------------------------
 
