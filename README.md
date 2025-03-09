@@ -2,8 +2,6 @@
 
 ![Ui](docs/images/Ui.png)
 
-
-
 # CCAttendance
 CCAttendance is a desktop app for managing attendance of students in CCAs, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance can get your attendance management tasks done faster than traditional GUI apps.
 

@@ -34,7 +34,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[Nova1729](http://github.com/Nova1729)]
 
-* Role: Deliverables and deadlines  
+* Role: Deliverables and deadlines
 * Responsibilities: Ensure that we submit our assignments before the deadline
 
 ### Gabriel Mario Antaputra
