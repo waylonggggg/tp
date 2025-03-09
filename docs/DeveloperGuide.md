@@ -331,28 +331,238 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `CCAttendance` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: Add a person**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a student with the corresponding details
+2.  System adds the student to the list
+3.  System shows the student has been added
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The student already exists in the list.
+
+    * 1a1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Delete a person**
+
+**MSS**
+
+1.  User requests to list students
+2.  Student list shows list of students
+3.  User requests to delete a specific student
+4.  System deletes the student from the list
+5.  System shows the student has been deleted
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
 
   Use case ends.
 
 * 3a. The given index is invalid.
 
     * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add a CCA**
+
+**MSS**
+
+1.  User requests to add a CCA with the corresponding details
+2.  System adds the CCA to the list
+3.  System shows the CCA has been added
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The CCA already exists in the list.
+
+    * 1a1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: Delete a CCA**
+
+**MSS**
+
+1.  User requests to list CCAs
+2.  CCA list shows list of CCAs
+3.  User requests to delete a specific CCA
+4.  System deletes the CCA from the list
+5.  System shows the CCA has been deleted
+
+    Use case ends.
+   
+**Extensions**
+
+* 2a. The CCA list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add a role to a student in a CCA**
+
+**MSS**
+
+1.  User requests to list students
+2.  Student list shows list of students
+3.  User requests to list CCAs
+4.  CCA list shows list of CCAs
+5.  User requests to add a role to a specific student in a specific CCA
+6.  System adds the role to the student in the CCA
+7.  System shows the role has been added
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
+
+  Use case ends.
+
+* 4a. The CCA list is empty.
+
+  Use case ends.
+
+* 6a. The given index is invalid.
+
+    * 6a1. AddressBook shows an error message.
+
+      Use case resumes at step 5.
+
+* 6b. The role already exists for the student in the CCA.
+
+    * 6b1. System shows role already exists.
+
+      Use case ends.
+
+* 6c. The student is not in the CCA.
+
+    * 6c1. System shows an error message.
+
+      Use case resumes at step 5.
+
+* 6d. The role does not exist.
+
+    * 6e1. System shows an error message.
+
+      Use case resumes at step 5.
+
+**Use case: Delete a role from a student in a CCA**
+
+**MSS**
+
+1.  User requests to list students
+2.  Student list shows list of students
+3.  User requests to delete a role from a specific student in a specific CCA
+4.  System deletes the role from the student in the CCA
+5.  System shows the role has been deleted
+
+    Use case ends.
+
+**Extensions**
+* 2a. The student list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The student does not have the role in the CCA.
+
+    * 3b1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The role does not exist.
+   
+   * 3c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: Add CCA to a student**
+
+**MSS**
+
+1.  User requests to list students
+2.  Student list shows list of students
+3.  User requests to list CCAs
+4.  CCA list shows list of CCAs
+5.  User requests to add a CCA to a specific student
+6.  System adds the CCA to the student
+7.  System shows the CCA has been added
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
+
+  Use case ends.
+
+* 4a. The CCA list is empty.
+
+   Use case ends.
+
+* 6a. The given index is invalid.
+
+    * 6a1. System shows an error message.
+
+      Use case resumes at step 5.
+
+* 6b. The student is already in the CCA.
+
+    * 6b1. System shows student already in CCA.
+
+      Use case ends.
+
+**Use case: Delete a CCA from a student**
+
+**MSS**
+
+1.  User requests to list students
+2.  Student list shows list of students
+3.  User requests to delete a CCA from a specific student
+4.  System deletes the CCA from the student
+5.  System shows the CCA has been deleted
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+   * 3a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The student is not in the CCA.
+   
+   * 3b1. System shows an error message.
 
       Use case resumes at step 2.
 
