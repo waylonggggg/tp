@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -63,6 +64,7 @@ public class SampleDataUtil {
      */
     public static Set<Cca> getCcaSet(String... strings) {
         return Arrays.stream(strings)
+                .map(CcaName::new)
                 .map(Cca::new)
                 .collect(Collectors.toSet());
     }

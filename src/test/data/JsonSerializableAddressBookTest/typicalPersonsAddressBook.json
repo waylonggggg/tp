@@ -6,14 +6,19 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
-    "ccas" : [ "Acting" ]
+    "ccas" : [
+      { "ccaName": "Acting" }
+    ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
-    "ccas" : [ "Basketball", "Badminton" ]
+    "ccas" : [
+      { "ccaName": "Basketball" },
+      { "ccaName": "Badminton" }
+    ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
@@ -27,7 +32,9 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tags" : [ "friends" ],
-    "ccas" : [ "Basketball" ]
+    "ccas" : [
+      { "ccaName": "Basketball" }
+    ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
