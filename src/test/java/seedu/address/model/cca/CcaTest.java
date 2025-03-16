@@ -24,7 +24,7 @@ public class CcaTest {
         assertFalse(BASKETBALL.isSameCca(null));
 
         // different name -> returns false
-        Cca editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(VALID_CCA_NAME_BASKETBALL).build();
+        Cca editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(VALID_CCA_NAME_GARDENING).build();
         assertFalse(BASKETBALL.isSameCca(editedBasketball));
 
         // name has trailing spaces -> returns false
