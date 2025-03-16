@@ -27,6 +27,14 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_CCA_NAME_BASKETBALL = "Basketball";
+    public static final String VALID_CCA_NAME_BADMINTON = "Badminton";
+    public static final String VALID_CCA_NAME_SWIMMING = "Swimming";
+    public static final String VALID_CCA_NAME_TABLE_TENNIS = "Table Tennis";
+    public static final String VALID_CCA_NAME_TENNIS = "Tennis";
+    public static final String VALID_CCA_NAME_VOLLEYBALL = "Volleyball";
+    public static final String VALID_CCA_NAME_TRACK_AND_FIELD = "Track and Field";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";

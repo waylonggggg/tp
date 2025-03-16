@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.UniqueCcaList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -16,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueCcaList ccas;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        ccas = new UniqueCcaList();
     }
 
     public AddressBook() {}
@@ -39,6 +43,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
+
+    /**
+     * Replaces the contents of the cca list with {@code ccas}.
+     * {@code ccas} must not contain duplicate ccas.
+     */
+    public void setCcas(List<Cca> ccas) {
+        this.ccas.setCcas(ccas);
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -94,6 +106,32 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// cca-level operations
+    
+    /**
+     * Returns true if a cca with the same identity as {@code cca} exists in the address book.
+     */
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+        return ccas.contains(cca);
+    }
+
+    /**
+     * Adds a cca to the address book.
+     * The cca must not already exist in the address book.
+     */
+    public void addCca(Cca cca) {
+        ccas.add(cca);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCca(Cca cca) {
+        ccas.remove(cca);
+    }
+
     //// util methods
 
     @Override
@@ -101,6 +139,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .toString();
+    }
+    
+    @Override
+    public ObservableList<Cca> getCcaList() {
+        return ccas.asUnmodifiableObservableList();
     }
 
     @Override

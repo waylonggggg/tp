@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Cca {
 
     public static final String MESSAGE_CONSTRAINTS = "CCA names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String ccaName;
 
@@ -26,10 +26,29 @@ public class Cca {
     }
 
     /**
+     * Returns the name of the CCA.
+     */
+    public String getCcaName() {
+        return ccaName;
+    }
+
+    /**
      * Returns true if a given string is a valid CCA name.
      */
     public static boolean isValidCcaName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if both CCAs have the same name.
+     * This defines a weaker notion of equality between two CCAs.
+     */
+    public boolean isSameCca(Cca otherCca) {
+        if (otherCca == this) {
+            return true;
+        }
+
+        return otherCca != null && otherCca.ccaName.equals(ccaName);
     }
 
     @Override

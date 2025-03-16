@@ -1,15 +1,29 @@
 {
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
-    "tags": [ "friends" ],
-    "ccas": [ "basketball" ]
-  }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
-  } ]
+  "persons": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "tags": ["friends"],
+      "ccas": [
+        {
+          "ccaName": "Basketball"
+        }
+      ]
+    },
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "pauline@example.com",
+      "address": "4th street",
+      "tags": [],
+      "ccas": []
+    }
+  ],
+  "ccas": [
+    {
+      "ccaName": "Basketball"
+    }
+  ]
 }

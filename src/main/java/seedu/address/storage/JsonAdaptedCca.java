@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.cca.Cca;
@@ -11,13 +11,15 @@ import seedu.address.model.cca.Cca;
  */
 public class JsonAdaptedCca {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Cca's %s field is missing!";
+
     private final String ccaName;
 
     /**
      * Constructs a {@code JsonAdaptedCca} with the given {@code ccaName}.
      */
     @JsonCreator
-    public JsonAdaptedCca(String ccaName) {
+    public JsonAdaptedCca(@JsonProperty("ccaName") String ccaName) {
         this.ccaName = ccaName;
     }
 
@@ -26,11 +28,6 @@ public class JsonAdaptedCca {
      */
     public JsonAdaptedCca(Cca source) {
         ccaName = source.ccaName;
-    }
-
-    @JsonValue
-    public String getCcaName() {
-        return ccaName;
     }
 
     /**
