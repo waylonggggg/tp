@@ -16,9 +16,9 @@ import seedu.address.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class CreateCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "create";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -38,26 +38,26 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final Person toCreate;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates a CreateCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public CreateCommand(Person person) {
         requireNonNull(person);
-        toAdd = person;
+        toCreate = person;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasPerson(toCreate)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        model.addPerson(toCreate);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)));
     }
 
     @Override
@@ -67,18 +67,18 @@ public class AddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof CreateCommand)) {
             return false;
         }
 
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        CreateCommand otherCreateCommand = (CreateCommand) other;
+        return toCreate.equals(otherCreateCommand.toCreate);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
+                .add("toAdd", toCreate)
                 .toString();
     }
 }
