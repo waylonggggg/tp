@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -88,7 +89,7 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withCcas(String... ccas) {
-        Set<Cca> ccaSet = Stream.of(ccas).map(Cca::new).collect(Collectors.toSet());
+        Set<Cca> ccaSet = Stream.of(ccas).map(CcaName::new).map(Cca::new).collect(Collectors.toSet());
         descriptor.setCcas(ccaSet);
         return this;
     }
