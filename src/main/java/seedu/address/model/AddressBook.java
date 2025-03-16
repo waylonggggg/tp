@@ -17,6 +17,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+            + "address book.";
     private final UniquePersonList persons;
     private final UniqueCcaList ccas;
 
@@ -42,6 +44,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    /**
+     * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
+     *
+     * @throws IllegalArgumentException if any CCA in the person does not exist in the UniqueCcaList.
+     */
+    private void validatePersonCcas(Person person) {
+        for (Cca cca : person.getCcas()) {
+            if (!ccas.contains(cca)) {
+                throw new IllegalArgumentException("CCA " + cca + " does not exist in the address book.");
+            }
+        }
+    }
+
     //// list overwrite operations
 
     /**
@@ -57,6 +72,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
+        for (Person person : persons) {
+            validatePersonCcas(person);
+        }
         this.persons.setPersons(persons);
     }
 
@@ -66,6 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        setCcas(newData.getCcaList());
         setPersons(newData.getPersonList());
     }
 
@@ -84,6 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
+        validatePersonCcas(p);
         persons.add(p);
     }
 
@@ -94,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
+        validatePersonCcas(editedPerson);
         persons.setPerson(target, editedPerson);
     }
 
@@ -130,6 +150,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeCca(Cca cca) {
         ccas.remove(cca);
+    }
+
+    /**
+     * Replaces the given cca {@code target} in the list with {@code editedCca}.
+     * {@code target} must exist in the address book.
+     * The cca identity of {@code editedCca} must not be the same as another existing cca in the address book.
+     */
+    public void setCca(Cca target, Cca editedCca) {
+        requireNonNull(editedCca);
+        ccas.setCca(target, editedCca);
     }
 
     //// util methods

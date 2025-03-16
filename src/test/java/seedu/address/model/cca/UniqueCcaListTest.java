@@ -3,12 +3,14 @@ package seedu.address.model.cca;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.cca.exceptions.DuplicateCcaException;
+import seedu.address.testutil.CcaBuilder;
 
 public class UniqueCcaListTest {
     private final UniqueCcaList uniqueCcaList = new UniqueCcaList();
@@ -27,6 +29,13 @@ public class UniqueCcaListTest {
     public void contains_ccaInList_returnsTrue() {
         uniqueCcaList.add(BASKETBALL);
         assertTrue(uniqueCcaList.contains(BASKETBALL));
+    }
+
+    @Test
+    public void contains_ccaWithSameIdentityFieldsInList_returnsTrue() {
+        uniqueCcaList.add(BASKETBALL);
+        Cca editedBasketball = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL).build();
+        assertTrue(uniqueCcaList.contains(editedBasketball));
     }
 
     @Test

@@ -66,11 +66,11 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
-        }
         for (Cca cca : TypicalCcas.getTypicalCcas()) {
             ab.addCca(cca);
+        }
+        for (Person person : getTypicalPersons()) {
+            ab.addPerson(person);
         }
         return ab;
     }

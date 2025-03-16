@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -84,8 +86,27 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
+        for (Cca cca : ALICE.getCcas()) {
+            modelManager.addCca(cca);
+        }
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasCca_nullCca_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasCca(null));
+    }
+
+    @Test
+    public void hasCca_ccaNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasCca(BASKETBALL));
+    }
+
+    @Test
+    public void hasCca_ccaInAddressBook_returnsTrue() {
+        modelManager.addCca(BASKETBALL);
+        assertTrue(modelManager.hasCca(BASKETBALL));
     }
 
     @Test
