@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BADMINTON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_GARDENING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_SWIMMING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_TABLE_TENNIS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_TENNIS;
@@ -23,6 +24,7 @@ public class TypicalCcas {
     public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS).build();
     public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL).build();
     public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD).build();
+    public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING).build();
 
     private TypicalCcas() {} // prevents instantiation
 
