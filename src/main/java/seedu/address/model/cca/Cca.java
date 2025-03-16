@@ -1,35 +1,42 @@
 package seedu.address.model.cca;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a CCA in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidCcaName(String)}
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Cca {
 
-    public static final String MESSAGE_CONSTRAINTS = "CCA names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String ccaName;
+    private final CcaName ccaName;
 
     /**
      * Constructs a {@code Cca}.
      *
      * @param ccaName A valid CCA name.
      */
-    public Cca(String ccaName) {
+    public Cca(CcaName ccaName) {
         requireNonNull(ccaName);
-        checkArgument(isValidCcaName(ccaName), MESSAGE_CONSTRAINTS);
         this.ccaName = ccaName;
     }
 
+    public CcaName getCcaName() {
+        return ccaName;
+    }
+
     /**
-     * Returns true if a given string is a valid CCA name.
+     * Returns true if both ccas have the same cca name.
+     * This defines a weaker notion of equality between two ccas.
      */
-    public static boolean isValidCcaName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public boolean isSameCca(Cca otherCca) {
+        if (otherCca == this) {
+            return true;
+        }
+
+        return otherCca != null
+                && otherCca.getCcaName().equals(getCcaName());
     }
 
     @Override
@@ -49,14 +56,14 @@ public class Cca {
 
     @Override
     public int hashCode() {
-        return ccaName.hashCode();
+        return Objects.hash(ccaName);
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + ccaName + ']';
+        return "[" + ccaName + "]";
     }
 
 }

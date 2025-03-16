@@ -4,21 +4,21 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Cca's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCcaName(String)}
  */
 public class CcaName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Cca names must start with a letter, must not be empty or purely numeric, "
-                    + "and may contain any characters thereafter.";
+                    + "and may contain any printable characters thereafter.";
 
     /*
-     * The string must start with a letter ([A-Za-z]).
-     * After the first character, all characters are allowed ([\\s\\S]*).
+     * The string must start with a letter.
+     * After the first character, all printable ASCII characters are allowed.
      * This ensures that the string is never empty, be all digits nor start with whitespace or special characters.
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z][\\s\\S]*$\n";
+    public static final String VALIDATION_REGEX = "^[A-Za-z][ -~]*$";
 
     public final String fullCcaName;
 
