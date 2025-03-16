@@ -16,7 +16,7 @@ import java.util.List;
 import seedu.address.model.cca.Cca;
 
 public class TypicalCcas {
-    
+
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL).build();
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON).build();
     public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING).build();

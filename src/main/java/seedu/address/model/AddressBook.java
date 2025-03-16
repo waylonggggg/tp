@@ -107,7 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// cca-level operations
-    
+
     /**
      * Returns true if a cca with the same identity as {@code cca} exists in the address book.
      */
@@ -140,7 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .add("persons", persons)
                 .toString();
     }
-    
+
     @Override
     public ObservableList<Cca> getCcaList() {
         return ccas.asUnmodifiableObservableList();

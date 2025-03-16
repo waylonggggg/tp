@@ -44,7 +44,7 @@ public class UniqueCcaListTest {
     public void setCca_nullUniqueCcaList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueCcaList.setCcas((UniqueCcaList) null));
     }
-    
+
     @Test
     public void remove_nullCca_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueCcaList.remove(null));
