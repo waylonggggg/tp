@@ -28,11 +28,13 @@ public class CcaNameTest {
         assertFalse(CcaName.isValidCcaName("")); // empty string
         assertFalse(CcaName.isValidCcaName(" ")); // spaces only
         assertFalse(CcaName.isValidCcaName("^")); // starting with non-alphabet characters
+        assertFalse(CcaName.isValidCcaName("cartoon#^#")); // alphabets followed by special characters
+        assertFalse(CcaName.isValidCcaName("Track    and Field")); // multiple whitespaces between words
 
         // valid cca name
         assertTrue(CcaName.isValidCcaName("NUS hackers")); // alphabets only
         assertTrue(CcaName.isValidCcaName("Dancing 1st")); // alphabets followed by alphanumeric characters
-        assertTrue(CcaName.isValidCcaName("cartoon#^#")); // alphabets followed by special characters
+        assertTrue(CcaName.isValidCcaName("E-Sports")); // with hyphen
         assertTrue(CcaName.isValidCcaName("NUS GDG")); // with capital letters
         assertTrue(CcaName.isValidCcaName("Nus google data analytics associate groups")); // long cca names
     }

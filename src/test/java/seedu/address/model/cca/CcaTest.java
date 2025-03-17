@@ -15,7 +15,6 @@ import seedu.address.testutil.CcaBuilder;
 
 public class CcaTest {
 
-
     @Test
     public void isSameCca() {
         // same object -> returns true
@@ -25,12 +24,12 @@ public class CcaTest {
         assertFalse(BASKETBALL.isSameCca(null));
 
         // different name -> returns false
-        Cca editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(VALID_CCA_NAME_BASKETBALL).build();
+        Cca editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(VALID_CCA_NAME_GARDENING).build();
         assertFalse(BASKETBALL.isSameCca(editedBasketball));
 
-        // name has trailing spaces -> returns false
-        String nameWithTrailingSpaces = VALID_CCA_NAME_BASKETBALL + " ";
-        editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(nameWithTrailingSpaces).build();
+        // name has extra word -> returns false
+        String nameWithExtraWord = VALID_CCA_NAME_BASKETBALL + " Male";
+        editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(nameWithExtraWord).build();
         assertFalse(BASKETBALL.isSameCca(editedBasketball));
     }
 

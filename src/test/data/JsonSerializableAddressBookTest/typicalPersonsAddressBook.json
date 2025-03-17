@@ -7,8 +7,10 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
     "ccas" : [
-      { "ccaName": "Acting" }
-    ]
+      {
+        "ccaName": "Acting"
+      }
+     ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
@@ -16,9 +18,13 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
     "ccas" : [
-      { "ccaName": "Basketball" },
-      { "ccaName": "Badminton" }
-    ]
+      {
+        "ccaName": "Basketball"
+      },
+      {
+        "ccaName": "Badminton"
+      }
+     ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
@@ -33,7 +39,9 @@
     "address" : "10th street",
     "tags" : [ "friends" ],
     "ccas" : [
-      { "ccaName": "Basketball" }
+      {
+        "ccaName": "Basketball"
+      }
     ]
   }, {
     "name" : "Elle Meyer",
@@ -56,5 +64,17 @@
     "address" : "4th street",
     "tags" : [ ],
     "ccas" : [ ]
-  } ]
+  } ],
+
+  "ccas" : [
+    {
+      "ccaName": "Basketball"
+    },
+    {
+      "ccaName": "Badminton"
+    },
+    {
+      "ccaName": "Acting"
+    }
+  ]
 }

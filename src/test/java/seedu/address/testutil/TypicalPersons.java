@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -65,6 +66,9 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+        for (Cca cca : TypicalCcas.getTypicalCcas()) {
+            ab.addCca(cca);
+        }
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
