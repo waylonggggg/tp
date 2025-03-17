@@ -25,9 +25,12 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param oneBasedIndex The one-based index as a string.
+     * @return The corresponding {@code Index} object.
+     * @throws ParseException if the specified index is invalid (not a non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -41,6 +44,8 @@ public class ParserUtil {
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param name The string to be parsed as a name.
+     * @return A {@code Name} object.
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
@@ -56,6 +61,8 @@ public class ParserUtil {
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param phone The string to be parsed as a phone number.
+     * @return A {@code Phone} object.
      * @throws ParseException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(String phone) throws ParseException {
@@ -71,6 +78,8 @@ public class ParserUtil {
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param address The string to be parsed as an address.
+     * @return An {@code Address} object.
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
@@ -86,6 +95,8 @@ public class ParserUtil {
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param email The string to be parsed as an email.
+     * @return An {@code Email} object.
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(String email) throws ParseException {
@@ -101,6 +112,8 @@ public class ParserUtil {
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param tag The string to be parsed as a tag.
+     * @return A {@code Tag} object.
      * @throws ParseException if the given {@code tag} is invalid.
      */
     public static Tag parseTag(String tag) throws ParseException {
@@ -113,7 +126,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code Collection<String>} into a {@code Set<Tag>}.
+     *
+     * @param tags The collection of tag names as strings.
+     * @return A set of {@code Tag} objects.
+     * @throws ParseException if any tag is invalid.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
@@ -124,12 +141,20 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code Collection<String>} into a {@code Set<Cca>}.
+     *
+     * @param ccas The collection of CCA names as strings.
+     * @return A set of {@code Cca} objects.
+     * @throws ParseException if any CCA name is invalid.
+     */
     public static Set<Cca> parseCcas(Collection<String> ccas) throws ParseException {
+        requireNonNull(ccas);
         final Set<Cca> ccaSet = new HashSet<>();
         for (String ccaName : ccas) {
             ccaSet.add(new Cca(new CcaName(ccaName)));
         }
         return ccaSet;
     }
-
 }
+
