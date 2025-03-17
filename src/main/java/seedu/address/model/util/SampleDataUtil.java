@@ -19,6 +19,18 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    public static Cca[] getSampleCcas() {
+        return new Cca[] {
+            new Cca(new CcaName("Acting")),
+            new Cca(new CcaName("Basketball")),
+            new Cca(new CcaName("Badminton")),
+            new Cca(new CcaName("Canoe")),
+            new Cca(new CcaName("Dance")),
+            new Cca(new CcaName("E Sports")),
+            new Cca(new CcaName("Football"))
+        };
+    }
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -44,6 +56,9 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        for (Cca sampleCca : getSampleCcas()) {
+            sampleAb.addCca(sampleCca);
+        }
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
