@@ -11,14 +11,15 @@ public class CcaName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Cca names must start with a letter, must not be empty or purely numeric, "
-                    + "and may contain any printable characters thereafter.";
+                    + "and can contain alphanumeric characters, whitespace and hyphens only."
+                    + "Multiple words are allowed, but only one whitespace or hyphen is allowed between words.";
 
     /*
      * The string must start with a letter.
-     * After the first character, all printable ASCII characters are allowed.
-     * This ensures that the string is never empty, be all digits nor start with whitespace or special characters.
+     * After the first character, alphanumeric characters are allowed, including whitespace and hyphens.
+     * Multiple words are allowed, but only one whitespace or hyphen is allowed between words.
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z][ -~]*$";
+    public static final String VALIDATION_REGEX = "^[A-Za-z]+(?:[ -][A-Za-z0-9]+)*$";
 
     public final String fullCcaName;
 

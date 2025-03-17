@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.UniqueCcaList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,7 +17,10 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+            + "address book.";
     private final UniquePersonList persons;
+    private final UniqueCcaList ccas;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        ccas = new UniqueCcaList();
     }
 
     public AddressBook() {}
@@ -38,13 +44,37 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    /**
+     * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
+     *
+     * @throws IllegalArgumentException if any CCA in the person does not exist in the UniqueCcaList.
+     */
+    private void validatePersonCcas(Person person) {
+        for (Cca cca : person.getCcas()) {
+            if (!ccas.contains(cca)) {
+                throw new IllegalArgumentException("CCA " + cca + " does not exist in the address book.");
+            }
+        }
+    }
+
     //// list overwrite operations
+
+    /**
+     * Replaces the contents of the cca list with {@code ccas}.
+     * {@code ccas} must not contain duplicate ccas.
+     */
+    public void setCcas(List<Cca> ccas) {
+        this.ccas.setCcas(ccas);
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
+        for (Person person : persons) {
+            validatePersonCcas(person);
+        }
         this.persons.setPersons(persons);
     }
 
@@ -54,6 +84,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        setCcas(newData.getCcaList());
         setPersons(newData.getPersonList());
     }
 
@@ -72,6 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
+        validatePersonCcas(p);
         persons.add(p);
     }
 
@@ -82,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
+        validatePersonCcas(editedPerson);
         persons.setPerson(target, editedPerson);
     }
 
@@ -94,6 +126,42 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// cca-level operations
+
+    /**
+     * Returns true if a cca with the same identity as {@code cca} exists in the address book.
+     */
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+        return ccas.contains(cca);
+    }
+
+    /**
+     * Adds a cca to the address book.
+     * The cca must not already exist in the address book.
+     */
+    public void addCca(Cca cca) {
+        ccas.add(cca);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCca(Cca key) {
+        ccas.remove(key);
+    }
+
+    /**
+     * Replaces the given cca {@code target} in the list with {@code editedCca}.
+     * {@code target} must exist in the address book.
+     * The cca identity of {@code editedCca} must not be the same as another existing cca in the address book.
+     */
+    public void setCca(Cca target, Cca editedCca) {
+        requireNonNull(editedCca);
+        ccas.setCca(target, editedCca);
+    }
+
     //// util methods
 
     @Override
@@ -101,6 +169,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .toString();
+    }
+
+    @Override
+    public ObservableList<Cca> getCcaList() {
+        return ccas.asUnmodifiableObservableList();
     }
 
     @Override
