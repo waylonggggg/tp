@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.CreateCommand;
+import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Address;
@@ -22,22 +22,22 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new CreateCommand object
+ * Parses input arguments and creates a new CreateStudentCommand object
  */
-public class CreateCommandParser implements Parser<CreateCommand> {
+public class CreateStudentCommandParser implements Parser<CreateStudentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CreateCommand
-     * and returns a CreateCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CreateStudentCommand
+     * and returns a CreateStudentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CreateCommand parse(String args) throws ParseException {
+    public CreateStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateStudentCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
@@ -50,7 +50,7 @@ public class CreateCommandParser implements Parser<CreateCommand> {
 
         Person person = new Person(name, phone, email, address, tagList, ccaList);
 
-        return new CreateCommand(person);
+        return new CreateStudentCommand(person);
     }
 
     /**

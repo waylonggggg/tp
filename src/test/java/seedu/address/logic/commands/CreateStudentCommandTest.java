@@ -26,21 +26,21 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class CreateCommandTest {
+public class CreateStudentCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateCommand(null));
+        assertThrows(NullPointerException.class, () -> new CreateStudentCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_personAcceptedByModel_createSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new CreateCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new CreateStudentCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(CreateStudentCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
@@ -48,25 +48,25 @@ public class CreateCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        CreateCommand createCommand = new CreateCommand(validPerson);
+        CreateStudentCommand createStudentCommand = new CreateStudentCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class,
-                CreateCommand.MESSAGE_DUPLICATE_PERSON, () -> createCommand.execute(modelStub));
+                CreateStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> createStudentCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        CreateCommand createAliceCommand = new CreateCommand(alice);
-        CreateCommand createBobCommand = new CreateCommand(bob);
+        CreateStudentCommand createAliceCommand = new CreateStudentCommand(alice);
+        CreateStudentCommand createBobCommand = new CreateStudentCommand(bob);
 
         // same object -> returns true
         assertTrue(createAliceCommand.equals(createAliceCommand));
 
         // same values -> returns true
-        CreateCommand createAliceCommandCopy = new CreateCommand(alice);
+        CreateStudentCommand createAliceCommandCopy = new CreateStudentCommand(alice);
         assertTrue(createAliceCommand.equals(createAliceCommandCopy));
 
         // different types -> returns false
@@ -81,9 +81,9 @@ public class CreateCommandTest {
 
     @Test
     public void toStringMethod() {
-        CreateCommand createCommand = new CreateCommand(ALICE);
-        String expected = CreateCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, createCommand.toString());
+        CreateStudentCommand createStudentCommand = new CreateStudentCommand(ALICE);
+        String expected = CreateStudentCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
+        assertEquals(expected, createStudentCommand.toString());
     }
 
     /**

@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CreateCommand;
+import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -164,12 +164,12 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
-        String createCommand = CreateCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+        // Triggers the saveAddressBook method by executing a create student command
+        String createStudentCommand = CreateStudentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
-        assertCommandFailure(createCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(createStudentCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }
