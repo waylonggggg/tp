@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -121,4 +123,13 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static Set<Cca> parseCcas(Collection<String> ccas) throws ParseException {
+        final Set<Cca> ccaSet = new HashSet<>();
+        for (String ccaName : ccas) {
+            ccaSet.add(new Cca(new CcaName(ccaName)));
+        }
+        return ccaSet;
+    }
+
 }
