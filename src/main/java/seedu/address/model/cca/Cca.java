@@ -10,8 +10,6 @@ import java.util.Objects;
  */
 public class Cca {
 
-    public static final String MESSAGE_CONSTRAINTS = "CCA names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
     private final CcaName ccaName;
 
     /**

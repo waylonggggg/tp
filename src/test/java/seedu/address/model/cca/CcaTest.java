@@ -27,9 +27,9 @@ public class CcaTest {
         Cca editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(VALID_CCA_NAME_GARDENING).build();
         assertFalse(BASKETBALL.isSameCca(editedBasketball));
 
-        // name has trailing spaces -> returns false
-        String nameWithTrailingSpaces = VALID_CCA_NAME_BASKETBALL + " ";
-        editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(nameWithTrailingSpaces).build();
+        // name has extra word -> returns false
+        String nameWithExtraWord = VALID_CCA_NAME_BASKETBALL + " Male";
+        editedBasketball = new CcaBuilder(BASKETBALL).withCcaName(nameWithExtraWord).build();
         assertFalse(BASKETBALL.isSameCca(editedBasketball));
     }
 
