@@ -103,7 +103,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Set<Cca> updatedCcas = editPersonDescriptor.getCcas().orElse(Collections.emptySet());
+        Set<Cca> updatedCcas = editPersonDescriptor.getCcas().orElse(personToEdit.getCcas());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedCcas);
     }
@@ -215,8 +215,12 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        // I had to change this code to ensure that when 'c/' is not provided the code doesn't
+        // do anything to the data
         public void setCcas(Set<Cca> ccas) {
-            this.ccas = (ccas != null) ? new HashSet<>(ccas) : new HashSet<>(); // Ensure it's a new set
+            if (ccas != null) {
+                this.ccas = new HashSet<>(ccas);
+            }
         }
 
         /**
