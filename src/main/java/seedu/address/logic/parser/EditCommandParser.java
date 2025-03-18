@@ -105,10 +105,12 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.of(Collections.emptySet()); // Clear all CCAs
         }
 
-        // Split multiple words into individual CCAs correctly
+        // Now splits CCAs by commas instead of spaces
         Set<Cca> ccaSet = ccas.stream()
-                .flatMap(cca -> Arrays.stream(cca.split("\\s+"))) // Splitting on whitespace
-                .map(name -> new Cca(new seedu.address.model.cca.CcaName(name))) // Ensure correct package import
+                .flatMap(cca -> Arrays.stream(cca.split("\\s*,\\s*"))) // Splitting by comma (`,`) with optional spaces
+                .map(String::trim) // Remove any extra spaces
+                .filter(name -> !name.isEmpty()) // Ensure no empty names
+                .map(name -> new Cca(new seedu.address.model.cca.CcaName(name))) // Convert to Cca objects
                 .collect(Collectors.toSet());
 
         return Optional.of(ccaSet);
