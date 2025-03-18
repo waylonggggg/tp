@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -17,31 +19,46 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    public static Cca[] getSampleCcas() {
+        return new Cca[] {
+            new Cca(new CcaName("Acting")),
+            new Cca(new CcaName("Basketball")),
+            new Cca(new CcaName("Badminton")),
+            new Cca(new CcaName("Canoe")),
+            new Cca(new CcaName("Dance")),
+            new Cca(new CcaName("E Sports")),
+            new Cca(new CcaName("Football"))
+        };
+    }
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                getTagSet("friends"), getCcaSet("Acting")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("colleagues", "friends"), getCcaSet("Basketball", "Badminton")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
+                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTagSet("neighbours"),
+                    getCcaSet("Canoe")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
+                getTagSet("family"), getCcaSet("Dance")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
+                getTagSet("classmates"), getCcaSet("E Sports")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                getTagSet("colleagues"), getCcaSet("Football"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        for (Cca sampleCca : getSampleCcas()) {
+            sampleAb.addCca(sampleCca);
+        }
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
@@ -54,6 +71,16 @@ public class SampleDataUtil {
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a cca set containing the list of strings given.
+     */
+    public static Set<Cca> getCcaSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(CcaName::new)
+                .map(Cca::new)
                 .collect(Collectors.toSet());
     }
 
