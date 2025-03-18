@@ -108,13 +108,13 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…�
 * Existing values will be updated to the input values.
 * When editing tags/CCAs, the existing tags/CCAs of the person will be removed i.e adding of tags/CCAs is not cumulative.
 * You can remove all the person’s tags or CCAs by typing `t/` or `c/` respectively 
-without specifying any tags after it.
+without specifying any tags/CCAs after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 4 c/` Clears all CCAs of the 4th person.
-*  `edit 3 c/football tennis badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
+*  `edit 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
 
 ### Locating persons by name: `find`
 
