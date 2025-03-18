@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -45,6 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_CCA + "CCA]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -52,6 +54,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+            + "address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -84,7 +88,12 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        try {
+            model.setPerson(personToEdit, editedPerson);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_CCA_NOT_FOUND);
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
@@ -102,6 +111,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Cca> updatedCcas = editPersonDescriptor.getCcas().orElse(personToEdit.getCcas());
+
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedCcas);
     }
 
@@ -212,12 +222,12 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        /**
-         * Sets {@code ccas} to this object's {@code ccas}.
-         * A defensive copy of {@code ccas} is used internally.
-         */
+        // I had to change this code to ensure that when 'c/' is not provided the code doesn't
+        // do anything to the data
         public void setCcas(Set<Cca> ccas) {
-            this.ccas = (ccas != null) ? new HashSet<>(ccas) : null;
+            if (ccas != null) {
+                this.ccas = new HashSet<>(ccas);
+            }
         }
 
         /**
