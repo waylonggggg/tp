@@ -344,7 +344,7 @@ _{Explain here how the data archiving feature will be implemented}_
     Use case ends.
 
 **Extensions**
-      
+
 * 1a. The student already exists in the list.
 
     * 1a1. System shows an error message.
@@ -404,7 +404,7 @@ _{Explain here how the data archiving feature will be implemented}_
 5.  System shows the CCA has been deleted
 
     Use case ends.
-   
+
 **Extensions**
 
 * 2a. The CCA list is empty.
@@ -501,7 +501,7 @@ _{Explain here how the data archiving feature will be implemented}_
       Use case resumes at step 2.
 
 * 3c. The role does not exist.
-   
+
    * 3c1. System shows an error message.
 
       Use case resumes at step 2.
@@ -579,7 +579,7 @@ _{Explain here how the data archiving feature will be implemented}_
       Use case resumes at step 2.
 
 * 3c. The student is not in the CCA.
-   
+
    * 3c1. System shows an error message.
 
       Use case resumes at step 2.
