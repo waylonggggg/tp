@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -125,7 +127,21 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCca(Cca target) {
+        requireNonNull(target);
         addressBook.removeCca(target);
+        removeCcaFromAllStudents(target);
+    }
+
+    private void removeCcaFromAllStudents(Cca cca) {
+        for (Person person : addressBook.getPersonList()) {
+            if (person.getCcas().contains(cca)) {
+                Set<Cca> updatedCcas = new HashSet<>(person.getCcas());
+                updatedCcas.remove(cca);
+                Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                        person.getAddress(), person.getTags(), updatedCcas);
+                addressBook.setPerson(person, updatedPerson);
+            }
+        }
     }
 
     @Override
