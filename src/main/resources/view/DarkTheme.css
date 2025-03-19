@@ -372,3 +372,38 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+/* Title Container (Rounded White Box) */
+.title-container {
+    -fx-background-color: white; /* White background */
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-border-radius: 15;
+    -fx-padding: 10px; /* Padding inside */
+    -fx-alignment: center; /* Center the text */
+}
+
+/* Title Label (Bold & Centered) */
+.title-label {
+    -fx-font-size: 20pt; /* Larger font */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: black; /* Black text color */
+    -fx-alignment: center;
+}
+
+/* Title Container (Rounded White Box) */
+.title-container {
+    -fx-background-color: white; /* White background */
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-border-radius: 15;
+    -fx-padding: 10px; /* Padding inside */
+    -fx-alignment: center; /* Center the text */
+}
+
+/* Title Label (Bold & Centered) */
+.title-label {
+    -fx-font-size: 20pt; /* Larger font */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: black; /* Black text color */
+    -fx-alignment: center;
+}
+
