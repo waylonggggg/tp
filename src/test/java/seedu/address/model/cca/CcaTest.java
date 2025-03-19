@@ -9,8 +9,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.GARDENING;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.role.Role;
 import seedu.address.testutil.CcaBuilder;
 
 public class CcaTest {
@@ -35,6 +38,16 @@ public class CcaTest {
 
     @Test
     public void equals() {
+        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player").withTotalSessions(15).build();
+        Cca sameBasketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player").withTotalSessions(15).build();
+        Cca differentBasketball = new CcaBuilder().withCcaName("Basketball").withRoles("Coach").withTotalSessions(10).build();
+
+        // same values -> should be equal
+        assertEquals(basketball, sameBasketball);
+
+        // different roles or sessions -> should not be equal
+        assertFalse(basketball.equals(differentBasketball));
+
         // same values -> returns true
         Cca basketballCopy = new CcaBuilder(BASKETBALL).build();
         assertTrue(BASKETBALL.equals(basketballCopy));
@@ -65,5 +78,17 @@ public class CcaTest {
     public void toStringMethod() {
         String expected = "[" + BASKETBALL.getCcaName() + "]";
         assertEquals(expected, BASKETBALL.toString());
+    }
+
+    @Test
+    public void getRoles() {
+        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player").withTotalSessions(15).build();
+        assertEquals(Set.of(new Role("Captain"), new Role("Player")), basketball.getRoles());
+    }
+
+    @Test
+    public void getTotalSessions() {
+        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player").withTotalSessions(15).build();
+        assertEquals(15, basketball.getTotalSessions().getSessionCount());
     }
 }
