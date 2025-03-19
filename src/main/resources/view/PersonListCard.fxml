@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="personCardPane" fx:id="personCardPane" style="-fx-background-color: #5A5A5A; -fx-background-radius: 25; -fx-border-radius: 25; -fx-padding: 15px; -fx-border-width: 3px; -fx-border-color: #787878;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="personCardPane" fx:id="personCardPane" style="-fx-background-color: #5A5A5A; -fx-background-radius: 25; -fx-border-radius: 25; -fx-padding: 15px; -fx-border-width: 3px; -fx-border-color: #787878;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
