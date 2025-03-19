@@ -375,11 +375,13 @@
 
 /* Title Container (Rounded White Box) */
 .title-container {
-    -fx-background-color: white; /* White background */
-    -fx-background-radius: 15; /* Rounded corners */
-    -fx-border-radius: 15;
-    -fx-padding: 10px; /* Padding inside */
-    -fx-alignment: center; /* Center the text */
+    -fx-background-color: white; /* or your desired color */
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;       /* Match the background radius for smooth edges */
+    -fx-border-color: #A0A0A0;     /* Desired border color */
+    -fx-border-width: 5px;       /* Desired border thickness */
+    -fx-padding: 10px;
+    -fx-alignment: center;
 }
 
 /* Title Label (Bold & Centered) */
