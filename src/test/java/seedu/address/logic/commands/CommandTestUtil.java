@@ -27,6 +27,16 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_CCA_NAME_BASKETBALL = "Basketball";
+    public static final String VALID_CCA_NAME_BADMINTON = "Badminton";
+    public static final String VALID_CCA_NAME_SWIMMING = "Swimming";
+    public static final String VALID_CCA_NAME_TABLE_TENNIS = "Table Tennis";
+    public static final String VALID_CCA_NAME_TENNIS = "Tennis";
+    public static final String VALID_CCA_NAME_VOLLEYBALL = "Volleyball";
+    public static final String VALID_CCA_NAME_TRACK_AND_FIELD = "Track and Field";
+    public static final String VALID_CCA_NAME_GARDENING = "Gardening";
+    public static final String VALID_CCA_NAME_ACTING = "Acting";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -37,8 +47,6 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_CCA_NAME_BASKETBALL = "Basketball";
-    public static final String VALID_CCA_NAME_GARDENING = "Gardening";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -58,7 +66,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_CCA_DESC = " " + PREFIX_CCA + "badminton*"; // '*' not allowed in ccas
+    public static final String INVALID_CCA_DESC = " " + PREFIX_CCA + "Badminton*"; // '*' not allowed in ccas
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

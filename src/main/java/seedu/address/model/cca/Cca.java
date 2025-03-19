@@ -22,6 +22,9 @@ public class Cca {
         this.ccaName = ccaName;
     }
 
+    /**
+     * Returns the name of the CCA.
+     */
     public CcaName getCcaName() {
         return ccaName;
     }

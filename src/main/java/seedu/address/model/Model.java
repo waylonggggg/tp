@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -75,6 +76,33 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Returns true if a cca with the same identity as {@code cca} exists in the address book.
+     */
+    boolean hasCca(Cca cca);
+
+    /**
+     * Adds the given cca.
+     * {@code cca} must not already exist in the address book.
+     */
+    void addCca(Cca cca);
+
+    /**
+     * Deletes the given cca.
+     * The cca must exist in the address book.
+     */
+    void deleteCca(Cca target);
+
+    /**
+     * Replaces the given cca {@code target} with {@code editedCca}.
+     * {@code target} must exist in the address book.
+     * The cca identity of {@code editedCca} must not be the same as another existing cca in the address book.
+     */
+    void setCca(Cca target, Cca editedCca);
+
+    /** Returns an unmodifiable view of the cca list */
+    ObservableList<Cca> getCcaList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -111,7 +112,39 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasCca(Cca cca) {
+        requireNonNull(cca);
+        return addressBook.hasCca(cca);
+    }
+
+    @Override
+    public void addCca(Cca cca) {
+        addressBook.addCca(cca);
+    }
+
+    @Override
+    public void deleteCca(Cca target) {
+        addressBook.removeCca(target);
+    }
+
+    @Override
+    public void setCca(Cca target, Cca editedCca) {
+        requireAllNonNull(target, editedCca);
+
+        addressBook.setCca(target, editedCca);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Cca} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Cca> getCcaList() {
+        return addressBook.getCcaList();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
