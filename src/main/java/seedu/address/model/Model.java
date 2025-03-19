@@ -101,6 +101,9 @@ public interface Model {
      */
     void setCca(Cca target, Cca editedCca);
 
+    /** Returns an unmodifiable view of the cca list */
+    ObservableList<Cca> getCcaList();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

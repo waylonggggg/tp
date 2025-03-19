@@ -107,7 +107,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…�
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags/CCAs, the existing tags/CCAs of the person will be removed i.e adding of tags/CCAs is not cumulative.
-* You can remove all the person’s tags or CCAs by typing `t/` or `c/` respectively 
+* You can remove all the person’s tags or CCAs by typing `t/` or `c/` respectively
 without specifying any tags/CCAs after it.
 
 Examples:
