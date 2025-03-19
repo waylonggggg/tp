@@ -122,7 +122,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("tags", roles)
+                .add("roles", roles)
                 .add("ccas", ccas)
                 .toString();
     }

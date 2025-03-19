@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Role a person holds in a cca in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidRoleName(String)}
  */
-public class    Role {
+public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Role names should be alphanumeric";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9\\- ]+$"; // Allow hyphens and spaces
