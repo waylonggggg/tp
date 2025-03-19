@@ -3,30 +3,42 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="ccaCardPane" fx:id="ccaCardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<!-- Change: Added 'cca-box' styleClass for the rounded colored box -->
+
+<HBox id="ccaCardPane" fx:id="ccaCardPane" style="-fx-background-color: #87CEEB; -fx-background-radius: 15; -fx-border-color: #5DADE2; -fx-border-radius: 15; -fx-border-width: 4px;" styleClass="cca-box" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="10" left="15" right="15" top="10" />
       </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
+
+      <HBox alignment="CENTER_LEFT" spacing="10">
+        <!-- ID Label -->
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
-            <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="ccaName" text="\$first" styleClass="cell_big_label" />
+
+        <!-- CCA Name -->
+        <Label fx:id="ccaName" styleClass="cell_big_label" text="\$first" />
       </HBox>
+
+      <!-- (No deletions) Keeping all original labels and structure -->
+      <Label fx:id="studentCount" styleClass="cell_small_label" />
+      <Label fx:id="roles" styleClass="cell_small_label" />
     </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

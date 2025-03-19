@@ -407,3 +407,52 @@
     -fx-alignment: center;
 }
 
+/* Default CCA Card Styling */
+.cca-box {
+    -fx-background-color: #87CEEB; /* Light Blue */
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-border-radius: 15;
+    -fx-border-color: transparent; /* Removes default border */
+    -fx-border-width: 3px;
+    -fx-padding: 10px;
+    -fx-margin: 10px 10px; /* Adds spacing between items */
+}
+
+/* Fix the selection highlight so it only applies inside the card */
+.list-cell:filled:selected {
+    -fx-background-color: transparent; /* Ensures selection does not interfere */
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+}
+
+/* Ensure selection applies only inside the card */
+.list-cell:filled:selected .cca-box {
+    -fx-background-color: #64B5F6; /* Slightly darker blue */
+    -fx-border-color: #42A5F5; /* Selection border */
+    -fx-border-width: 3px;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: none; /* Removes default JavaFX glow */
+}
+
+/* Ensure text color remains readable when selected */
+.list-cell:filled:selected .label {
+    -fx-text-fill: white; /* Keep text visible */
+}
+
+/* Style for text inside CCA cards */
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+/* Ensure padding and spacing between list items */
+.list-cell {
+    -fx-padding: 15px 0px; /* More space between cards */
+    -fx-background-color: transparent; /* Ensures background does not interfere */
+    -fx-border-color: transparent;
+    -fx-border-radius: 15px;
+}
