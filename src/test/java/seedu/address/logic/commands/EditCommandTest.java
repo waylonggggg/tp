@@ -82,22 +82,36 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    // note that this test case is newly added to test that 'edit 1 c/' indeed removes all the CCAs that
+    // the 1sr person has. The original test is removed because it is no longer applicable.
+    // For the original test to pass it required that 'edit 1 c/' to not change anything in the first person
+    // which is not what we want
     @Test
-    public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_clearCcas_success() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON); // Ensure the person is visible
 
+        // Get the existing person and confirm that they have at least one CCA
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+        assertFalse(personInFilteredList.getCcas().isEmpty()); // Ensure CCAs exist before clearing
 
+        // Create an expected edited person with no CCAs
+        Person editedPerson = new PersonBuilder(personInFilteredList).withCcas().build(); // Empty CCAs
+
+        // Create the edit command with an empty CCA field (c/)
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withCcas().build()); // No args -> clear CCAs
+
+        // Expected success message
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
+        // Prepare expected model
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
 
+        // Assert command success
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {

@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -41,7 +42,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane ccas;
+    private Label ccas;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -57,8 +58,15 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        person.getCcas().stream()
-                .sorted(Comparator.comparing(cca -> cca.getCcaName().fullCcaName))
-                .forEach(cca -> ccas.getChildren().add(new Label(cca.getCcaName().fullCcaName)));
+        if (!person.getCcas().isEmpty()) {
+            String ccaText = person.getCcas().stream()
+                    .sorted(Comparator.comparing(cca -> cca.getCcaName().fullCcaName))
+                    .map(cca -> cca.getCcaName().fullCcaName)
+                    .collect(Collectors.joining(", "));
+            ccas.setText("CCAs: " + ccaText);
+        } else {
+            ccas.setText("No CCAs");
+        }
+
     }
 }
