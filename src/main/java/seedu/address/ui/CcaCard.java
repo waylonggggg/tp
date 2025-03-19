@@ -28,7 +28,12 @@ public class CcaCard extends UiPart<Region> {
     public CcaCard(Cca cca, int displayedIndex) {
         super(FXML);
         this.cca = cca;
+
+        // Apply rounded bubble styling
+        ccaCardPane.getStyleClass().add("cca-box");
+
         id.setText(displayedIndex + ". ");
         ccaName.setText(cca.getCcaName().fullCcaName);
     }
+
 }
