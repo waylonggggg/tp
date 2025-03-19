@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns a crete student command string for adding the {@code person}.
+     * Returns a create student command string for adding the {@code person}.
      */
     public static String getCreateStudentCommand(Person person) {
         return CreateStudentCommand.COMMAND_WORD + " " + getPersonDetails(person);

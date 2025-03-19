@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -47,6 +48,15 @@ public class Messages {
         person.getTags().forEach(builder::append);
         builder.append("; Ccas: ");
         person.getCcas().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code cca} for display to the user.
+     */
+    public static String format(Cca cca) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(cca.getCcaName().fullCcaName);
         return builder.toString();
     }
 

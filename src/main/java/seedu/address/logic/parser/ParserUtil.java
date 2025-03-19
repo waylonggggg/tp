@@ -156,5 +156,22 @@ public class ParserUtil {
         }
         return ccaSet;
     }
+
+    /**
+     * Parses a {@code String ccaName} into a {@code CcaName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param ccaName
+     * @return A {@code CcaName} object.
+     * @throws ParseException if the given {@code ccaName} is invalid.
+     */
+    public static CcaName parseCcaName(String ccaName) throws ParseException {
+        requireNonNull(ccaName);
+        String trimmedCcaName = ccaName.trim();
+        if (!CcaName.isValidCcaName(trimmedCcaName)) {
+            throw new ParseException(CcaName.MESSAGE_CONSTRAINTS);
+        }
+        return new CcaName(trimmedCcaName);
+    }
 }
 

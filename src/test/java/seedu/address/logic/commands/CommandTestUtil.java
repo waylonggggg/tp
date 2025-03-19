@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -36,6 +37,19 @@ public class CommandTestUtil {
     public static final String VALID_CCA_NAME_TRACK_AND_FIELD = "Track and Field";
     public static final String VALID_CCA_NAME_GARDENING = "Gardening";
     public static final String VALID_CCA_NAME_ACTING = "Acting";
+
+    public static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_BASKETBALL;
+    public static final String CCA_NAME_DESC_BADMINTON = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_BADMINTON;
+    public static final String CCA_NAME_DESC_SWIMMING = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_SWIMMING;
+    public static final String CCA_NAME_DESC_TABLE_TENNIS = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_TABLE_TENNIS;
+    public static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_TENNIS;
+    public static final String CCA_NAME_DESC_VOLLEYBALL = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_VOLLEYBALL;
+    public static final String CCA_NAME_DESC_TRACK_AND_FIELD = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_TRACK_AND_FIELD;
+    public static final String CCA_NAME_DESC_GARDENING = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_GARDENING;
+    public static final String CCA_NAME_DESC_ACTING = " " + PREFIX_CCA_NAME + VALID_CCA_NAME_ACTING;
+
+    // '*' not allowed in ccas
+    public static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basketball*";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
