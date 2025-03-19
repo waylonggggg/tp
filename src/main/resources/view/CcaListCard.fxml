@@ -11,7 +11,7 @@
 
 <!-- Change: Added 'cca-box' styleClass for the rounded colored box -->
 
-<HBox id="ccaCardPane" fx:id="ccaCardPane" style="-fx-background-color: #87CEEB; -fx-background-radius: 15; -fx-border-color: #5DADE2; -fx-border-radius: 15; -fx-border-width: 4px;" styleClass="cca-box" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="ccaCardPane" fx:id="ccaCardPane" style="-fx-background-color: #4A4A4A; -fx-background-radius: 15; -fx-border-color: #6D6D6D; -fx-border-radius: 15; -fx-border-width: 4px;" styleClass="cca-box" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
