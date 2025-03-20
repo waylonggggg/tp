@@ -84,15 +84,15 @@ public class Person {
     }
 
     /**
-     * Returns a list of CCAs associated with this person.
+     * Returns a set of CCAs associated with this person.
      * Extracts the Cca objects from the CcaInformation set.
      *
      * @return An unmodifiable list of Cca objects.
      */
-    public List<Cca> getCcas() {
+    public Set<Cca> getCcas() {
         return ccaInformation.stream()
                 .map(CcaInformation::getCca) // Extracts the Cca object from CcaInformation
-                .collect(Collectors.toUnmodifiableList()); // Returns an immutable list
+                .collect(Collectors.toSet()); // Returns an immutable set
     }
 
     /**
