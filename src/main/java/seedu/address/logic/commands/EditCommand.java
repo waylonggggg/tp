@@ -22,9 +22,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
-import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -208,7 +206,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code ccaInformation} is used internally.
          */
         public void setCcaInformation(Set<CcaInformation> ccaInformation) {
-            this.ccaInformation = (ccaInformation != null) ? new HashSet<>(ccaInformation) : new HashSet<>();
+            this.ccaInformation = (ccaInformation != null) ? new HashSet<>(ccaInformation) : null;
         }
 
         /**

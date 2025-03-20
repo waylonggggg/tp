@@ -61,6 +61,10 @@ public class PersonBuilder {
         return this;
     }
 
+
+    /**
+     * Sets the {@code CcaInformation} of the {@code Person} that we are building.
+     */
     public PersonBuilder withCcaInformation(String ccaName, String roleName, int totalSessions) {
         Set<CcaInformation> ccaInfoSet = new HashSet<>();
 
