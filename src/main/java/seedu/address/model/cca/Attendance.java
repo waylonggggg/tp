@@ -34,7 +34,7 @@ public class Attendance {
      * total number of Cca sessions.
      */
     public boolean isValidAttendance(SessionCount sessionsAttended, SessionCount totalSessions) {
-        return sessionsAttended.getSessionCount() < totalSessions.getSessionCount();
+        return sessionsAttended.getSessionCount() <= totalSessions.getSessionCount();
     }
 
     /**

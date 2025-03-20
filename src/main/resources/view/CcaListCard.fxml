@@ -3,42 +3,50 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- Change: Added 'cca-box' styleClass for the rounded colored box -->
+<HBox id="ccaCardPane" fx:id="ccaCardPane"
+      style="-fx-background-color: #4A4A4A; -fx-background-radius: 15;
+             -fx-border-color: #6D6D6D; -fx-border-radius: 15; -fx-border-width: 4px;"
+      styleClass="cca-box"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
-<HBox id="ccaCardPane" fx:id="ccaCardPane" style="-fx-background-color: #4A4A4A; -fx-background-radius: 15; -fx-border-color: #6D6D6D; -fx-border-radius: 15; -fx-border-width: 4px;" styleClass="cca-box" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
+    <!-- Let the GridPane grow horizontally if needed -->
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <rowConstraints>
+      <!-- This row will stretch vertically, so we can shift content to the top -->
+      <RowConstraints vgrow="ALWAYS" />
+    </rowConstraints>
+
+    <VBox alignment="TOP_LEFT" spacing="5" GridPane.columnIndex="0">
       <padding>
-        <Insets bottom="10" left="15" right="15" top="10" />
+        <!-- Tweak top/bottom padding to shift the name up/down -->
+        <Insets top="10" right="15" bottom="10" left="15" />
       </padding>
 
+      <!-- Row 1: ID + CCA Name in one line -->
       <HBox alignment="CENTER_LEFT" spacing="10">
-        <!-- ID Label -->
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-
-        <!-- CCA Name -->
-        <Label fx:id="ccaName" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="ccaName" styleClass="cell_big_label" />
       </HBox>
 
-      <!-- (No deletions) Keeping all original labels and structure -->
-      <Label fx:id="studentCount" styleClass="cell_small_label" />
+      <!-- Row 2: Roles (single label) -->
       <Label fx:id="roles" styleClass="cell_small_label" />
+
+      <!-- Row 3: Session count -->
+      <Label fx:id="sessionCount" styleClass="cell_small_label" />
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
   </GridPane>
 </HBox>
