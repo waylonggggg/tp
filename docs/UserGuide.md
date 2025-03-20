@@ -50,14 +50,10 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `create_s n/NAME`, `NAME` is a parameter which can be used as `create_s n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[c/CCA_NAME]…​` can be used as ` ` (i.e. 0 times), `c/Basketball`, `c/Basketball c/Volleyball`,
-  or `c/Basketball,Volleyball` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -136,8 +132,8 @@ Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
 * The amount of attendance must be a positive integer.
 
 Examples:
-* `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` with an attendance of `1`.
-* `attend 3 n/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` with an attendance of `2`.
+* `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
+* `attend 3 n/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
 
 ### Locating students by name: `find`
 
@@ -241,7 +237,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
-**Edit Student**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
+**Edit Student**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
 **Record Attendance**   | `attend INDEX [n/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 n/Basketball a/1`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
