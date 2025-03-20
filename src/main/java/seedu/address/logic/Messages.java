@@ -44,10 +44,8 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
-        builder.append("; Ccas: ");
-        person.getCcas().forEach(builder::append);
+                .append("; CcaInformation: ");
+        person.getCcaInformation().forEach(builder::append);
         return builder.toString();
     }
 
