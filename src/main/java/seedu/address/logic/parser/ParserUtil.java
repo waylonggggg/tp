@@ -9,13 +9,16 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.role.Role;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -109,36 +112,58 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String role} into a {@code Role}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @param tag The string to be parsed as a tag.
-     * @return A {@code Tag} object.
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @param role The string to be parsed as a role.
+     * @return A {@code Role} object.
+     * @throws ParseException if the given {@code role} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static Role parseRole(String role) throws ParseException {
+        requireNonNull(role);
+        String trimmedRole = role.trim();
+        if (!Role.isValidRoleName(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Role(trimmedRole);
     }
 
     /**
-     * Parses a {@code Collection<String>} into a {@code Set<Tag>}.
+     * Parses a {@code Collection<String>} into a {@code Set<Role>}.
      *
-     * @param tags The collection of tag names as strings.
-     * @return A set of {@code Tag} objects.
-     * @throws ParseException if any tag is invalid.
+     * @param roles The collection of role names as strings.
+     * @return A set of {@code Role} objects.
+     * @throws ParseException if any role is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Role> parseRoles(Collection<String> roles) throws ParseException {
+        requireNonNull(roles);
+        final Set<Role> roleSet = new HashSet<>();
+        for (String roleName : roles) {
+            roleSet.add(parseRole(roleName));
         }
-        return tagSet;
+        return roleSet;
+    }
+
+    /**
+     * Parses a single CCA name and Role name into a {@code Set<CcaInformation>}.
+     * - **Only allows ONE CCA and ONE Role.**
+     * - **Defaults Attended Sessions to `0`.**
+     *
+     * @param ccaName The CCA name.
+     * @param roleName The Role name.
+     * @return A set containing one {@code CcaInformation}.
+     */
+    public static Set<CcaInformation> parseCcaInformation(String ccaName, String roleName) {
+        Set<CcaInformation> ccaInformationSet = new HashSet<>();
+
+        // Create CCA and Role objects (No validation done)
+        Cca cca = new Cca(new CcaName(ccaName));
+        Role role = new Role(roleName);
+
+        // Create CcaInformation with default attended sessions = 0
+        ccaInformationSet.add(new CcaInformation(cca, role, new Attendance(new SessionCount(0), new SessionCount(15))));
+
+        return ccaInformationSet;
     }
 
     /**
