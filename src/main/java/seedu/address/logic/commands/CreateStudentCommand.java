@@ -78,7 +78,7 @@ public class CreateStudentCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("toAdd", toCreate)
+                .add("toCreate", toCreate)
                 .toString();
     }
 }
