@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ public class CreateCcaCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Cca expectedCca = new CcaBuilder(BASKETBALL).build();
+        Cca expectedCca = new CcaBuilder().withCcaName("Basketball").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + CCA_NAME_DESC_BASKETBALL,

@@ -66,4 +66,9 @@ public class CreateCcaCommand extends Command {
                 .add("toCreate", toCreate)
                 .toString();
     }
+
+    @Override
+    public int hashCode() {
+        return toCreate.hashCode();
+    }
 }
