@@ -111,13 +111,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROL
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing CCAs, the existing CCAs of the person will be removed i.e adding of CCAs is not cumulative.
-* You can remove all the person’s CCAs by typing `c/` without specifying any CCAs after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing CCAs.
-*  `edit 4 c/` Clears all CCAs of the 4th person.
-*  `edit 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
