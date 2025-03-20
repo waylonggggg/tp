@@ -13,8 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Person;
 
 /**
@@ -150,6 +152,25 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCca);
 
         addressBook.setCca(target, editedCca);
+    }
+
+    @Override
+    public void recordAttendance(Cca cca, Person person, int amount) throws IllegalArgumentException {
+        requireAllNonNull(person, cca, amount);
+        Set<CcaInformation> ccaInformations = person.getCcaInformation();
+        CcaInformation ccaInformation = ccaInformations.stream()
+                .filter(c -> c.getCca().equals(cca))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Person does not have this CCA"));
+        Attendance attendance = ccaInformation.getAttendance();
+        Attendance newAttendance = new Attendance(new SessionCount(
+                attendance.getSessionsAttended().getSessionCount() + amount), attendance.getTotalSessions());
+        CcaInformation newCcaInformation = new CcaInformation(cca, ccaInformation.getRole(), newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.remove(ccaInformation);
+        newCcaInformations.add(newCcaInformation);
+        addressBook.setPerson(person, new Person(person.getName(), person.getPhone(), person.getEmail(),
+                person.getAddress(), newCcaInformations));
     }
 
     //=========== Filtered Person List Accessors =============================================================

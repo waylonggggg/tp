@@ -101,6 +101,15 @@ public interface Model {
      */
     void setCca(Cca target, Cca editedCca);
 
+    /**
+     * Records the attendance of a person in a cca.
+     * The person must exist in the address book.
+     * The cca must exist in the address book.
+     * The amount must be a positive integer.
+     * The person must have the cca.
+     */
+    void recordAttendance(Cca target, Person editedPerson, int amount) throws IllegalArgumentException;
+
     /** Returns an unmodifiable view of the cca list */
     ObservableList<Cca> getCcaList();
 

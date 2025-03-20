@@ -96,6 +96,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void recordAttendance(Cca target, Person person, int Amount) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Cca> getCcaList() {
         throw new AssertionError("This method should not be called.");
     }

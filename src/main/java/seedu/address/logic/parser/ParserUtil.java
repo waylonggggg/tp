@@ -142,6 +142,15 @@ public class ParserUtil {
         return roleSet;
     }
 
+    public static int parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedAmount)) {
+            throw new ParseException("Amount should be a non-zero unsigned integer.");
+        }
+        return Integer.parseInt(trimmedAmount);
+    }
+
     /**
      * Parses a single CCA name and Role name into a {@code Set<CcaInformation>}.
      * - **Only allows ONE CCA and ONE Role.**

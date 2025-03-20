@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
+import seedu.address.model.cca.CcaName;
 
 /**
  * Represents a Person in the address book.
@@ -83,6 +84,27 @@ public class Person {
         return address;
     }
 
+    public Cca getCca(CcaName ccaName) throws NullPointerException {
+        return ccaInformation.stream()
+                .filter(c -> c.getCca().getCcaName().equals(ccaName))
+                .map(CcaInformation::getCca)
+                .findFirst()
+                .orElseThrow(NullPointerException::new);
+    }
+
+    /**
+     * Returns the CCA information associated with the specified CCA.
+     *
+     * @param cca The CCA to retrieve information for.
+     * @return The {@code CcaInformation} object associated with the specified CCA.
+     */
+    public CcaInformation getCcaInformation(Cca cca) throws NullPointerException {
+        return ccaInformation.stream()
+                .filter(c -> c.getCca().equals(cca))
+                .findFirst()
+                .orElseThrow(NullPointerException::new);
+    }
+
     /**
      * Returns a list of CCAs associated with this person.
      * Extracts the Cca objects from the CcaInformation set.
@@ -119,6 +141,20 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if the person has the specified CCA.
+     * 
+     * @param cca The CCA to check for.
+     * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
+     */
+    public boolean hasCca(Cca cca) {
+        return ccaInformation.stream().anyMatch(c -> c.getCca().equals(cca));
+    }
+
+    public boolean hasCca(CcaName ccaName) {
+        return ccaInformation.stream().anyMatch(c -> c.getCca().getCcaName().equals(ccaName));
     }
 
     /**
