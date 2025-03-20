@@ -24,7 +24,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<CcaInformation> ccaInformation;
+    private Set<CcaInformation> ccaInformations;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -34,7 +34,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        ccaInformation = new HashSet<>();
+        ccaInformations = new HashSet<>();
     }
 
     /**
@@ -45,7 +45,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        ccaInformation = personToCopy.getCcaInformation();
+        ccaInformations = personToCopy.getCcaInformation();
     }
 
     /**
@@ -67,8 +67,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Cca} of the {@code Person} that we are building.
      */
-    public PersonBuilder withCcas(Set<Cca> ccas) {
-        this.ccas = ccas;
+    public PersonBuilder withCcaInformations(Set<CcaInformation> ccaInformations) {
+        this.ccaInformations = ccaInformations;
         return this;
     }
 
@@ -97,7 +97,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, ccaInformation);
+        return new Person(name, phone, email, address, ccaInformations);
     }
 
 }

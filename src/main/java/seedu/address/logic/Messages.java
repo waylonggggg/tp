@@ -58,13 +58,4 @@ public class Messages {
         builder.append(cca.getCcaName().fullCcaName);
         return builder.toString();
     }
-
-    /**
-     * Formats the {@code cca} for display to the user.
-     */
-    public static String format(Cca cca) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(cca.getCcaName().fullCcaName);
-        return builder.toString();
-    }
 }

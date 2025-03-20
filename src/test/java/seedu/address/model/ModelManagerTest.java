@@ -13,9 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -132,9 +130,7 @@ public class ModelManagerTest {
         modelManager.addCca(BASKETBALL);
 
         // Add person with CCA to address book
-        Set<Cca> ccas = new HashSet<>();
-        ccas.add(BASKETBALL);
-        Person personWithCca = new PersonBuilder(ALICE).withCcas(ccas).build();
+        Person personWithCca = new PersonBuilder(ALICE).build();
         modelManager.addPerson(personWithCca);
 
         // Ensure person has the CCA

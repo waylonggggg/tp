@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Person;
 
 /**
@@ -135,11 +136,11 @@ public class ModelManager implements Model {
     private void removeCcaFromAllStudents(Cca cca) {
         for (Person person : addressBook.getPersonList()) {
             if (person.getCcas().contains(cca)) {
-                Set<Cca> updatedCcas = new HashSet<>(person.getCcas());
-                updatedCcas.remove(cca);
-                Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), person.getTags(), updatedCcas);
-                addressBook.setPerson(person, updatedPerson);
+                Set<CcaInformation> newCcaInformation = new HashSet<>(person.getCcaInformation());
+                newCcaInformation.removeIf(c -> c.getCca().equals(cca));
+                Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                        person.getAddress(), newCcaInformation);
+                addressBook.setPerson(person, newPerson);
             }
         }
     }
