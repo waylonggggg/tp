@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,6 +16,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_CCA_DISPLAYED_INDEX = "The CCA index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
@@ -48,4 +50,12 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code cca} for display to the user.
+     */
+    public static String format(Cca cca) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(cca.getCcaName().fullCcaName);
+        return builder.toString();
+    }
 }

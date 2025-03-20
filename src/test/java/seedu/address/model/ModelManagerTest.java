@@ -19,9 +19,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
@@ -116,6 +118,33 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
+
+    @Test
+    public void deleteCca_ccaNotInAddressBook_throwsNullPointerException() {
+        assertThrows(CcaNotFoundException.class, () -> modelManager.deleteCca(BASKETBALL));
+    }
+
+    @Test
+    public void deleteCca_ccaInAddressBook_ccaRemovedFromAllStudents() {
+        // Add CCA to address book
+        modelManager.addCca(BASKETBALL);
+
+        // Add person with CCA to address book
+        Person personWithCca = new PersonBuilder(ALICE).build();
+        modelManager.addPerson(personWithCca);
+
+        // Ensure person has the CCA
+        assertTrue(personWithCca.getCcas().contains(BASKETBALL));
+
+        // Delete CCA
+        modelManager.deleteCca(BASKETBALL);
+
+        // Ensure CCA is removed from person
+        Person updatedPerson = modelManager.getFilteredPersonList().get(0);
+        assertFalse(updatedPerson.getCcas().contains(BASKETBALL));
+    }
+
+
 
     @Test
     public void equals() {

@@ -58,6 +58,14 @@ public class CcaBuilder {
     }
 
     /**
+     * Sets the {@code roles} of the {@code Cca} that we are building.
+     */
+    public CcaBuilder withRoles(Set<Role> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    /**
      * Sets the {@code totalSessions} of the {@code Cca} that we are building.
      *
      * @param totalSessions The total number of sessions.
