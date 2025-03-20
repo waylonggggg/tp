@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# CCAttendance User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+CCAttendance is a **desktop app for recording attendance of students in CCAs** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -31,9 +31,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the list.
 
-   * `delete_s 3` : Deletes the 3rd contact shown in the current list.
+   * `delete_s 3` : Deletes the 3rd student shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -76,49 +76,46 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a student: `create_s`
 
-Adds a person to the address book.
+Adds a student to the list of students.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit_s`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…​`
+Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags/CCAs, the existing tags/CCAs of the person will be removed i.e adding of tags/CCAs is not cumulative.
-* You can remove all the person’s tags or CCAs by typing `t/` or `c/` respectively
-without specifying any tags/CCAs after it.
+* When editing CCAs, the existing CCAs of the person will be removed i.e adding of CCAs is not cumulative.
+* You can remove all the person’s CCAs by typing `c/` without specifying any CCAs after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 4 c/` Clears all CCAs of the 4th person.
-*  `edit 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
+*  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit_s 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing CCAs.
+*  `edit_s 4 c/` Clears all CCAs of the 4th person.
+*  `edit_s 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
 
-### Locating persons by name: `find`
+### Locating students by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds students whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -134,18 +131,18 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete_s`
+### Deleting a student : `delete_s`
 
-Deletes the specified person from the address book.
+Deletes the specified student from the list of students.
 
 Format: `delete_s INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete_s 2` deletes the 2nd person in the address book.
+* `list` followed by `delete_s 2` deletes the 2nd person in the student list.
 * `find Betsy` followed by `delete_s 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
@@ -162,11 +159,11 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CCAttendance data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CCAttendance data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -199,10 +196,13 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Create Student**    | `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
+**Create CCA**    | `create_c n/CCA_NAME` <br> e.g., `create_c Basketball`
 **Clear**  | `clear`
-**Delete** | `delete_s INDEX`<br> e.g., `delete_s 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
+**Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
+**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_INDEX]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/1,3`
+**Edit CCA**   | `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 1 n/Basketball r/Captain t/10`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
