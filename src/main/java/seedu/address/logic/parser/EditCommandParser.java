@@ -21,6 +21,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.role.Role;
 
 /**
@@ -64,12 +65,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_CCA).isPresent()) {
-            parseCcasForEdit(argMultimap.getAllValues(PREFIX_CCA))
-                    .ifPresent(editPersonDescriptor::setCcas);
-        }
+        // Only accept **one** CCA and **one** Role input
+        Optional<String> ccaInput = argMultimap.getValue(PREFIX_CCA);
+        Optional<String> roleInput = argMultimap.getValue(PREFIX_ROLE);
 
-        parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editPersonDescriptor::setRoles);
+        if (ccaInput.isPresent() && roleInput.isPresent()) {
+            Set<CcaInformation> ccaInformationSet = ParserUtil.parseCcaInformation(ccaInput.get(), roleInput.get());
+            editPersonDescriptor.setCcaInformation(ccaInformationSet);
+        }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

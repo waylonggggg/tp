@@ -22,13 +22,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.role.Role;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -109,10 +108,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
-        Set<Cca> updatedCcas = editPersonDescriptor.getCcas().orElse(personToEdit.getCcas());
+        Set<CcaInformation> updatedCcaInformation =
+                editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformation());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedCcas);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedCcaInformation);
     }
 
     @Override
@@ -148,8 +147,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Role> roles;
-        private Set<Cca> ccas;
+        private Set<CcaInformation> ccaInformation;
 
         public EditPersonDescriptor() {}
 
@@ -162,15 +160,14 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setRoles(toCopy.roles);
-            setCcas(toCopy.ccas);
+            setCcaInformation(toCopy.ccaInformation);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, roles, ccas);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, ccaInformation);
         }
 
         public void setName(Name name) {
@@ -206,37 +203,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code roles} to this object's {@code roles}.
-         * A defensive copy of {@code roles} is used internally.
+         * Sets {@code ccaInformation} to this object's {@code ccaInformation}.
+         * A defensive copy of {@code ccaInformation} is used internally.
          */
-        public void setRoles(Set<Role> roles) {
-            this.roles = (roles != null) ? new HashSet<>(roles) : null;
+        public void setCcaInformation(Set<CcaInformation> ccaInformation) {
+            this.ccaInformation = (ccaInformation != null) ? new HashSet<>(ccaInformation) : null;
         }
 
         /**
-         * Returns an unmodifiable role set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code roles} is null.
+         * Returns an unmodifiable set of CCA information.
+         * Returns {@code Optional#empty()} if {@code ccaInformation} is null.
          */
-        public Optional<Set<Role>> getRoles() {
-            return (roles != null) ? Optional.of(Collections.unmodifiableSet(roles)) : Optional.empty();
-        }
-
-        // I had to change this code to ensure that when 'c/' is not provided the code doesn't
-        // do anything to the data
-        public void setCcas(Set<Cca> ccas) {
-            if (ccas != null) {
-                this.ccas = new HashSet<>(ccas);
-            }
-        }
-
-        /**
-         * Returns an unmodifiable cca set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code cca} is null.
-         */
-        public Optional<Set<Cca>> getCcas() {
-            return (ccas != null) ? Optional.of(Collections.unmodifiableSet(ccas)) : Optional.empty();
+        public Optional<Set<CcaInformation>> getCcaInformation() {
+            return (ccaInformation != null)
+                    ? Optional.of(Collections.unmodifiableSet(ccaInformation)) : Optional.empty();
         }
 
         @Override
@@ -255,8 +235,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(roles, otherEditPersonDescriptor.roles)
-                    && Objects.equals(ccas, otherEditPersonDescriptor.ccas);
+                    && Objects.equals(ccaInformation, otherEditPersonDescriptor.ccaInformation);
         }
 
         @Override
@@ -266,8 +245,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("tags", roles)
-                    .add("ccas", ccas)
+                    .add("ccainformation", ccaInformation)
                     .toString();
         }
     }

@@ -13,13 +13,12 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.role.Role;
 
 /**
  * Parses input arguments and creates a new CreateStudentCommand object
@@ -45,10 +44,11 @@ public class CreateStudentCommandParser implements Parser<CreateStudentCommand> 
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Role> roleList = ParserUtil.parseRoles(argMultimap.getAllValues(PREFIX_ROLE));
-        Set<Cca> ccaList = new HashSet<>(); // it is an empty set as any cca list is always initialised without ccass
 
-        Person person = new Person(name, phone, email, address, roleList, ccaList);
+        // it is an empty set as any cca list is always initialised without ccas
+        Set<CcaInformation> ccaInformation = new HashSet<>();
+
+        Person person = new Person(name, phone, email, address, ccaInformation);
 
         return new CreateStudentCommand(person);
     }

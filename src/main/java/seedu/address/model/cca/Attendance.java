@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Attendance {
 
-    public static final String MESSAGE_CONSTRAINTS = "Attended sessions cannot be higher than the total sessions of the cca!";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Attended sessions cannot be higher than the total sessions of the cca!";
 
     private final SessionCount sessionsAttended;
     private final SessionCount totalSessions;

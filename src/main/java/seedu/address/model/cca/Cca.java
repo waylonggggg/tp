@@ -28,7 +28,7 @@ public class Cca {
         requireNonNull(ccaName);
         this.ccaName = ccaName;
         this.roles = new HashSet<>();
-        this.totalSessions = new SessionCount(0);
+        this.totalSessions = new SessionCount(10);
     }
 
     /**

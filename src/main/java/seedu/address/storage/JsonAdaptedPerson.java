@@ -10,13 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.role.Role;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -29,8 +28,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedRole> roles = new ArrayList<>();
-    private final List<JsonAdaptedCca> ccas = new ArrayList<>();
+    private final List<JsonAdaptedCcaInformation> ccaInformation = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -38,16 +36,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("roles") List<JsonAdaptedRole> roles, @JsonProperty("ccas") List<JsonAdaptedCca> ccas) {
+                             @JsonProperty("ccaInformation") List<JsonAdaptedCcaInformation> ccaInformation) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        if (roles != null) {
-            this.roles.addAll(roles);
-        }
-        if (ccas != null) {
-            this.ccas.addAll(ccas);
+        if (ccaInformation != null) {
+            this.ccaInformation.addAll(ccaInformation);
         }
     }
 
@@ -59,11 +54,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        roles.addAll(source.getRoles().stream()
-                .map(JsonAdaptedRole::new)
-                .collect(Collectors.toList()));
-        ccas.addAll(source.getCcas().stream()
-                .map(JsonAdaptedCca::new)
+        ccaInformation.addAll(source.getCcaInformation().stream()
+                .map(JsonAdaptedCcaInformation::new)
                 .collect(Collectors.toList()));
     }
 
@@ -73,16 +65,6 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Role> personRoles = new ArrayList<>();
-        for (JsonAdaptedRole role : roles) {
-            personRoles.add(role.toModelType());
-        }
-
-        final List<Cca> personCcas = new ArrayList<>();
-        for (JsonAdaptedCca cca : ccas) {
-            personCcas.add(cca.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -115,9 +97,12 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Role> modelRoles = new HashSet<>(personRoles);
-        final Set<Cca> modelCcas = new HashSet<>(personCcas);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRoles, modelCcas);
+        final Set<CcaInformation> modelCcaInformation = new HashSet<>();
+        for (JsonAdaptedCcaInformation ccaInfo : ccaInformation) {
+            modelCcaInformation.add(ccaInfo.toModelType());
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCcaInformation);
     }
 
 }

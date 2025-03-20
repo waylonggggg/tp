@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -10,8 +11,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Person;
-import seedu.address.model.role.Role;
 
 /**
  * A utility class for Person.
@@ -34,9 +35,12 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getRoles().stream().forEach(
-            s -> sb.append(PREFIX_ROLE + s.roleName + " ")
-        );
+
+        // Extract CCA and role details
+        person.getCcaInformation().forEach(ccaInfo -> {
+            sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
+            sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
+        });
         return sb.toString();
     }
 
@@ -49,12 +53,17 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getRoles().isPresent()) {
-            Set<Role> roles = descriptor.getRoles().get();
-            if (roles.isEmpty()) {
-                sb.append(PREFIX_ROLE);
+
+        // Extract CCA and role details if present
+        if (descriptor.getCcaInformation().isPresent()) {
+            Set<CcaInformation> ccaInfoSet = descriptor.getCcaInformation().get();
+            if (ccaInfoSet.isEmpty()) {
+                sb.append(PREFIX_CCA); // Handle case where all CCAs are cleared
             } else {
-                roles.forEach(s -> sb.append(PREFIX_ROLE).append(s.roleName).append(" "));
+                ccaInfoSet.forEach(ccaInfo -> {
+                    sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
+                    sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
+                });
             }
         }
         return sb.toString();
