@@ -96,27 +96,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseRoles(roleSet));
     }
 
-    private Optional<Set<Cca>> parseCcasForEdit(Collection<String> ccas) throws ParseException {
-        assert ccas != null;
+    /**
+     * Parses {@code Collection<String> Ccas} into a {@code Set<Cca>} if {@code Ccas} is non-empty.
+     * If {@code Ccas} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Cca>} containing zero Ccas.
+     */
+    private Optional<Set<Cca>> parseCcasForEdit(Collection<String> Ccas) throws ParseException {
+        assert Ccas != null;
 
-        if (ccas.isEmpty()) {
+        if (Ccas.isEmpty()) {
             return Optional.empty();
         }
-
-        // Check if user entered only `c/` (empty input)
-        if (ccas.size() == 1 && ccas.contains("")) {
-            return Optional.of(Collections.emptySet()); // Clear all CCAs
-        }
-
-        // Now splits CCAs by commas instead of spaces
-        Set<Cca> ccaSet = ccas.stream()
-                .flatMap(cca -> Arrays.stream(cca.split("\\s*,\\s*"))) // Splitting by comma (`,`) with optional spaces
-                .map(String::trim) // Remove any extra spaces
-                .filter(name -> !name.isEmpty()) // Ensure no empty names
-                .map(name -> new Cca(new seedu.address.model.cca.CcaName(name))) // Convert to Cca objects
-                .collect(Collectors.toSet());
-
-        return Optional.of(ccaSet);
+        Collection<String> CcaSet = Ccas.size() == 1 && Ccas.contains("") ? Collections.emptySet() : Ccas;
+        return Optional.of(ParserUtil.parseCcas(CcaSet));
     }
 
 }
