@@ -1,13 +1,17 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,13 +25,13 @@ import seedu.address.model.role.Role;
 public class SampleDataUtil {
     public static Cca[] getSampleCcas() {
         return new Cca[] {
-            new Cca(new CcaName("Acting")),
-            new Cca(new CcaName("Basketball")),
-            new Cca(new CcaName("Badminton")),
-            new Cca(new CcaName("Canoe")),
-            new Cca(new CcaName("Dance")),
-            new Cca(new CcaName("E Sports")),
-            new Cca(new CcaName("Football"))
+                new Cca(new CcaName("Acting"), new HashSet<>(), new SessionCount(10)),
+                new Cca(new CcaName("Basketball"), new HashSet<>(), new SessionCount(12)),
+                new Cca(new CcaName("Badminton"), new HashSet<>(), new SessionCount(15)),
+                new Cca(new CcaName("Canoe"), new HashSet<>(), new SessionCount(8)),
+                new Cca(new CcaName("Dance"), new HashSet<>(), new SessionCount(20)),
+                new Cca(new CcaName("E Sports"), new HashSet<>(), new SessionCount(5)),
+                new Cca(new CcaName("Football"), new HashSet<>(), new SessionCount(14))
         };
     }
 
@@ -63,6 +67,19 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static Set<CcaInformation> getCcaInformationSet(List<Cca> uniqueCcaList, String... ccaInformationData) throws IllegalValueException {
+        if (strings.length % 4 != 0) {
+            throw new IllegalArgumentException("Arguments should be in sets of 4: (ccaName, role, attendedSessions, totalSessions)");
+        }
+
+        Set<CcaInformation> ccaInformationSet = new HashSet<>();
+
+        for (int i = 0; i < strings.length / 4; i += 4) {
+            String ccaName = strings[i];
+            String role =
+        }
     }
 
     /**

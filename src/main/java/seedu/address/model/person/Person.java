@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.role.Role;
 
 /**
@@ -24,57 +25,79 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<Role> roles = new HashSet<>();
-    private final Set<Cca> ccas = new HashSet<>();
+    private final Set<CcaInformation> ccaInformation;
 
     /**
-     * Every field must be present and not null.
+     * Constructs a {@code Person}.
+     * Ensures all fields are non-null and initializes with a defensive copy of the provided set.
+     *
+     * @param name The person's name.
+     * @param phone The person's phone number.
+     * @param email The person's email address.
+     * @param address The person's address.
+     * @param ccaInformation The set of CCA-related information associated with the person.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Set<Cca> ccas) {
-        requireAllNonNull(name, phone, email, address, roles, ccas);
+    public Person(Name name, Phone phone, Email email, Address address, Set<CcaInformation> ccaInformation) {
+        requireAllNonNull(name, phone, email, address, ccaInformation);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.roles.addAll(roles);
-        this.ccas.addAll(ccas);
+        this.ccaInformation = new HashSet<>(ccaInformation);
     }
 
+    /**
+     * Returns the person's name.
+     *
+     * @return A {@code Name} object representing the person's name.
+     */
     public Name getName() {
         return name;
     }
 
+    /**
+     * Returns the person's phone number.
+     *
+     * @return A {@code Phone} object representing the person's phone number.
+     */
     public Phone getPhone() {
         return phone;
     }
 
+    /**
+     * Returns the person's email address.
+     *
+     * @return An {@code Email} object representing the person's email address.
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * Returns the person's address.
+     *
+     * @return An {@code Address} object representing the person's address.
+     */
     public Address getAddress() {
         return address;
     }
 
     /**
-     * Returns an immutable role set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an unmodifiable view of the person's CCA information.
+     * Prevents external modifications to maintain immutability.
+     *
+     * @return An unmodifiable {@code Set<CcaInformation>} associated with the person.
      */
-    public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
-    }
-
-    /**
-     * Returns an immutable CCA set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Cca> getCcas() {
-        return Collections.unmodifiableSet(ccas);
+    public Set<CcaInformation> getCcaInformation() {
+        return Collections.unmodifiableSet(ccaInformation);
     }
 
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
+     *
+     * @param otherPerson The person to compare against.
+     * @return {@code true} if both persons have the same name, otherwise {@code false}.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
@@ -86,8 +109,11 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Checks if two persons are equal based on all identity and data fields.
+     * Defines a stronger notion of equality.
+     *
+     * @param other The object to compare against.
+     * @return {@code true} if both persons have the same details, otherwise {@code false}.
      */
     @Override
     public boolean equals(Object other) {
@@ -105,16 +131,24 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && roles.equals(otherPerson.roles)
-                && ccas.equals(otherPerson.ccas);
+                && ccaInformation.equals(otherPerson.ccaInformation);
     }
 
+    /**
+     * Generates a hash code for this person based on all identity and data fields.
+     *
+     * @return A hash code value for this person.
+     */
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, roles, ccas);
+        return Objects.hash(name, phone, email, address, ccaInformation);
     }
 
+    /**
+     * Returns a string representation of the person.
+     *
+     * @return A formatted string containing the person's details.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -122,8 +156,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("roles", roles)
-                .add("ccas", ccas)
+                .add("ccainformation", ccaInformation)
                 .toString();
     }
 
