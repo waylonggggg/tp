@@ -96,7 +96,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void recordAttendance(Cca target, Person person, int Amount) {
+    public void recordAttendance(Cca target, Person person, int amount) {
         throw new AssertionError("This method should not be called.");
     }
 

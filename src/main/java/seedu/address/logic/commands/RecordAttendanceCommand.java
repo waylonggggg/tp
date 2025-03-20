@@ -15,6 +15,9 @@ import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
+/**
+ * Records the attendance of a member in a CCA.
+ */
 public class RecordAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attend";
 
@@ -61,7 +64,7 @@ public class RecordAttendanceCommand extends Command {
             Cca cca = student.getCca(ccaName);
             CcaInformation ccaInformation = student.getCcaInformation(cca);
             model.recordAttendance(ccaInformation.getCca(), student, amount);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, student.getName() 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, student.getName()
                 + " in " + ccaInformation.getCca().getCcaName()));
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());
@@ -69,7 +72,6 @@ public class RecordAttendanceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
 
-        
     }
 
     @Override

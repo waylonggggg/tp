@@ -36,7 +36,7 @@ public class TypicalCcas {
     public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
-            .withRoles(BASKETBALL_ROLES).build();
+            .withRoles(BASKETBALL_ROLES).withTotalSessions(10).build();
     public static final Set<Role> BADMINTON_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)

@@ -106,6 +106,16 @@ public class Person {
     }
 
     /**
+     * Returns an unmodifiable view of the person's CCA information.
+     * Prevents external modifications to maintain immutability.
+     *
+     * @return An unmodifiable {@code Set<CcaInformation>} associated with the person.
+     */
+    public Set<CcaInformation> getCcaInformation() {
+        return Collections.unmodifiableSet(ccaInformation);
+    }
+
+    /**
      * Returns a list of CCAs associated with this person.
      * Extracts the Cca objects from the CcaInformation set.
      *
@@ -115,16 +125,6 @@ public class Person {
         return ccaInformation.stream()
                 .map(CcaInformation::getCca) // Extracts the Cca object from CcaInformation
                 .collect(Collectors.toUnmodifiableList()); // Returns an immutable list
-    }
-
-    /**
-     * Returns an unmodifiable view of the person's CCA information.
-     * Prevents external modifications to maintain immutability.
-     *
-     * @return An unmodifiable {@code Set<CcaInformation>} associated with the person.
-     */
-    public Set<CcaInformation> getCcaInformation() {
-        return Collections.unmodifiableSet(ccaInformation);
     }
 
     /**
@@ -145,7 +145,7 @@ public class Person {
 
     /**
      * Returns true if the person has the specified CCA.
-     * 
+     *
      * @param cca The CCA to check for.
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */

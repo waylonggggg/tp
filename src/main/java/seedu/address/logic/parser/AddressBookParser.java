@@ -70,7 +70,7 @@ public class AddressBookParser {
 
         case DeleteCcaCommand.COMMAND_WORD:
             return new DeleteCcaCommandParser().parse(arguments);
-        
+
         case RecordAttendanceCommand.COMMAND_WORD:
             return new RecordAttendanceCommandParser().parse(arguments);
 

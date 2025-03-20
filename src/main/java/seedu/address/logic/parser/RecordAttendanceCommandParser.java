@@ -27,7 +27,7 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_AMOUNT)
                 || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecordAttendanceCommand.MESSAGE_USAGE));
         }
 
