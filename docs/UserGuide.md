@@ -89,6 +89,15 @@ Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 Examples:
 * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
+### Adding a CCA: `create_c`
+
+Adds a CCA to the list of CCAs.
+
+Format: `create_c n/CCA_NAME`
+
+Examples:
+* `create_c n/Basketball`
+
 ### Listing all persons : `list`
 
 Shows a list of all students in the address book.
@@ -144,6 +153,20 @@ Format: `delete_s INDEX`
 Examples:
 * `list` followed by `delete_s 2` deletes the 2nd person in the student list.
 * `find Betsy` followed by `delete_s 1` deletes the 1st person in the results of the `find` command.
+
+### Deleting a CCA : `delete_c`
+
+Deletes the specified CCA from the list of CCAs.
+
+Format: `delete_c INDEX`
+
+* Deletes the CCA at the specified `INDEX`.
+* The index refers to the index number shown in the displayed CCA list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Unlike student list, the CCA list will always show all CCAs.
+
+Examples:
+* `delete_c 2` deletes the 2nd CCA in the CCA list.
 
 ### Clearing all entries : `clear`
 
@@ -201,7 +224,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
-**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_INDEX]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/1,3`
+**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
 **Edit CCA**   | `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 1 n/Basketball r/Captain t/10`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
