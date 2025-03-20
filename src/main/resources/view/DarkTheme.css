@@ -352,6 +352,11 @@
     -fx-vgap: 5;
 }
 
+#roles {
+    -fx-wrap-text: true;
+    -fx-max-width: 300; /* or some suitable width */
+}
+
 #roles .label {
     -fx-font-size: 14px; /* Bigger text for readability */
     -fx-padding: 5px 10px; /* Better spacing around text */
