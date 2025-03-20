@@ -18,7 +18,7 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T09-4/tp/releases/tag/v1.3).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -105,11 +105,11 @@ Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a student : `edit_s`
+### Editing a student : `edit`
 
 Edits an existing student in the address book.
 
-Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -118,10 +118,26 @@ Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/R
 * You can remove all the person’s CCAs by typing `c/` without specifying any CCAs after it.
 
 Examples:
-*  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit_s 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing CCAs.
-*  `edit_s 4 c/` Clears all CCAs of the 4th person.
-*  `edit_s 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower c/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing CCAs.
+*  `edit 4 c/` Clears all CCAs of the 4th person.
+*  `edit 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
+
+### Recording attendance : `attend`
+Records the attendance of a student in a CCA.
+
+Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
+
+* Records the attendance of the student at the specified `INDEX` in the specified CCA.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The CCA name must be provided.
+* The amount of attendance must be provided.
+* The amount of attendance must be a positive integer.
+
+Examples:
+* `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` with an attendance of `1`.
+* `attend 3 n/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` with an attendance of `2`.
 
 ### Locating students by name: `find`
 
@@ -225,7 +241,8 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
-**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
+**Edit Student**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
+**Record Attendance**   | `attend INDEX [n/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 n/Basketball a/1`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
