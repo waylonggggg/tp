@@ -57,7 +57,8 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
 
         person.getCcaInformation().stream()
-                .map(ccaInfo -> ccaInfo.getRole().roleName) // Extract role names
+                .map(ccaInfo -> ccaInfo.getCca().
+                        getCcaName().fullCcaName + " " + ccaInfo.getRole().roleName)
                 .distinct()
                 .sorted()
                 .forEach(role -> roles.getChildren().add(new Label(role)));
