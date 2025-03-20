@@ -5,7 +5,7 @@
         "phone": "94351253",
         "email": "alice@example.com",
         "address": "123, Jurong West Ave 6, #08-111",
-        "tags": ["friends"],
+        "roles": ["friends"],
         "ccas": [
             {
                 "ccaName": "Acting"
@@ -17,7 +17,7 @@
         "phone": "98765432",
         "email": "benson@example.com",
         "address": "311, Clementi Ave 2, #02-25",
-        "tags": ["owesMoney", "friends"],
+        "roles": ["owesMoney", "friends"],
         "ccas": [
             {
                 "ccaName": "Basketball"

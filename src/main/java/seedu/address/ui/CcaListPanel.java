@@ -27,6 +27,12 @@ public class CcaListPanel extends UiPart<Region> {
         super(FXML);
         ccaListView.setItems(ccaList);
         ccaListView.setCellFactory(listView -> new CcaListViewCell());
+
+        // Disable selection without disabling scrolling
+        ccaListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            ccaListView.getSelectionModel().clearSelection(); // Clear selection immediately
+        });
+
     }
 
     /**
@@ -42,6 +48,7 @@ public class CcaListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new CcaCard(cca, getIndex() + 1).getRoot());
+                setStyle("-fx-padding: 10px 0px;");
             }
         }
     }

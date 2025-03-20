@@ -40,7 +40,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane roles;
     @FXML
     private Label ccas;
 
@@ -55,17 +55,23 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        if (!person.getCcas().isEmpty()) {
-            String ccaText = person.getCcas().stream()
-                    .sorted(Comparator.comparing(cca -> cca.getCcaName().fullCcaName))
-                    .map(cca -> cca.getCcaName().fullCcaName)
+
+        person.getCcaInformation().stream()
+                .map(ccaInfo -> ccaInfo.getRole().roleName) // Extract role names
+                .distinct()
+                .sorted()
+                .forEach(role -> roles.getChildren().add(new Label(role)));
+
+        if (!person.getCcaInformation().isEmpty()) {
+            String ccaText = person.getCcaInformation().stream()
+                    .sorted(Comparator.comparing(ccaInfo -> ccaInfo.getCca().getCcaName().fullCcaName))
+                    .map(ccaInfo -> String.format("%s (%d/%d)",
+                            ccaInfo.getCca().getCcaName().fullCcaName,
+                            ccaInfo.getAttendance().getSessionsAttended().getSessionCount(),
+                            ccaInfo.getAttendance().getTotalSessions().getSessionCount()))
                     .collect(Collectors.joining(", "));
-            ccas.setText("CCAs: " + ccaText);
-        } else {
-            ccas.setText("No CCAs");
+
+            ccas.setText(ccaText.isEmpty() ? "No CCAs" : "CCAs: " + ccaText);
         }
 
     }

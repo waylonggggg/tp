@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
@@ -23,14 +24,25 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.CcaBuilder;
+import seedu.address.testutil.CcaUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
+
+    @Test
+    public void parseCommand_createCca() throws Exception {
+        Cca cca = new CcaBuilder().build();
+        CreateCcaCommand command = (CreateCcaCommand)
+                parser.parseCommand(CcaUtil.getCreateCcaCommand(cca));
+        assertEquals(new CreateCcaCommand(cca), command);
+    }
 
     @Test
     public void parseCommand_createStudent() throws Exception {

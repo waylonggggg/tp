@@ -21,15 +21,24 @@ import seedu.address.model.cca.Cca;
  */
 public class TypicalCcas {
 
-    public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING).build();
-    public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL).build();
-    public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON).build();
-    public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING).build();
-    public static final Cca TABLE_TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TABLE_TENNIS).build();
-    public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS).build();
-    public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL).build();
-    public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD).build();
-    public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING).build();
+    public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
+            .withRoles("President", "Vice-President", "Member").build();
+    public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca TABLE_TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TABLE_TENNIS)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD)
+            .withRoles("Captain", "Vice-Captain", "Member").build();
+    public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING)
+            .withRoles("President", "Vice-President", "Member").build();
 
     private TypicalCcas() {
     } // prevents instantiation

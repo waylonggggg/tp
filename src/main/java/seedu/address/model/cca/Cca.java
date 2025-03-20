@@ -2,7 +2,11 @@ package seedu.address.model.cca;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.role.Role;
 
 /**
  * Represents a CCA in the address book.
@@ -11,15 +15,35 @@ import java.util.Objects;
 public class Cca {
 
     private final CcaName ccaName;
+    private final Set<Role> roles;
+    private final SessionCount totalSessions;
 
     /**
-     * Constructs a {@code Cca}.
+     * Constructs a {@code Cca} with only a name.
+     * Initializes with an empty set of roles and zero total sessions.
      *
      * @param ccaName A valid CCA name.
      */
     public Cca(CcaName ccaName) {
         requireNonNull(ccaName);
         this.ccaName = ccaName;
+        this.roles = new HashSet<>();
+        this.totalSessions = new SessionCount(0);
+    }
+
+    /**
+     * Constructs a {@code Cca}.
+     *
+     * @param ccaName A valid CCA name.
+     * @param roles A set of roles associated with the CCA.
+     * @param totalSessions The total number of sessions conducted for this CCA.
+     */
+    public Cca(CcaName ccaName, Set<Role> roles, SessionCount totalSessions) {
+        requireNonNull(ccaName);
+        requireNonNull(roles);
+        this.ccaName = ccaName;
+        this.roles = new HashSet<>(roles);
+        this.totalSessions = totalSessions;
     }
 
     /**
@@ -27,6 +51,25 @@ public class Cca {
      */
     public CcaName getCcaName() {
         return ccaName;
+    }
+
+    /**
+     * Returns a copy of the set of roles associated with this CCA.
+     * The returned set is a defensive copy to maintain immutability.
+     *
+     * @return A set of {@code Role} objects associated with this CCA.
+     */
+    public Set<Role> getRoles() {
+        return new HashSet<>(roles);
+    }
+
+    /**
+     * Returns the total number of sessions conducted for this CCA.
+     *
+     * @return The total number of sessions as an integer.
+     */
+    public SessionCount getTotalSessions() {
+        return totalSessions;
     }
 
     /**
@@ -54,12 +97,14 @@ public class Cca {
         }
 
         Cca otherCca = (Cca) other;
-        return ccaName.equals(otherCca.ccaName);
+        return ccaName.equals(otherCca.ccaName)
+                && roles.equals(otherCca.roles)
+                && totalSessions.equals(otherCca.totalSessions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ccaName);
+        return Objects.hash(ccaName, roles, totalSessions);
     }
 
     /**
