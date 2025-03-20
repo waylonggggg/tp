@@ -3,17 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.cca.Attendance;
-import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
-import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.role.Role;
 
 /**
  * A utility class to help with building Person objects.
@@ -61,21 +56,13 @@ public class PersonBuilder {
         return this;
     }
 
-
-    /**
-     * Sets the {@code CcaInformation} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withCcaInformation(String ccaName, String roleName, int totalSessions) {
-        Set<CcaInformation> ccaInfoSet = new HashSet<>();
-
-        Cca cca = new Cca(new CcaName(ccaName), new HashSet<>(), new SessionCount(totalSessions));
-        Role role = new Role(roleName);
-        Attendance attendance = new Attendance(new SessionCount(0), new SessionCount(totalSessions));
-
-        ccaInfoSet.add(new CcaInformation(cca, role, attendance));
-        this.ccaInformation = ccaInfoSet;
+    /*
+    public PersonBuilder withCcaInformation(ObservableList<Cca> uniqueCcaList, String... ccaInformationData)
+    throws IllegalValueException {
+        this.ccaInformation = SampleDataUtil.getCcaInformationSet(uniqueCcaList, ccaInformationData);
         return this;
     }
+    */
 
     /**
      * Sets the {@code Cca} of the {@code Person} that we are building.
