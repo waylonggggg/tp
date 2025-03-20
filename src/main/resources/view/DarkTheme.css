@@ -347,12 +347,17 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#roles {
     -fx-hgap: 10; /* Maintain spacing */
     -fx-vgap: 5;
 }
 
-#tags .label {
+#roles {
+    -fx-wrap-text: true;
+    -fx-max-width: 300; /* or some suitable width */
+}
+
+#roles .label {
     -fx-font-size: 14px; /* Bigger text for readability */
     -fx-padding: 5px 10px; /* Better spacing around text */
     -fx-border-radius: 5px;
@@ -367,8 +372,13 @@
 }
 
 #ccas {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+    -fx-background-color: #4A4A4A; /* Dark gray background */
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #7A7A7A; /* Slightly lighter gray for border */
+    -fx-border-width: 2px;
 }
 
 #ccas .label {
@@ -464,3 +474,4 @@
     -fx-border-color: transparent;
     -fx-border-radius: 15px;
 }
+
