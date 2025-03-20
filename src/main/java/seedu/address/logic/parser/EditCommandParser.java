@@ -9,12 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -101,14 +99,14 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code Ccas} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Cca>} containing zero Ccas.
      */
-    private Optional<Set<Cca>> parseCcasForEdit(Collection<String> Ccas) throws ParseException {
-        assert Ccas != null;
+    private Optional<Set<Cca>> parseCcasForEdit(Collection<String> ccas) throws ParseException {
+        assert ccas != null;
 
-        if (Ccas.isEmpty()) {
+        if (ccas.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> CcaSet = Ccas.size() == 1 && Ccas.contains("") ? Collections.emptySet() : Ccas;
-        return Optional.of(ParserUtil.parseCcas(CcaSet));
+        Collection<String> ccaSet = ccas.size() == 1 && ccas.contains("") ? Collections.emptySet() : ccas;
+        return Optional.of(ParserUtil.parseCcas(ccaSet));
     }
 
 }
