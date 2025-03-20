@@ -9,11 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -161,7 +159,7 @@ public class ParserUtil {
         Role role = new Role(roleName);
 
         // Create CcaInformation with default attended sessions = 0
-        ccaInformationSet.add(new CcaInformation(cca, role, new Attendance(new SessionCount(0), new SessionCount(15))));
+        ccaInformationSet.add(new CcaInformation(cca, role, cca.createNewAttendance()));
 
         return ccaInformationSet;
     }

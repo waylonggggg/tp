@@ -12,33 +12,59 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_VOLLEY
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.cca.Cca;
+import seedu.address.model.role.Role;
 
 /**
  * A utility class containing a list of {@code Cca} objects to be used in tests.
  */
 public class TypicalCcas {
 
+    public static final Role PRESIDENT = new Role("President");
+    public static final Role VICE_PRESIDENT = new Role("Vice-President");
+    public static final Role MEMBER = new Role("Member");
+    public static final Role CAPTAIN = new Role("Captain");
+    public static final Role VICE_CAPTAIN = new Role("Vice-Captain");
+    public static final Set<Role> ACTING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
+            new Role("Vice-President"), new Role("Member")));
     public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
-            .withRoles("President", "Vice-President", "Member").build();
+            .withRoles(ACTING_ROLES).build();
+    public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(BASKETBALL_ROLES).build();
+    public static final Set<Role> BADMINTON_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(BADMINTON_ROLES).build();
+    public static final Set<Role> SWIMMING_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(SWIMMING_ROLES).build();
+    public static final Set<Role> TABLE_TENNIS_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TABLE_TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TABLE_TENNIS)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(TABLE_TENNIS_ROLES).build();
+    public static final Set<Role> TENNIS_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(TENNIS_ROLES).build();
+    public static final Set<Role> VOLLEYBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(VOLLEYBALL_ROLES).build();
+    public static final Set<Role> TRACK_AND_FIELD_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
+            new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD)
-            .withRoles("Captain", "Vice-Captain", "Member").build();
+            .withRoles(TRACK_AND_FIELD_ROLES).build();
+    public static final Set<Role> GARDENING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
+            new Role("Vice-President"), new Role("Member")));
     public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING)
-            .withRoles("President", "Vice-President", "Member").build();
+            .withRoles(GARDENING_ROLES).build();
 
     private TypicalCcas() {
     } // prevents instantiation
@@ -48,6 +74,6 @@ public class TypicalCcas {
      */
     public static List<Cca> getTypicalCcas() {
         return new ArrayList<>(Arrays.asList(ACTING, BASKETBALL, BADMINTON, SWIMMING, TABLE_TENNIS, TENNIS,
-                VOLLEYBALL, TRACK_AND_FIELD));
+                VOLLEYBALL, TRACK_AND_FIELD, GARDENING));
     }
 }

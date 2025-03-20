@@ -73,6 +73,15 @@ public class Cca {
     }
 
     /**
+     * Returns a new {@code Attendance} object with the total sessions set to the total sessions of this CCA.
+     * The attended sessions are set to zero.
+     * @return A new {@code Attendance} object.
+     */
+    public Attendance createNewAttendance() {
+        return new Attendance(new SessionCount(0), totalSessions);
+    }
+
+    /**
      * Returns true if both ccas have the same cca name.
      * This defines a weaker notion of equality between two ccas.
      */
