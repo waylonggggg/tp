@@ -42,7 +42,8 @@ public class EditStudentCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
@@ -63,7 +64,8 @@ public class EditStudentCommandTest {
                 .withPhone(VALID_PHONE_BOB).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
@@ -76,7 +78,8 @@ public class EditStudentCommandTest {
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -104,7 +107,8 @@ public class EditStudentCommandTest {
                 new EditPersonDescriptorBuilder().build()); // No args -> clear CCAs
 
         // Expected success message
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(
+                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         // Prepare expected model
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
