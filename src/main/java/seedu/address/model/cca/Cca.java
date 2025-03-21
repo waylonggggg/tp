@@ -28,7 +28,7 @@ public class Cca {
         requireNonNull(ccaName);
         this.ccaName = ccaName;
         this.roles = new HashSet<>();
-        this.totalSessions = new SessionCount(10);
+        this.totalSessions = new SessionCount(0);
     }
 
     /**
@@ -70,6 +70,15 @@ public class Cca {
      */
     public SessionCount getTotalSessions() {
         return totalSessions;
+    }
+
+    /**
+     * Returns a new {@code Attendance} object with the total sessions set to the total sessions of this CCA.
+     * The attended sessions are set to zero.
+     * @return A new {@code Attendance} object.
+     */
+    public Attendance createNewAttendance() {
+        return new Attendance(new SessionCount(0), totalSessions);
     }
 
     /**
