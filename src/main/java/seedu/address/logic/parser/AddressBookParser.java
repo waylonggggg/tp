@@ -62,7 +62,7 @@ public class AddressBookParser {
             return new CreateCcaCommandParser().parse(arguments);
 
         case EditStudentCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditStudentCommandParser().parse(arguments);
 
         case DeleteStudentCommand.COMMAND_WORD:
             return new DeleteStudentCommandParser().parse(arguments);
