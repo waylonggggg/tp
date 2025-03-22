@@ -4,6 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
@@ -80,14 +82,7 @@ public class Messages {
     /**
      * Formats the {@code person} for display to the user in short form.
      */
-    public static String shortFormat(Person person) {
-        return person.getName().fullName;
-    }
-
-    /**
-     * Formats the {@code cca} for display to the user in short form.
-     */
-    public static String shortFormat(Cca cca) {
-        return cca.getCcaName().fullCcaName;
+    public static String format(Name name) {
+        return name.getName();
     }
 }

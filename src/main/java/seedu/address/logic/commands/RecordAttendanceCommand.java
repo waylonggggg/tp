@@ -63,12 +63,14 @@ public class RecordAttendanceCommand extends Command {
         }
         try {
             model.recordAttendance(ccaName, student, amount);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.shortFormat(student),
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(student),
                     Messages.format(ccaName), Messages.format(amount)));
         } catch (CcaNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         } catch (IllegalArgumentException e) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
+        } catch (NullPointerException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
 
     }
