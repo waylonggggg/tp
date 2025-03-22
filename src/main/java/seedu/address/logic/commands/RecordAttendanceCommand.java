@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -63,16 +64,14 @@ public class RecordAttendanceCommand extends Command {
         }
         try {
             model.recordAttendance(ccaName, student, amount);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(student),
+            Name studentName = student.getName();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatName(studentName),
                     Messages.format(ccaName), Messages.format(amount)));
         } catch (CcaNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         } catch (IllegalArgumentException e) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
-        } catch (NullPointerException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
         }
-
     }
 
     @Override

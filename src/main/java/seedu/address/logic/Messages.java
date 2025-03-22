@@ -4,12 +4,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.sym.Name;
-
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,6 +67,9 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code ccaName} for display to the user.
+     */
     public static String format(CcaName ccaName) {
         return ccaName.fullCcaName;
     }
@@ -80,9 +82,9 @@ public class Messages {
     }
 
     /**
-     * Formats the {@code person} for display to the user in short form.
+     * Formats the {@code name} for display to the user.
      */
-    public static String format(Name name) {
-        return name.getName();
+    public static String formatName(Name name) {
+        return name.fullName;
     }
 }
