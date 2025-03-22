@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Address;
@@ -236,5 +237,20 @@ public class ParserUtilTest {
         );
 
         assertEquals(expectedCcaSet, actualCcaSet);
+    }
+
+    @Test
+    public void parseAmount_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount(null));
+    }
+
+    @Test
+    public void parseAmount_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(""));
+    }
+
+    @Test
+    public void parseAmount_validValueWithoutWhitespace_returnsAmount() throws Exception {
+        assertEquals(new Amount(1), ParserUtil.parseAmount("1"));
     }
 }
