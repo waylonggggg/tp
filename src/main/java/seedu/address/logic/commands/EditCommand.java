@@ -53,8 +53,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
-            + "address book.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -90,7 +88,7 @@ public class EditCommand extends Command {
         try {
             model.setPerson(personToEdit, editedPerson);
         } catch (IllegalArgumentException e) {
-            throw new CommandException(MESSAGE_CCA_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -109,7 +107,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<CcaInformation> updatedCcaInformation =
-                editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformation());
+                editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformations());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedCcaInformation);
     }

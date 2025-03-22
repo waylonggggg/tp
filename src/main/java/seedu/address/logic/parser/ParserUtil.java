@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
@@ -151,13 +152,13 @@ public class ParserUtil {
      * @return An integer.
      * @throws ParseException if the given {@code amount} is invalid.
      */
-    public static int parseAmount(String amount) throws ParseException {
+    public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedAmount)) {
             throw new ParseException(Messages.MESSAGE_INVALID_AMOUNT);
         }
-        return Integer.parseInt(trimmedAmount);
+        return new Amount(Integer.parseInt(trimmedAmount));
     }
 
     /**
@@ -170,16 +171,16 @@ public class ParserUtil {
      * @return A set containing one {@code CcaInformation}.
      */
     public static Set<CcaInformation> parseCcaInformation(String ccaName, String roleName) {
-        Set<CcaInformation> ccaInformationSet = new HashSet<>();
+        Set<CcaInformation> ccaInformations = new HashSet<>();
 
         // Create CCA and Role objects (No validation done)
         Cca cca = new Cca(new CcaName(ccaName));
         Role role = new Role(roleName);
 
         // Create CcaInformation with default attended sessions = 0
-        ccaInformationSet.add(new CcaInformation(cca, role, cca.createNewAttendance()));
+        ccaInformations.add(new CcaInformation(cca, role, cca.createNewAttendance()));
 
-        return ccaInformationSet;
+        return ccaInformations;
     }
 
     /**

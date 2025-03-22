@@ -8,7 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
@@ -96,7 +98,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void recordAttendance(Cca target, Person person, int amount) {
+    public void recordAttendance(CcaName target, Person person, Amount amount) {
         throw new AssertionError("This method should not be called.");
     }
 

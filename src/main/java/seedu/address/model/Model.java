@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
@@ -102,13 +104,15 @@ public interface Model {
     void setCca(Cca target, Cca editedCca);
 
     /**
-     * Records the attendance of a person in a cca.
-     * The person must exist in the address book.
-     * The cca must exist in the address book.
-     * The amount must be a positive integer.
-     * The person must have the cca.
+     * Records the attendance of {@code editedPerson} for {@code target}.
+     * {@code target} must exist in the address book.
+     * {@code editedPerson} must exist in the address book.
+     * {@code amount} must be a valid amount.
+     *
+     * @throws IllegalArgumentException if {@code amount} causes the total sessions attended to exceed
+     *     the total sessions of the cca.
      */
-    void recordAttendance(Cca target, Person editedPerson, int amount) throws IllegalArgumentException;
+    void recordAttendance(CcaName target, Person editedPerson, Amount amount) throws IllegalArgumentException;
 
     /** Returns an unmodifiable view of the cca list */
     ObservableList<Cca> getCcaList();

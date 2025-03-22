@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,6 +23,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer.";
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+            + "address book.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -47,7 +51,7 @@ public class Messages {
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; CcaInformation: ");
-        person.getCcaInformation().forEach(builder::append);
+        person.getCcaInformations().forEach(builder::append);
         return builder.toString();
     }
 
@@ -56,7 +60,34 @@ public class Messages {
      */
     public static String format(Cca cca) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(cca.getCcaName().fullCcaName);
+        builder.append(cca.getCcaName())
+                .append(cca.getRoles())
+                .append(cca.getTotalSessions());
         return builder.toString();
+    }
+
+    public static String format(CcaName ccaName) {
+        return ccaName.fullCcaName;
+    }
+
+    /**
+     * Formats the {@code amount} for display to the user.
+     */
+    public static String format(Amount amount) {
+        return amount.toString();
+    }
+
+    /**
+     * Formats the {@code person} for display to the user in short form.
+     */
+    public static String shortFormat(Person person) {
+        return person.getName().fullName;
+    }
+
+    /**
+     * Formats the {@code cca} for display to the user in short form.
+     */
+    public static String shortFormat(Cca cca) {
+        return cca.getCcaName().fullCcaName;
     }
 }

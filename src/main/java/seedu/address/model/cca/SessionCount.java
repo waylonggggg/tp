@@ -37,6 +37,13 @@ public class SessionCount {
         return sessionCount;
     }
 
+    /**
+     * Returns a new SessionCount object with the amount added.
+     */
+    public SessionCount addAmount(Amount amount) {
+        return new SessionCount(sessionCount + amount.getAmount());
+    }
+
     @Override
     public String toString() {
         return Integer.toString(sessionCount);

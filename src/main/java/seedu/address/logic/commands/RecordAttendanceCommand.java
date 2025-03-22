@@ -10,9 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,17 +28,18 @@ public class RecordAttendanceCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CCA_NAME + "Basketball " + PREFIX_AMOUNT + "1";
 
-    public static final String MESSAGE_SUCCESS = "Attendance recorded: %1$s";
-    public static final String MESSAGE_CCA_NOT_FOUND = "This student is not in the CCA.";
+    public static final String MESSAGE_SUCCESS = "Recorded attendance for: %1$s in %2$s for %3$s sessions.";
+    public static final String MESSAGE_EXCEEDING_AMOUNT = "The amount of attendance recorded exceeds the total "
+            + "number of sessions in the CCA.";
 
     private final Index studentIndex;
     private final CcaName ccaName;
-    private final int amount;
+    private final Amount amount;
 
     /**
      * Creates a RecordAttendanceCommand to record the specified {@code Attendance}
      */
-    public RecordAttendanceCommand(Index studentIndex, CcaName ccaName, int amount) {
+    public RecordAttendanceCommand(Index studentIndex, CcaName ccaName, Amount amount) {
         requireNonNull(studentIndex);
         requireNonNull(ccaName);
         requireNonNull(amount);
@@ -58,18 +59,16 @@ public class RecordAttendanceCommand extends Command {
 
         Person student = lastShownList.get(studentIndex.getZeroBased());
         if (!student.hasCca(ccaName)) {
-            throw new CommandException(MESSAGE_CCA_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
         try {
-            Cca cca = student.getCca(ccaName);
-            CcaInformation ccaInformation = student.getCcaInformation(cca);
-            model.recordAttendance(ccaInformation.getCca(), student, amount);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, student.getName()
-                + " in " + ccaInformation.getCca().getCcaName()));
+            model.recordAttendance(ccaName, student, amount);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.shortFormat(student),
+                    Messages.format(ccaName), Messages.format(amount)));
+        } catch (CcaNotFoundException e) {
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         } catch (IllegalArgumentException e) {
-            throw new CommandException(e.getMessage());
-        } catch (NullPointerException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
         }
 
     }
@@ -87,6 +86,6 @@ public class RecordAttendanceCommand extends Command {
         RecordAttendanceCommand otherRecordAttendanceCommand = (RecordAttendanceCommand) other;
         return studentIndex.equals(otherRecordAttendanceCommand.studentIndex)
                 && ccaName.equals(otherRecordAttendanceCommand.ccaName)
-                && amount == otherRecordAttendanceCommand.amount;
+                && amount.equals(otherRecordAttendanceCommand.amount);
     }
 }

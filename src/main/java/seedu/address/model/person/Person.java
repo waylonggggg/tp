@@ -10,9 +10,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.cca.Amount;
+import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.exceptions.CcaNotFoundException;
 
 /**
  * Represents a Person in the address book.
@@ -27,7 +30,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<CcaInformation> ccaInformation;
+    private final Set<CcaInformation> ccaInformations;
 
     /**
      * Constructs a {@code Person}.
@@ -39,13 +42,13 @@ public class Person {
      * @param address The person's address.
      * @param ccaInformation The set of CCA-related information associated with the person.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<CcaInformation> ccaInformation) {
-        requireAllNonNull(name, phone, email, address, ccaInformation);
+    public Person(Name name, Phone phone, Email email, Address address, Set<CcaInformation> ccaInformations) {
+        requireAllNonNull(name, phone, email, address, ccaInformations);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.ccaInformation = new HashSet<>(ccaInformation);
+        this.ccaInformations = new HashSet<>(ccaInformations);
     }
 
     /**
@@ -84,25 +87,17 @@ public class Person {
         return address;
     }
 
-    public Cca getCca(CcaName ccaName) throws NullPointerException {
-        return ccaInformation.stream()
-                .filter(c -> c.getCca().getCcaName().equals(ccaName))
-                .map(CcaInformation::getCca)
-                .findFirst()
-                .orElseThrow(NullPointerException::new);
-    }
-
     /**
      * Returns the CCA information associated with the specified CCA.
      *
-     * @param cca The CCA to retrieve information for.
+     * @param ccaName The CCA name to retrieve information for.
      * @return The {@code CcaInformation} object associated with the specified CCA.
      */
-    public CcaInformation getCcaInformation(Cca cca) throws NullPointerException {
-        return ccaInformation.stream()
-                .filter(c -> c.getCca().equals(cca))
+    public CcaInformation getCcaInformation(CcaName ccaName) throws CcaNotFoundException {
+        return ccaInformations.stream()
+                .filter(c -> c.getCca().getCcaName().equals(ccaName))
                 .findFirst()
-                .orElseThrow(NullPointerException::new);
+                .orElseThrow(CcaNotFoundException::new);
     }
 
     /**
@@ -111,8 +106,8 @@ public class Person {
      *
      * @return An unmodifiable {@code Set<CcaInformation>} associated with the person.
      */
-    public Set<CcaInformation> getCcaInformation() {
-        return Collections.unmodifiableSet(ccaInformation);
+    public Set<CcaInformation> getCcaInformations() {
+        return Collections.unmodifiableSet(ccaInformations);
     }
 
     /**
@@ -122,9 +117,42 @@ public class Person {
      * @return An unmodifiable list of Cca objects.
      */
     public List<Cca> getCcas() {
-        return ccaInformation.stream()
+        return ccaInformations.stream()
                 .map(CcaInformation::getCca) // Extracts the Cca object from CcaInformation
                 .collect(Collectors.toUnmodifiableList()); // Returns an immutable list
+    }
+
+    /**
+     * Removes the specified CCA from the person's CCA information.
+     * @param cca The CCA to remove.
+     * @return A new Person object with the specified CCA removed.
+     */
+    public Person removeCca(Cca cca) {
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.removeIf(c -> c.getCca().equals(cca));
+        return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
+     * Updates the attendance record of the person for the specified CCA.
+     *
+     * @param ccaName The CCA name to update attendance for.
+     * @param amount The amount to add to the person's attendance record.
+     * @return A new Person object with the updated attendance record.
+     */
+    public Person attendCca(CcaName ccaName, Amount amount) throws IllegalArgumentException, CcaNotFoundException {
+        if (!hasCca(ccaName)) {
+            throw new CcaNotFoundException();
+        }
+        CcaInformation ccaInformation = getCcaInformation(ccaName);
+        Attendance attendance = ccaInformation.getAttendance();
+        Attendance newAttendance = attendance.attend(amount);
+        CcaInformation newCcaInformation = new CcaInformation(ccaInformation.getCca(), ccaInformation.getRole(),
+                newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.remove(ccaInformation);
+        newCcaInformations.add(newCcaInformation);
+        return new Person(name, phone, email, address, newCcaInformations);
     }
 
     /**
@@ -150,11 +178,11 @@ public class Person {
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */
     public boolean hasCca(Cca cca) {
-        return ccaInformation.stream().anyMatch(c -> c.getCca().equals(cca));
+        return ccaInformations.stream().anyMatch(c -> c.getCca().equals(cca));
     }
 
     public boolean hasCca(CcaName ccaName) {
-        return ccaInformation.stream().anyMatch(c -> c.getCca().getCcaName().equals(ccaName));
+        return ccaInformations.stream().anyMatch(c -> c.getCca().getCcaName().equals(ccaName));
     }
 
     /**
@@ -180,7 +208,7 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && ccaInformation.equals(otherPerson.ccaInformation);
+                && ccaInformations.equals(otherPerson.ccaInformations);
     }
 
     /**
@@ -190,7 +218,7 @@ public class Person {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, email, address, ccaInformation);
+        return Objects.hash(name, phone, email, address, ccaInformations);
     }
 
     /**
@@ -205,7 +233,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("ccainformation", ccaInformation)
+                .add("ccainformations", ccaInformations)
                 .toString();
     }
 

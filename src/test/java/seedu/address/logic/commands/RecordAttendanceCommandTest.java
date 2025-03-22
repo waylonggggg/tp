@@ -3,9 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_SWIMMING;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.MEMBER;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,14 +23,12 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.cca.Attendance;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ModelStub;
-import seedu.address.testutil.PersonBuilder;
 
 public class RecordAttendanceCommandTest {
 
@@ -36,21 +37,20 @@ public class RecordAttendanceCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
 
         Cca validCca = BASKETBALL;
-        Set<CcaInformation> ccaInformation = new HashSet<>();
-        ccaInformation.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
-        Person validPerson = new PersonBuilder().withName("Alice").withCcaInformations(
-                ccaInformation).build();
+        Set<CcaInformation> ccaInformations = new HashSet<>();
+        ccaInformations.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
+        Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
 
         Index studentIndex = Index.fromOneBased(1);
-        CcaName ccaName = new CcaName("Basketball");
-        int amount = 1;
+        CcaName ccaName = new CcaName(VALID_CCA_NAME_BASKETBALL);
+        Amount amount = new Amount(1);
 
         RecordAttendanceCommand command = new RecordAttendanceCommand(studentIndex, ccaName, amount);
         CommandResult commandResult = command.execute(modelStub);
 
-        assertEquals(String.format(RecordAttendanceCommand.MESSAGE_SUCCESS, validPerson.getName() + " in " + ccaName),
+        assertEquals(String.format(RecordAttendanceCommand.MESSAGE_SUCCESS, validPerson.getName(), ccaName, amount),
                 commandResult.getFeedbackToUser());
     }
 
@@ -58,17 +58,16 @@ public class RecordAttendanceCommandTest {
     public void execute_invalidStudentIndex_throwsCommandException() {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
 
-        Cca validCca = new Cca(new CcaName("Basketball"));
-        Set<CcaInformation> ccaInformation = new HashSet<>();
-        ccaInformation.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
-        Person validPerson = new PersonBuilder().withName("Alice").withCcaInformations(
-                ccaInformation).build();
+        Cca validCca = BASKETBALL;
+        Set<CcaInformation> ccaInformations = new HashSet<>();
+        ccaInformations.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
+        Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
 
         Index outOfBoundIndex = Index.fromOneBased(2);
-        CcaName ccaName = new CcaName("Basketball");
-        int amount = 1;
+        CcaName ccaName = new CcaName(VALID_CCA_NAME_BASKETBALL);
+        Amount amount = new Amount(1);
 
         RecordAttendanceCommand command = new RecordAttendanceCommand(outOfBoundIndex, ccaName, amount);
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, (
@@ -78,38 +77,17 @@ public class RecordAttendanceCommandTest {
     @Test
     public void execute_ccaNotFound_throwsCommandException() {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().withName("Alice").build();
+        Person validPerson = ALICE;
         modelStub.addPerson(validPerson);
-        Cca validCca = new Cca(new CcaName("Basketball"));
+        Cca validCca = BASKETBALL;
         modelStub.addCca(validCca);
 
         Index studentIndex = Index.fromOneBased(1);
-        CcaName ccaName = new CcaName("Swimming");
-        int amount = 1;
+        CcaName ccaName = new CcaName(VALID_CCA_NAME_SWIMMING);
+        Amount amount = new Amount(1);
 
         RecordAttendanceCommand command = new RecordAttendanceCommand(studentIndex, ccaName, amount);
-        assertThrows(CommandException.class, RecordAttendanceCommand.MESSAGE_CCA_NOT_FOUND, (
-                ) -> command.execute(modelStub));
-    }
-
-    @Test
-    public void execute_invalidAttendanceAmount_throwsCommandException() {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-
-        Cca validCca = new Cca(new CcaName("Basketball"));
-        Set<CcaInformation> ccaInformation = new HashSet<>();
-        ccaInformation.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
-        Person validPerson = new PersonBuilder().withName("Alice").withCcaInformations(
-                ccaInformation).build();
-        modelStub.addCca(validCca);
-        modelStub.addPerson(validPerson);
-
-        Index studentIndex = Index.fromOneBased(1);
-        CcaName ccaName = new CcaName("Basketball");
-        int invalidAmount = -1;
-
-        RecordAttendanceCommand command = new RecordAttendanceCommand(studentIndex, ccaName, invalidAmount);
-        assertThrows(CommandException.class, SessionCount.MESSAGE_CONSTRAINTS, (
+        assertThrows(CommandException.class, Messages.MESSAGE_CCA_NOT_FOUND, (
                 ) -> command.execute(modelStub));
     }
 
@@ -147,26 +125,10 @@ public class RecordAttendanceCommandTest {
         }
 
         @Override
-        public void recordAttendance(Cca cca, Person person, int amount) {
-            requireNonNull(cca);
-            requireNonNull(person);
-            requireAllNonNull(person, cca, amount);
-            Set<CcaInformation> ccaInformations = person.getCcaInformation();
-            CcaInformation ccaInformation = ccaInformations.stream()
-                    .filter(c -> c.getCca().equals(cca))
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Person does not have this CCA"));
-            Attendance attendance = ccaInformation.getAttendance();
-            Attendance newAttendance = new Attendance(new SessionCount(
-                    attendance.getSessionsAttended().getSessionCount() + amount), attendance.getTotalSessions());
-            CcaInformation newCcaInformation = new CcaInformation(cca, ccaInformation.getRole(), newAttendance);
-            Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
-            newCcaInformations.remove(ccaInformation);
-            newCcaInformations.add(newCcaInformation);
-            Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                    person.getAddress(), newCcaInformations);
-            personsAdded.remove(person);
-            personsAdded.add(newPerson);
+        public void recordAttendance(CcaName ccaName, Person person, Amount amount) {
+            requireAllNonNull(person, ccaName, amount);
+            Person newPerson = person.attendCca(ccaName, amount);
+            personsAdded.set(0, newPerson);
         }
 
         @Override

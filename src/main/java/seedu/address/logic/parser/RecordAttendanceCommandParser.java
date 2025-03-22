@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RecordAttendanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.CcaName;
 
 
@@ -35,7 +36,7 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
         try {
             Index studentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
-            int amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+            Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
 
             return new RecordAttendanceCommand(studentIndex, ccaName, amount);
         } catch (ParseException pe) {

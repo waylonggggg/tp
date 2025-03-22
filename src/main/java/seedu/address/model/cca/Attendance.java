@@ -51,6 +51,13 @@ public class Attendance {
         return totalSessions;
     }
 
+    /**
+     * Returns a new Attendance object with the amount added.
+     */
+    public Attendance attend(Amount amount) {
+        return new Attendance(sessionsAttended.addAmount(amount), totalSessions);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
