@@ -37,7 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
 
         // Extract CCA and role details
-        person.getCcaInformation().forEach(ccaInfo -> {
+        person.getCcaInformations().forEach(ccaInfo -> {
             sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
             sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
         });

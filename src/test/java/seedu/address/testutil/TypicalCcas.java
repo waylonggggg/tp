@@ -24,6 +24,9 @@ import seedu.address.model.role.Role;
  */
 public class TypicalCcas {
 
+    public static final int SMALL_TOTAL_SESSIONS = 5;
+    public static final int MEDIUM_TOTAL_SESSIONS = 10;
+    public static final int LARGE_TOTAL_SESSIONS = 15;
     public static final Role PRESIDENT = new Role("President");
     public static final Role VICE_PRESIDENT = new Role("Vice-President");
     public static final Role MEMBER = new Role("Member");
@@ -36,7 +39,7 @@ public class TypicalCcas {
     public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
-            .withRoles(BASKETBALL_ROLES).build();
+            .withRoles(BASKETBALL_ROLES).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
     public static final Set<Role> BADMINTON_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)

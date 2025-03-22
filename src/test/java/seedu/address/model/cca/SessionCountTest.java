@@ -25,4 +25,13 @@ public class SessionCountTest {
                 new SessionCount(basketball.getTotalSessions().getSessionCount() - 1));
         assertEquals(14, updatedBasketball.getTotalSessions().getSessionCount());
     }
+
+    @Test
+    public void addAmount() {
+        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player")
+                .withTotalSessions(15).build();
+        Cca updatedBasketball = new Cca(basketball.getCcaName(), basketball.getRoles(),
+                basketball.getTotalSessions().addAmount(new Amount(1)));
+        assertEquals(16, updatedBasketball.getTotalSessions().getSessionCount());
+    }
 }

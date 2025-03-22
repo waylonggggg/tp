@@ -56,15 +56,15 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
 
-        person.getCcaInformation().stream()
+        person.getCcaInformations().stream()
                 .map(ccaInfo -> ccaInfo.getCca()
                         .getCcaName().fullCcaName + " " + ccaInfo.getRole().roleName)
                 .distinct()
                 .sorted()
                 .forEach(role -> roles.getChildren().add(new Label(role)));
 
-        if (!person.getCcaInformation().isEmpty()) {
-            String ccaText = person.getCcaInformation().stream()
+        if (!person.getCcaInformations().isEmpty()) {
+            String ccaText = person.getCcaInformations().stream()
                     .sorted(Comparator.comparing(ccaInfo -> ccaInfo.getCca().getCcaName().fullCcaName))
                     .map(ccaInfo -> String.format("%s (%d/%d)",
                             ccaInfo.getCca().getCcaName().fullCcaName,
