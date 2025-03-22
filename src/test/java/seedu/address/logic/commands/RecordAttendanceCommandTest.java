@@ -21,8 +21,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
@@ -105,23 +103,6 @@ public class RecordAttendanceCommandTest {
         public void addCca(Cca cca) {
             requireNonNull(cca);
             ccasAdded.add(cca);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-
-        @Override
-        public boolean hasCca(Cca cca) {
-            requireNonNull(cca);
-            return ccasAdded.stream().anyMatch(cca::isSameCca);
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override
