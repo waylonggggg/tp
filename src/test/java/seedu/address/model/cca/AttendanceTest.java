@@ -31,6 +31,16 @@ public class AttendanceTest {
     }
 
     @Test
+    public void attend() {
+        SessionCount sessionsAttended = new SessionCount(3);
+        SessionCount totalSessions = new SessionCount(5);
+        Attendance attendance = new Attendance(sessionsAttended, totalSessions);
+        Attendance updatedAttendance = attendance.attend(new Amount(1));
+        assertEquals(new SessionCount(4), updatedAttendance.getSessionsAttended());
+        assertEquals(totalSessions, updatedAttendance.getTotalSessions());
+    }
+
+    @Test
     public void equals_sameValues_returnsTrue() {
         SessionCount sessionsAttended = new SessionCount(2);
         SessionCount totalSessions = new SessionCount(5);

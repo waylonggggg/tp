@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# CCAttendance User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+CCAttendance is a **desktop app for recording attendance of students in CCAs** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,7 +18,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T09-4/tp/releases/tag/v1.3).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -29,11 +29,11 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all students.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the list.
 
-   * `delete_s 3` : Deletes the 3rd contact shown in the current list.
+   * `delete_s 3` : Deletes the 3rd student shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -50,13 +50,10 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `create_s n/NAME`, `NAME` is a parameter which can be used as `create_s n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -76,49 +73,67 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a student: `create_s`
 
-Adds a person to the address book.
+Adds a student to the list of students.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+
+### Adding a CCA: `create_c`
+
+Adds a CCA to the list of CCAs.
+
+Format: `create_c n/CCA_NAME`
+
+Examples:
+* `create_c n/Basketball`
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a student : `edit`
 
-Edits an existing person in the address book.
+Edits an existing student in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags/CCAs, the existing tags/CCAs of the person will be removed i.e adding of tags/CCAs is not cumulative.
-* You can remove all the person’s tags or CCAs by typing `t/` or `c/` respectively
-without specifying any tags/CCAs after it.
+* When editing CCAs, the existing CCAs of the person will be removed i.e adding of CCAs is not cumulative.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 4 c/` Clears all CCAs of the 4th person.
-*  `edit 3 c/football, tennis, badminton` Updates the 3rd person’s CCAs to football, tennis, and badminton, replacing any existing CCAs.
 
-### Locating persons by name: `find`
+### Recording attendance : `attend`
+Records the attendance of a student in a CCA.
 
-Finds persons whose names contain any of the given keywords.
+Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
+
+* Records the attendance of the student at the specified `INDEX` in the specified CCA.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The CCA name must be provided.
+* The amount of attendance must be provided.
+* The amount of attendance must be a positive integer.
+
+Examples:
+* `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
+* `attend 3 n/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
+
+### Locating students by name: `find`
+
+Finds students whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -134,19 +149,33 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete_s`
+### Deleting a student : `delete_s`
 
-Deletes the specified person from the address book.
+Deletes the specified student from the list of students.
 
 Format: `delete_s INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete_s 2` deletes the 2nd person in the address book.
+* `list` followed by `delete_s 2` deletes the 2nd person in the student list.
 * `find Betsy` followed by `delete_s 1` deletes the 1st person in the results of the `find` command.
+
+### Deleting a CCA : `delete_c`
+
+Deletes the specified CCA from the list of CCAs.
+
+Format: `delete_c INDEX`
+
+* Deletes the CCA at the specified `INDEX`.
+* The index refers to the index number shown in the displayed CCA list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Unlike student list, the CCA list will always show all CCAs.
+
+Examples:
+* `delete_c 2` deletes the 2nd CCA in the CCA list.
 
 ### Clearing all entries : `clear`
 
@@ -162,11 +191,11 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CCAttendance data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CCAttendance data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -199,10 +228,13 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Create Student**    | `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​` <br> e.g., `create_s n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
+**Create CCA**    | `create_c n/CCA_NAME` <br> e.g., `create_c Basketball`
 **Clear**  | `clear`
-**Delete** | `delete_s INDEX`<br> e.g., `delete_s 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/CCA]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
+**Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
+**Edit Student**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
+**Record Attendance**   | `attend INDEX [n/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 n/Basketball a/1`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`

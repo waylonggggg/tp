@@ -45,7 +45,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        ccaInformations = personToCopy.getCcaInformation();
+        ccaInformations = personToCopy.getCcaInformations();
     }
 
     /**

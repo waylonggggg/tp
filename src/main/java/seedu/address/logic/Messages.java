@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,6 +23,9 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer.";
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+            + "address book.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -46,7 +52,7 @@ public class Messages {
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; CcaInformation: ");
-        person.getCcaInformation().forEach(builder::append);
+        person.getCcaInformations().forEach(builder::append);
         return builder.toString();
     }
 
@@ -55,7 +61,32 @@ public class Messages {
      */
     public static String format(Cca cca) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(cca.getCcaName().fullCcaName);
+        builder.append(cca.getCcaName())
+                .append("; Roles: ")
+                .append(cca.getRoles())
+                .append("; Total sessions: ")
+                .append(cca.getTotalSessions());
         return builder.toString();
+    }
+
+    /**
+     * Formats the {@code ccaName} for display to the user.
+     */
+    public static String format(CcaName ccaName) {
+        return ccaName.fullCcaName;
+    }
+
+    /**
+     * Formats the {@code amount} for display to the user.
+     */
+    public static String format(Amount amount) {
+        return amount.toString();
+    }
+
+    /**
+     * Formats the {@code name} for display to the user.
+     */
+    public static String format(Name name) {
+        return name.fullName;
     }
 }

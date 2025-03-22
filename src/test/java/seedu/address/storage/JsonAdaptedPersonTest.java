@@ -31,7 +31,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedCcaInformation> VALID_CCA_INFORMATION = BENSON.getCcaInformation().stream()
+    private static final List<JsonAdaptedCcaInformation> VALID_CCA_INFORMATION = BENSON.getCcaInformations().stream()
             .map(JsonAdaptedCcaInformation::new)
             .collect(Collectors.toList());
 
@@ -123,7 +123,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullCcaInformation_returnsPersonWithEmptyCcaInformation() throws Exception {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, null);
-        assertEquals(0, person.toModelType().getCcaInformation().size()); // Ensure empty set, no null exception
+        assertEquals(0, person.toModelType().getCcaInformations().size()); // Ensure empty set, no null exception
     }
 
 }
