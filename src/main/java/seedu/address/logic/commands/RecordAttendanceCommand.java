@@ -65,7 +65,7 @@ public class RecordAttendanceCommand extends Command {
         try {
             model.recordAttendance(ccaName, student, amount);
             Name studentName = student.getName();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatName(studentName),
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(studentName),
                     Messages.format(ccaName), Messages.format(amount)));
         } catch (CcaNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);

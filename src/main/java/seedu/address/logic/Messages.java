@@ -62,7 +62,9 @@ public class Messages {
     public static String format(Cca cca) {
         final StringBuilder builder = new StringBuilder();
         builder.append(cca.getCcaName())
+                .append("; Roles: ")
                 .append(cca.getRoles())
+                .append("; Total sessions: ")
                 .append(cca.getTotalSessions());
         return builder.toString();
     }
@@ -84,7 +86,7 @@ public class Messages {
     /**
      * Formats the {@code name} for display to the user.
      */
-    public static String formatName(Name name) {
+    public static String format(Name name) {
         return name.fullName;
     }
 }

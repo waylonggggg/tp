@@ -2,12 +2,12 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Amount;
@@ -94,10 +94,12 @@ public class Person {
      * @return The {@code CcaInformation} object associated with the specified CCA.
      */
     public CcaInformation getCcaInformation(CcaName ccaName) throws CcaNotFoundException {
-        return ccaInformations.stream()
-                .filter(c -> c.getCca().getCcaName().equals(ccaName))
-                .findFirst()
-                .orElseThrow(CcaNotFoundException::new);
+        for (CcaInformation ccaInformation : ccaInformations) {
+            if (ccaInformation.getCca().getCcaName().equals(ccaName)) {
+                return ccaInformation;
+            }
+        }
+        throw new CcaNotFoundException();
     }
 
     /**
@@ -117,9 +119,11 @@ public class Person {
      * @return An unmodifiable list of Cca objects.
      */
     public List<Cca> getCcas() {
-        return ccaInformations.stream()
-                .map(CcaInformation::getCca) // Extracts the Cca object from CcaInformation
-                .collect(Collectors.toUnmodifiableList()); // Returns an immutable list
+        List<Cca> ccas = new ArrayList<>();
+        for (CcaInformation ccaInformation : ccaInformations) {
+            ccas.add(ccaInformation.getCca());
+        }
+        return Collections.unmodifiableList(ccas);
     }
 
     /**
@@ -178,11 +182,26 @@ public class Person {
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */
     public boolean hasCca(Cca cca) {
-        return ccaInformations.stream().anyMatch(c -> c.getCca().equals(cca));
+        for (Cca c : getCcas()) {
+            if (c.equals(cca)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    /**
+     * Returns true if the person has the specified CCA.
+     * @param ccaName The CCA name to check for.
+     * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
+     */
     public boolean hasCca(CcaName ccaName) {
-        return ccaInformations.stream().anyMatch(c -> c.getCca().getCcaName().equals(ccaName));
+        for (Cca c : getCcas()) {
+            if (c.getCcaName().equals(ccaName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
