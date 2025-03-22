@@ -167,7 +167,7 @@ public class EditCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                         .withCcaInformation("Drinking", "member", 20).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_CCA_NOT_FOUND);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_CCA_NOT_FOUND);
     }
 
     @Test

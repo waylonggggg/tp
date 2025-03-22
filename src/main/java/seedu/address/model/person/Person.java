@@ -88,12 +88,7 @@ public class Person {
     }
 
     /**
-<<<<<<< HEAD
-     * Returns a set of CCAs associated with this person.
-     * Extracts the Cca objects from the CcaInformation set.
-=======
      * Returns the CCA information associated with the specified CCA.
->>>>>>> master
      *
      * @param ccaName The CCA name to retrieve information for.
      * @return The {@code CcaInformation} object associated with the specified CCA.
