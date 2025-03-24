@@ -56,8 +56,8 @@ Cca --> "1 totalSessions" SessionCount
 CcaInformation --> "1" Cca
 CcaInformation --> "1" Role
 CcaInformation --> "1" Attendance
-Attendance --> "total" SessionCount
-Attendance --> "sattended" SessionCount
+Attendance --> "totalSessions" SessionCount
+Attendance --> "sessionsAttended" SessionCount
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
