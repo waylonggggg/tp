@@ -103,7 +103,7 @@ How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteStudentCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteStudentCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a student).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -168,11 +168,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete_s 5` command to delete the 5th person in the address book. The `delete_s` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete_s 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete_s 5` command to delete the 5th student in the address book. The `delete_s` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete_s 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new student. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -182,7 +182,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -238,7 +238,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete_s`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete_s`, just save the student being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -323,57 +323,128 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Use cases
 
-(For all use cases below, the **System** is `CCAttendance` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `CCAttendance`, the person is `Hall Attendance Manager`, and the **Actor** is the `user`, unless specified otherwise).
 
-**Use case: Add a student**
+**UC1: List students**
 
 **MSS**
 
-1.  User requests to add a student with the corresponding details
-2.  System adds the student to the list
-3.  System shows the student has been added
+1. User requests to list students.
+2. System shows a list of all students.
 
     Use case ends.
 
 **Extensions**
-
-* 1a. The student already exists in the list.
-
-    * 1a1. System shows an error message.
-
-      Use case resumes at step 1.
-
-**Use case: Delete a student**
-
-**MSS**
-
-1.  User requests to list students
-2.  System shows list of students
-3.  User requests to delete a specific student
-4.  System deletes the student from the list
-5.  System shows the student has been deleted
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The student list is empty.
+* 1a. The student list is empty.
 
   Use case ends.
 
-* 3a. The student does not exist in the list.
-
-    * 3a1. System shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: Add a CCA**
+**UC2: Add a student**
 
 **MSS**
 
-1.  User requests to add a CCA with the corresponding details
-2.  System adds the CCA to the list
-3.  System shows the CCA has been added
+1.  User <u>lists the students (UC1)</u>.
+2. User requests to add a student with the corresponding details.
+3. System adds the student to the list.
+4. System shows the student has been added.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student already exists in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC3: Delete a student**
+
+**MSS**
+
+1. User <u>lists the students (UC1)</u>.
+2. User requests to delete a specific student.
+3. System deletes the student from the list.
+4. System shows the student has been deleted.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC4: Edit a student**
+
+**MSS**
+
+1. User <u>lists the students (UC1)</u>.
+2. User requests to edit a student's information from the list.
+3. System edits the student from the list.
+4. System shows the student has been edited.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2b. The parameters to edit does not exist.
+
+  * 2b1. System shows an error message. 
+  
+    Use case resumes at step 2.
+
+* 2c. The parameters to edit is invalid.
+
+    * 2c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2d. The student already has the same information.
+
+  * 2d1. System shows an error message. 
+  
+    Use case resumes at step 2.
+
+**UC5: Find a student**
+
+**MSS**
+
+1. User requests to find students with specific keywords in a name.
+2. System searches for students matching the keywords.
+3. System shows a list of searched students.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No students match the keywords.
+  Use case ends.
+
+* 1a. The student list is empty.
+    Use case ends.
+
+* 1b. The keyword is an invalid format or missing keywords.
+
+    * 1b1. System shows an error message.
+  
+        Use case resumes at step 1.
+
+**UC6: Add a CCA**
+
+**MSS**
+
+1.  User requests to add a CCA with the corresponding details.
+2.  System adds the CCA to the list.
+3.  System shows the CCA has been added.
 
     Use case ends.
 
@@ -385,15 +456,38 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 1.
 
-**Use case: Delete a CCA**
+**UC7: Delete a CCA**
 
 **MSS**
 
-1.  User requests to list CCAs
-2.  System shows list of CCAs
-3.  User requests to delete a specific CCA
-4.  System deletes the CCA from the list
-5.  System shows the CCA has been deleted
+1. System shows list of CCAs. 
+2. User requests to delete a specific CCA.
+3. System deletes the CCA from the list.
+4. System shows the CCA has been deleted.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The CCA list is empty.
+
+  Use case ends.
+
+* 2a. The CCA does not exist in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC8: Add a role to a student in a CCA**
+
+**MSS**
+
+1.  User <u>lists the students (UC1)</u>.
+2. System shows list of CCAs.
+3. User requests to add a role to a specific student in a specific CCA.
+4. System adds the role to the student in the CCA.
+5. System shows the role has been added.
 
     Use case ends.
 
@@ -403,176 +497,131 @@ _{Explain here how the data archiving feature will be implemented}_
 
   Use case ends.
 
-* 3a. The CCA does not exist in the list.
-
-    * 3a1. System shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: Add a role to a student in a CCA**
-
-**MSS**
-
-1.  User requests to list students
-2.  System shows list of students
-3.  User requests to list CCAs
-4.  System shows list of CCAs
-5.  User requests to add a role to a specific student in a specific CCA
-6.  System adds the role to the student in the CCA
-7.  System shows the role has been added
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The student list is empty.
-
-  Use case ends.
-
-* 4a. The CCA list is empty.
-
-  Use case ends.
-
-* 6a. The student does not exist in the list.
-
-    * 6a1. System shows an error message.
-
-      Use case resumes at step 5.
-
-* 6b. The CCA does not exist in the list.
-
-    * 6b1. System shows an error message.
-
-      Use case resumes at step 5.
-
-* 6c. The role already exists for the student in the CCA.
-
-    * 6c1. System shows role already exists.
-
-      Use case ends.
-
-* 6d. The student is not in the CCA.
-
-    * 6d1. System shows an error message.
-
-      Use case resumes at step 5.
-
-* 6e. The role does not exist.
-
-    * 6e1. System shows an error message.
-
-      Use case resumes at step 5.
-
-**Use case: Delete a role from a student in a CCA**
-
-**MSS**
-
-1.  User requests to list students
-2.  System shows list of students
-3.  User requests to delete a role from a specific student in a specific CCA
-4.  System deletes the role from the student in the CCA
-5.  System shows the role has been deleted
-
-    Use case ends.
-
-**Extensions**
-* 2a. The student list is empty.
-
-  Use case ends.
-
 * 3a. The student does not exist in the list.
 
     * 3a1. System shows an error message.
 
-      Use case resumes at step 2.
-
-* 3b. The student does not have the role in the CCA.
-
-    * 3b1. System shows an error message.
-
-      Use case resumes at step 2.
-
-* 3c. The role does not exist.
-
-   * 3c1. System shows an error message.
-
-      Use case resumes at step 2.
-
-**Use case: Add CCA to a student**
-
-**MSS**
-
-1.  User requests to list students
-2.  System shows list of students
-3.  User requests to list CCAs
-4.  System shows list of CCAs
-5.  User requests to add a CCA to a specific student
-6.  System adds the CCA to the student
-7.  System shows the CCA has been added
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The student list is empty.
-
-  Use case ends.
-
-* 4a. The CCA list is empty.
-
-   Use case ends.
-
-* 6a. The student does not exist in the list.
-
-    * 6a1. System shows an error message.
-
-      Use case resumes at step 5.
-
-* 6b. The CCA does not exist in the list.
-
-    * 6b1. System shows an error message.
-
-      Use case resumes at step 5.
-
-* 6c. The student is already in the CCA.
-
-    * 6c1. System shows student already in CCA.
-
-      Use case ends.
-
-**Use case: Delete a CCA from a student**
-
-**MSS**
-
-1.  User requests to list students
-2.  System shows list of students
-3.  User requests to delete a CCA from a specific student
-4.  System deletes the CCA from the student
-5.  System shows the CCA has been deleted
-
-    Use case ends.
-
-**Extensions**
-
-* 2a. The student list is empty.
-
-  Use case ends.
-
-* 3a. The student does not exist in the list.
-
-   * 3a1. System shows an error message.
-
-      Use case resumes at step 2.
+      Use case resumes at step 3.
 
 * 3b. The CCA does not exist in the list.
 
-   * 3b1. System shows an error message.
+    * 3b1. System shows an error message.
+
+      Use case resumes at step 3.
+
+* 3c. The role already exists for the student in the CCA.
+
+    * 3c1. System shows role already exists.
+
+      Use case ends.
+
+* 3d. The student is not in the CCA.
+
+    * 3d1. System shows an error message.
+
+      Use case resumes at step 3.
+
+* 3e. The role does not exist.
+
+    * 3e1. System shows an error message.
+
+      Use case resumes at step 3.
+
+**UC9: Delete a role from a student in a CCA**
+
+**MSS**
+
+1.  User <u>lists the students (UC1)</u>.
+2.  User requests to delete a role from a specific student in a specific CCA.
+3. System deletes the role from the student in the CCA.
+4. System shows the role has been deleted.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+    * 2a1. System shows an error message.
 
       Use case resumes at step 2.
 
-* 3c. The student is not in the CCA.
+* 2b. The student does not have the role in the CCA.
 
-   * 3c1. System shows an error message.
+    * 2b1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2c. The role does not exist.
+
+   * 2c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC10: Add CCA to a student**
+
+**MSS**
+
+1.  User <u>requests to list the students (UC1)</u>. 
+2. System shows list of CCAs. 
+3. User requests to add a CCA to a specific student. 
+4. System adds the CCA to the student. 
+5. System shows the CCA has been added.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The CCA list is empty.
+
+   Use case ends.
+
+* 3a. The student does not exist in the list.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 3.
+
+* 3b. The CCA does not exist in the list.
+
+    * 3b1. System shows an error message.
+
+      Use case resumes at step 3.
+
+* 3c. The student is already in the CCA.
+
+    * 3c1. System shows student already in CCA.
+
+      Use case ends.
+
+**UC11: Delete a CCA from a student**
+
+**MSS**
+
+1.  User <u>lists the students (UC1)</u>. 
+2. User requests to delete a CCA from a specific student. 
+3. System deletes the CCA from the student. 
+4. System shows the CCA has been deleted.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+   * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2b. The CCA does not exist in the list.
+
+   * 2b1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2c. The student is not in the CCA.
+
+   * 2c1. System shows an error message.
 
       Use case resumes at step 2.
 
@@ -641,24 +690,72 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Finding a student
 
-### Deleting a person
+1. Find a student by querying name
+    1. Prerequisites: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
 
-1. Deleting a person while all persons are being shown
+   2. Test case: `find Alex`<br>
+      Expected: . The list should contain one student `Alex Yeoh` only.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### Creating a student
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+1. Creating a student
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list.
+    2. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles hall 22/B/2`<br>
+   Expected: A new student is added to the list. The student details are shown in the list.
+   3. Test case: `create_s n/John Doe p/98765432`
+   Expected: Error message is shown as insufficient parameters are provided. The student is not added to the list.
+   4. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles hall 22/B/2`
+   Expected: Error message is shown as the student already exist in the list. The student is not added to the list.
+   5. Other incorrect create student commands to try: `create_s n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+   Expected: Error message is shown as parameters with invalid formats are provided. The student is not added to the list.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+### Deleting a student
+
+1. Deleting a student while all students are being shown
+
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. 
+   2. Test case: `delete_s 1`<br>
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+   3. Test case: `delete_s 0`<br>
+      Expected: No student is deleted. Error details shown in the status message. 
+   4. Other incorrect delete commands to try: `delete_s`, `delete_s x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Creating a CCA
+### Deleting a CCA
+
+### Editing a student
+
+1. Editing an existing student's name, phone, email and address.
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list and name is not `Clark Kent`.
+   2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`<br>
+      Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
+   3. Test case: `edit_s 1 n/Clark Kent`<br>
+      Expected: No student is edited. Error details shown in the status message as the edit not changed to the student.
+   4. Test case: `edit_s 0 n/Josh Yoseph`<br>
+      Expected: No student is edited. Error details shown in the status message as the index is out of the student list. Status bar remains the same.
+   5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+      Expected: Error message is shown as parameters with invalid formats are provided. The student is not edited.
+2. Editing CCA of a student will be handled in a separate test cases below.
+
+### Editing the CCA information of a student
+
+1. Adding CCAs to a student
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and one of its name is `Basketball`.
+   2. Test case: `edit_s 1 c/Basketball`<br>
+      Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
+   3. Test case: `edit_s 1 c/Basketball`<br>
+      Expected: The first student is already in the `Basketball` CCA. Error details shown in the status message.
+
+### Editing a CCA
+### Adding a role to a CCA
+### Deleting a role from a CCA
+
+### Adding a role to a student
+### Deleting a role from a student
 
 ### Saving data
 
