@@ -86,10 +86,10 @@ public class EditStudentCommandTest {
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
 
-    // note that this test case is newly added to test that 'edit 1 c/' indeed removes all the CCAs that
+    // note that this test case is newly added to test that 'edit_s 1 c/' indeed removes all the CCAs that
     // the 1st person has. The original test is removed because it is no longer applicable.
-    // For the original test to pass it required that 'edit 1 c/' to not change anything in the first person
-    // which is not what we want
+    // For the original test to pass it required that 'edit_s 1 c/' to not change anything in the first person
+    // which is not what we want.
     @Test
     @Disabled
     public void execute_clearCcas_success() {
