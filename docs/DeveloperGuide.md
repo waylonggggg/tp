@@ -625,7 +625,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**UC11: Clear all the student**
+
+**MSS**
+
+1. User requests to clear all the students.
+2. System clears all the students.
+3. System shows all the students have been cleared.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
