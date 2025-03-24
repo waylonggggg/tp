@@ -635,6 +635,33 @@ _{Explain here how the data archiving feature will be implemented}_
 
     Use case ends.
 
+**UC12: Record a student's attendance**
+
+**MSS**
+1.  User <u>lists the students (UC1)</u>.
+2. User requests to record a certain attendance amount for a specific student and a given CCA. 
+3. System increments the student’s attendance in that CCA by the requested amount. 
+4. System shows that the attendance has been updated successfully.
+
+Use case ends.
+
+**Extensions**
+* 2a. The student does not exist in the list.
+    * 2a1. System shows an error message.  
+      Use case resumes at step 2.
+
+* 2b. The specified CCA does not exist in the system.
+    * 2b1. System shows an error message.  
+      Use case resumes at step 2.
+
+* 2c. The student is not in the specified CCA.
+    * 2c1. System shows an error message.  
+      Use case resumes at step 2.
+
+* 2d. The attendance amount is missing or invalid.
+    * 2d1. System shows an error message.  
+      Use case resumes at step 2.
+
 ### Non-Functional Requirements
 
 1. **Platform Compatibility**: The application should work on any _mainstream OS_ (Windows, Linux, macOS) as long as Java `17` or above is installed. *(Constraint-Platform-Independent, Constraint-Java-Version)*
@@ -844,6 +871,23 @@ testers are expected to do more \*exploratory\* testing.
        Expected: The first CCA already does not have any role. Error details shown in the status message.
     4. Test case: `edit_c 0 r/`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list. Status bar remains the same.
+
+### **Record Attendance**
+
+1. Recording attendance for a student already in a CCA
+    1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dancing` CCA is not contained in the first student.
+    2. Test case: `attend 2 n/Basketball a/1`
+   Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated. 
+   3. Test case: `attend 2 n/Chess a/1`
+   Expected: No attendance is recorded. An error message is displayed indicating that the `Chess` does not exist).
+   4. Test case: `attend 2 n/Dancing a/1`
+    Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dancing` CCA.
+   5. Test case: `attend 0 n/Basketball a/1`
+    Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range. 
+   6. Test case: `attend 2 n/Basketball`
+   Expected: No attendance is recorded. An error message is displayed, indicating missing or invalid parameters (e.g., `a/AMOUNT`).
+   7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 n/Basketball a/abc` (where x is larger than the list size).
+    Expected: Similar to previous.
 
 ### Adding a role to a student
 
