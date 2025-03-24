@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -670,8 +670,8 @@ Given below are instructions to test the app manually.
 
 <box type="info" seamless>
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+**Note:** These instructions only provide a starting point for testers to work on;  
+testers are expected to do more \*exploratory\* testing.
 
 </box>
 
@@ -690,77 +690,174 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
+### Listing a student
+
+1. List all students
+    1. Test case: `list`  
+       Expected: The list should contain all students. The status message should reflect the successful listing of all students.
+
+### Clearing all students
+
+1. List all students
+    1. Prerequisite: List all students using the `list` command. Multiple students in the list.
+    2. Test case: `list`  
+       Expected: The list should contain all students. The status message should reflect the successful listing of all students.
+
 ### Finding a student
 
 1. Find a student by querying name
     1. Prerequisites: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
-
-   2. Test case: `find Alex`<br>
-      Expected: . The list should contain one student `Alex Yeoh` only.
+    2. Test case: `find Alex`  
+       Expected: The list should contain one student `Alex Yeoh` only.
 
 ### Creating a student
 
 1. Creating a student
-
     1. Prerequisites: List all students using the `list` command. Multiple students in the list.
-    2. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles hall 22/B/2`<br>
-   Expected: A new student is added to the list. The student details are shown in the list.
-   3. Test case: `create_s n/John Doe p/98765432`
-   Expected: Error message is shown as insufficient parameters are provided. The student is not added to the list.
-   4. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles hall 22/B/2`
-   Expected: Error message is shown as the student already exist in the list. The student is not added to the list.
-   5. Other incorrect create student commands to try: `create_s n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
-   Expected: Error message is shown as parameters with invalid formats are provided. The student is not added to the list.
+    2. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`  
+       Expected: A new student is added to the list. The student details are shown in the list.
+    3. Test case: `create_s n/John Doe p/98765432`  
+       Expected: Error message is shown as insufficient parameters are provided. The student is not added to the list.
+    4. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`  
+       Expected: Error message is shown as the student already exists in the list. The student is not added to the list.
+    5. Other incorrect create student commands to try: `create_s n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)  
+       Expected: Error message is shown as parameters with invalid formats were provided. The student is not added to the list.
 
 ### Deleting a student
 
 1. Deleting a student while all students are being shown
-
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list. 
-   2. Test case: `delete_s 1`<br>
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
-   3. Test case: `delete_s 0`<br>
-      Expected: No student is deleted. Error details shown in the status message. 
-   4. Other incorrect delete commands to try: `delete_s`, `delete_s x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list.
+    2. Test case: `delete_s 1`  
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+    3. Test case: `delete_s 0`  
+       Expected: No student is deleted. Error details shown in the status message.
+    4. Other incorrect delete commands to try: `delete_s`, `delete_s x`, `...` (where x is larger than the list size)  
+       Expected: Similar to previous.
 
 ### Creating a CCA
+
+1. Creating a CCA with a CCA name.
+    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
+    2. Test case: `create_c n/Basketball`  
+       Expected: A new CCA is added to the list. The CCA details are shown in the list.
+    3. Test case: `create_c`  
+       Expected: No CCA is added. Error details shown in the status message as the CCA name is not provided.
+    4. Test case: `create_c n/Basketball`  
+       Expected: No CCA is added. Error details shown in the status message as the CCA already exists.
+    5. Other test cases to try: `create_c n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)  
+       Expected: No CCA is added. Error message is shown as parameters with invalid formats were provided.
+
 ### Deleting a CCA
+
+1. Deleting a CCA while all CCAs are being shown
+    1. Prerequisites: List all CCAs using the `list` command. One CCA in the list.
+    2. Test case: `delete_c 1`  
+       Expected: The first CCA is deleted from the list. Details of the deleted CCA shown in the status message.
+    3. Test case: `delete_c 1`  
+       Expected: There are no more CCAs in the list. Error details are shown in the status message.
+    4. Test case: `delete_c 0`  
+       Expected: No CCA is deleted. Error details shown in the status message.
+    5. Other incorrect delete commands to try: `delete_c`, `delete_c x`, `...` (where x is larger than the list size)  
+       Expected: Similar to previous.
 
 ### Editing a student
 
 1. Editing an existing student's name, phone, email and address.
-   1. Prerequisites: List all students using the `list` command. Multiple students in the list and name is not `Clark Kent`.
-   2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`<br>
-      Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
-   3. Test case: `edit_s 1 n/Clark Kent`<br>
-      Expected: No student is edited. Error details shown in the status message as the edit not changed to the student.
-   4. Test case: `edit_s 0 n/Josh Yoseph`<br>
-      Expected: No student is edited. Error details shown in the status message as the index is out of the student list. Status bar remains the same.
-   5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
-      Expected: Error message is shown as parameters with invalid formats are provided. The student is not edited.
-2. Editing CCA of a student will be handled in a separate test cases below.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list and name is not `Clark Kent`.
+    2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`  
+       Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
+    3. Test case: `edit_s 1 n/Clark Kent`  
+       Expected: No student is edited. Error details are shown in the status message as the edit did not change the student.
+    4. Test case: `edit_s 0 n/Josh Yoseph`  
+       Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
+    5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)  
+       Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
+2. Editing CCA of a student will be handled in separate test cases below.
 
 ### Editing the CCA information of a student
 
 1. Adding CCAs to a student
-   1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and one of its name is `Basketball`.
-   2. Test case: `edit_s 1 c/Basketball`<br>
-      Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
-   3. Test case: `edit_s 1 c/Basketball`<br>
-      Expected: The first student is already in the `Basketball` CCA. Error details shown in the status message.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`.
+    2. Test case: `edit_s 1 c/Basketball c/Acting`  
+       Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
+    3. Test case: `edit_s 1 c/Basketball`  
+       Expected: The first student is already in the `Basketball` CCA. Error details shown in the status message.
+    4. Test case: `edit_s 1 c/Chess`  
+       Expected: The app does not have the `Chess` CCA. Error details shown in the status message.
+    5. Test case: `edit_s 0 c/Basketball`  
+       Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
+    6. Other test cases to try: `edit_s 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)  
+       Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
+
+2. Deleting CCAs from a student
+    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA.
+    2. Test case: `edit_s 1 c/`  
+       Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
+    3. Test case: `edit_s 1 c/`  
+       Expected: The first student is already not in any CCA. Error details shown in the status message.
+    4. Test case: `edit_s 0 c/`  
+       Expected: No student is edited. Error details shown in the status message as the index is out of the student list. Status bar remains the same.
 
 ### Editing a CCA
-### Adding a role to a CCA
-### Deleting a role from a CCA
+
+1. Editing an existing CCA's name and total sessions.
+    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and name is not `Basketball`.
+    2. Test case: `edit_c 1 n/Basketball t/15 r/President r/Vice-President r/Treasurer`  
+       Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
+    3. Test case: `edit_c 1 n/Basketball`  
+       Expected: No CCA is edited as the CCA already has the name `Basketball`. Other details are reserved. Error details shown in the status message as the edit did not change the CCA.
+    4. Test case: `edit_c 0 n/Chess`  
+       Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
+    5. Other test cases to try: `edit_c 1 n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)  
+       Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
+
+2. Editing a role of a CCA is handled in separate test cases below.
+
+### Editing a role of a CCA
+
+1. Adding a role to a CCA
+    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
+    2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`  
+       Expected: The first CCA is added with the `President`, `Vice-President`, and `Treasurer` roles. The updated CCA details are shown in the list.
+    3. Test case: `edit_c 1 r/President`  
+       Expected: The first CCA is added with the `President` role. Other roles get deleted. The updated CCA details are shown in the list.
+    4. Test case: `edit_c 1 r/President`  
+       Expected: The CCA already has the same set of roles. Error details are shown in the status message.
+    5. Test case: `edit_c 0 r/Treasurer`  
+       Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
+    6. Other test cases to try: `edit_c 1 r/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)  
+       Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
+
+2. Deleting a role from a CCA
+    1. Prerequisite: List all CCAs using the `list` command. Multiple CCAs in the list. Multiple roles in the list and the first CCA has at least one role.
+    2. Test case: `edit_c 1 r/`  
+       Expected: The first CCA is removed from the `President` role. The updated CCA details are shown in the list.
+    3. Test case: `edit_c 1 r/`  
+       Expected: The first CCA already does not have any role. Error details shown in the status message.
+    4. Test case: `edit_c 0 r/`  
+       Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list. Status bar remains the same.
 
 ### Adding a role to a student
+
+1. {write test cases when implemented}
+
 ### Deleting a role from a student
+
+1. {write test cases when implemented}
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+    1. Prerequisite: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
+    2. Test case: Delete the data file.  
+       Under the app folder, go to the data folder, and delete the `addressbook.json` file.  
+       Expected: The app should start with the sample data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
+    3. Test case: Corrupt the data file.  
+       Open the `addressbook.json` file in a text editor and delete the first five lines.  
+       Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
+    4. Test case: Corrupt the data file with an extra parameter.  
+       Open the `addressbook.json` file in a text editor and add `    "name" : "Alice Paul",` in the third line.  
+       Expected: The app should start with the sample data when launched. However, the first person's name is `Alice Paul` instead of `Alex Yeoh`.
+    5. Test case: Corrupt the data file with an invalid parameter.  
+       Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.  
+       Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
