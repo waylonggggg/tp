@@ -2,20 +2,31 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.TypicalCcas.BASKETBALL;
+import static seedu.address.testutil.TypicalCcas.CAPTAIN;
+import static seedu.address.testutil.TypicalCcas.TENNIS;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_PRESIDENT;
 //import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.cca.Amount;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
+import seedu.address.model.cca.CcaName;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -46,6 +57,42 @@ public class PersonTest {
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSamePerson(editedBob));
+    }
+
+    @Test
+    public void hasCca() {
+        // null cca -> returns false
+        assertFalse(ALICE.hasCca((Cca) null));
+
+        // cca not in list -> returns false
+        assertFalse(ALICE.hasCca(TENNIS));
+
+        // cca in list -> returns true
+        assertTrue(ALICE.hasCca(ALICE.getCcas().get(0)));
+
+        // null ccaName -> returns false
+        assertFalse(ALICE.hasCca((CcaName) null));
+
+        // ccaName not in list -> returns false
+        assertFalse(ALICE.hasCca(TENNIS.getCcaName()));
+
+        // ccaName in list -> returns true
+        assertTrue(ALICE.hasCca(ALICE.getCcas().get(0).getCcaName()));
+    }
+
+    @Test
+    public void attendCca() {
+        // amount too large -> throws IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> ALICE.attendCca(
+            ALICE.getCcas().get(0).getCcaName(), new Amount(100)));
+
+        // valid attendance -> returns true
+        Person aliceWithAttendance = ALICE.attendCca(BASKETBALL.getCcaName(), new Amount(1));
+        Set<CcaInformation> expectedCcaInformations = new HashSet<>();
+        expectedCcaInformations.add(new CcaInformation(BASKETBALL, CAPTAIN,
+                BASKETBALL.createNewAttendance().attend(new Amount(1))));
+        Person expectedAlice = new PersonBuilder(ALICE).withCcaInformations(expectedCcaInformations).build();
+        assertEquals(expectedAlice, aliceWithAttendance);
     }
 
     @Test

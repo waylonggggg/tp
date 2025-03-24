@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,8 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
+import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.person.Person;
 
 /**
@@ -135,11 +135,8 @@ public class ModelManager implements Model {
 
     private void removeCcaFromAllStudents(Cca cca) {
         for (Person person : addressBook.getPersonList()) {
-            if (person.getCcas().contains(cca)) {
-                Set<CcaInformation> newCcaInformation = new HashSet<>(person.getCcaInformation());
-                newCcaInformation.removeIf(c -> c.getCca().equals(cca));
-                Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), newCcaInformation);
+            if (person.hasCca(cca.getCcaName())) {
+                Person newPerson = person.removeCca(cca);
                 addressBook.setPerson(person, newPerson);
             }
         }
@@ -150,6 +147,14 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCca);
 
         addressBook.setCca(target, editedCca);
+    }
+
+    @Override
+    public void recordAttendance(CcaName ccaName, Person person, Amount amount)
+            throws IllegalArgumentException, CcaNotFoundException {
+        requireAllNonNull(person, ccaName, amount);
+        Person newPerson = person.attendCca(ccaName, amount);
+        addressBook.setPerson(person, newPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================

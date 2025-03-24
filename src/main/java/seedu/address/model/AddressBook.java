@@ -49,10 +49,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws IllegalArgumentException if any CCA in the person does not exist in the UniqueCcaList.
      */
-    private void validatePersonCcas(Person person) {
+    private void validatePersonCcas(Person person) throws IllegalArgumentException {
         for (Cca cca : person.getCcas()) {
             if (!ccas.contains(cca)) {
-                throw new IllegalArgumentException("CCA " + cca + " does not exist in the address book.");
+                throw new IllegalArgumentException(MESSAGE_CCA_NOT_FOUND);
             }
         }
     }
