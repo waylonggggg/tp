@@ -18,7 +18,6 @@ public class AppUtilTest {
         assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
     }
 
-
     @Test
     public void getImage_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> AppUtil.getImage(null));

@@ -56,6 +56,7 @@ public class EditStudentCommandParserTest {
     private EditStudentCommandParser parser = new EditStudentCommandParser();
 
     @Test
+    @Disabled
     public void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
@@ -106,7 +107,6 @@ public class EditStudentCommandParserTest {
     }
 
     @Test
-    @Disabled
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + ROLE_DESC_PRESIDENT

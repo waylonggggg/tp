@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_PRESIDENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -102,7 +101,7 @@ public class EditStudentCommandTest {
         // Create an expected edited person with no CCAs
         Person editedPerson = new PersonBuilder(personInFilteredList).build(); // Empty CCAs
 
-        // Create the edit command with an empty CCA field (c/)
+        // Create the editStudent command with an empty CCA field (c/)
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().build()); // No args -> clear CCAs
 
@@ -164,6 +163,15 @@ public class EditStudentCommandTest {
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_nonExistentCcaName_failure() {
+        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+                        .withCcaInformation("Drinking", "member", 20).build());
+
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_CCA_NOT_FOUND);
     }
 
     @Test
