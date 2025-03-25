@@ -184,6 +184,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String ccaName} into a {@code Set<CcaInformation>} with a default role.
+     * This method is used when only the CCA name is provided.
+     *
+     * @param ccaName The CCA name.
+     * @return A set containing one {@code CcaInformation} with a default role.
+     */
+    public static Set<CcaInformation> parseCcaInformation(String ccaName) {
+        // This is an overloaded version of the method parseCcaInformation
+        // Define a default role that will be used since role editing is not allowed.
+        String defaultRole = "member"; // Change this if a different default is required.
+        return parseCcaInformation(ccaName, defaultRole);
+    }
+
+    /**
      * Parses a {@code String ccaName} into a {@code CcaName}.
      * Leading and trailing whitespaces will be trimmed.
      *

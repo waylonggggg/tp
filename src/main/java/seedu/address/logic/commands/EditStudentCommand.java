@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -30,12 +29,13 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing student in the address book.
  */
 public class EditStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "edit_s";
 
+    // CHANGED: Updated usage format to remove role and use "c/" for CCA only.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
             + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -44,8 +44,7 @@ public class EditStudentCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_ROLE + "ROLE]...\n"
-            + "[" + PREFIX_CCA + "CCA]...\n"
+            + "[" + PREFIX_CCA + "CCA_NAME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -105,6 +104,7 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        // CHANGED: Only CCA information is updated. Role is no longer part of this command.
         Set<CcaInformation> updatedCcaInformation =
                 editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformations());
 
@@ -117,7 +117,6 @@ public class EditStudentCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof EditStudentCommand)) {
             return false;
         }
@@ -150,7 +149,7 @@ public class EditStudentCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code roles} is used internally.
+         * A defensive copy of {@code ccaInformation} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -222,7 +221,6 @@ public class EditStudentCommand extends Command {
                 return true;
             }
 
-            // instanceof handles nulls
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
@@ -242,7 +240,7 @@ public class EditStudentCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("ccainformation", ccaInformation)
+                    .add("ccaInformation", ccaInformation)
                     .toString();
         }
     }
