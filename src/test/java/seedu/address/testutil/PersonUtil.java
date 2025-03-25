@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import java.util.Set;
 
 import seedu.address.logic.commands.CreateStudentCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Person;
 
@@ -37,7 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
 
         // Extract CCA and role details
-        person.getCcaInformation().forEach(ccaInfo -> {
+        person.getCcaInformations().forEach(ccaInfo -> {
             sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
             sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
         });

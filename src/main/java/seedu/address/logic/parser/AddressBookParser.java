@@ -14,11 +14,12 @@ import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditStudentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RecordAttendanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -61,14 +62,17 @@ public class AddressBookParser {
         case CreateCcaCommand.COMMAND_WORD:
             return new CreateCcaCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditStudentCommand.COMMAND_WORD:
+            return new EditStudentCommandParser().parse(arguments);
 
         case DeleteStudentCommand.COMMAND_WORD:
             return new DeleteStudentCommandParser().parse(arguments);
 
         case DeleteCcaCommand.COMMAND_WORD:
             return new DeleteCcaCommandParser().parse(arguments);
+
+        case RecordAttendanceCommand.COMMAND_WORD:
+            return new RecordAttendanceCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

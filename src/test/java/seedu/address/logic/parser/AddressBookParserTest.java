@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ClearCommand;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
+import seedu.address.logic.commands.EditStudentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -29,6 +31,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.CcaBuilder;
 import seedu.address.testutil.CcaUtil;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -73,17 +76,16 @@ public class AddressBookParserTest {
     }
 
     // TODO: This largely changes the edit command and related class. Please uncomment it when editing cca field
-    //  has been implemented. EditCommandParser class should be taken care of.
-    /*
+    //  has been implemented. EditStudentCommandParser class should be taken care of.
+    @Disabled
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditStudentCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditStudentCommand command = (EditStudentCommand) parser.parseCommand(EditStudentCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditStudentCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
-    */
 
     @Test
     public void parseCommand_exit() throws Exception {

@@ -54,7 +54,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        ccaInformation.addAll(source.getCcaInformation().stream()
+        ccaInformation.addAll(source.getCcaInformations().stream()
                 .map(JsonAdaptedCcaInformation::new)
                 .collect(Collectors.toList()));
     }
