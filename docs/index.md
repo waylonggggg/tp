@@ -1,21 +1,27 @@
 ---
   layout: default.md
-  title: ""
+  title: "CCAttendance"
 ---
 
-# AddressBook Level-3
-
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
-[![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
+[![CI Status](https://github.com/AY2425S2-CS2103T-T09-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S2-CS2103T-T09-4/tp/actions)
+[![codecov](https://codecov.io/gh/AY2425S2-CS2103T-T09-4/tp/graph/badge.svg?token=N4G86KG3AJ)](https://codecov.io/gh/AY2425S2-CS2103T-T09-4/tp)
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+# CCAttendance
+CCAttendance is a desktop app for managing attendance of students in CCAs, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance can get your attendance management tasks done faster than traditional GUI apps.
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+## Features
+CCAttendance allows you to:
+  1. Add students to the list of students
+  2. Add CCAs to the list of CCAs
+  3. Record attendance of students in CCAs
+  4. Assign roles to students in CCAs
+  5. Many more!
 
+To see the full list of features, refer to the [User Guide](https://ay2425s2-cs2103t-t09-4.github.io/tp/UserGuide.html).
 
-**Acknowledgements**
-
-* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
+## Other Details
+* For the detailed documentation of this project, see the **[CCAttendance Product Website](https://ay2425s2-cs2103t-t09-4.github.io/tp/)**.
+* This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
