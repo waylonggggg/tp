@@ -7,6 +7,7 @@ import seedu.address.model.role.Role;
 /**
  * Represents a person's involvement in a Co-Curricular Activity (CCA).
  * Encapsulates the CCA, the person's role within the CCA, and their attendance record.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class CcaInformation {
 
@@ -53,6 +54,15 @@ public class CcaInformation {
      */
     public Attendance getAttendance() {
         return attendance;
+    }
+
+    /**
+     * Returns the name of the CCA associated with this {@code CcaInformation}.
+     *
+     * @return The name of the CCA.
+     */
+    public CcaName getCcaName() {
+        return cca.getCcaName();
     }
 
     /**

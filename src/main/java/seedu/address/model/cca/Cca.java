@@ -73,6 +73,26 @@ public class Cca {
     }
 
     /**
+     * Returns true if the CCA has the specified role.
+     *
+     * @param role The role to check for.
+     * @return True if the CCA has the specified role, false otherwise.
+     */
+    public boolean hasRole(Role role) {
+        return roles.contains(role);
+    }
+
+    /**
+     * Returns true if the CCA has the specified role.
+     *
+     * @param roleName The role name to check for.
+     * @return True if the CCA has the specified role with the role name, false otherwise.
+     */
+    public boolean hasRole(String roleName) {
+        return this.roles.contains(roleName);
+    }
+
+    /**
      * Returns a new {@code Attendance} object with the total sessions set to the total sessions of this CCA.
      * The attended sessions are set to zero.
      * @return A new {@code Attendance} object.
