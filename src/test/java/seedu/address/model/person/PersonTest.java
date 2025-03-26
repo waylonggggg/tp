@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Disabled;
@@ -89,7 +90,7 @@ public class PersonTest {
         // valid attendance -> returns true
         Person aliceWithAttendance = ALICE.attendCca(BASKETBALL.getCcaName(), new Amount(1));
         Set<CcaInformation> expectedCcaInformations = new HashSet<>();
-        expectedCcaInformations.add(new CcaInformation(BASKETBALL, CAPTAIN,
+        expectedCcaInformations.add(new CcaInformation(BASKETBALL, Optional.of(CAPTAIN),
                 BASKETBALL.createNewAttendance().attend(new Amount(1))));
         Person expectedAlice = new PersonBuilder(ALICE).withCcaInformations(expectedCcaInformations).build();
         assertEquals(expectedAlice, aliceWithAttendance);
