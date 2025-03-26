@@ -3,6 +3,8 @@ package seedu.address.model.cca;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.model.role.Role;
+import seedu.address.model.role.exceptions.DefaultRoleNotAllowedException;
+import seedu.address.model.role.exceptions.RoleAlreadyAssignedException;
 
 /**
  * Represents a person's involvement in a Co-Curricular Activity (CCA).
@@ -63,6 +65,25 @@ public class CcaInformation {
      */
     public CcaName getCcaName() {
         return cca.getCcaName();
+    }
+
+    /**
+     * Returns a new {@code CcaInformation} object with the role added.
+     * The current role of CCA Information must be a default role.
+     *
+     * @param roleToAdd The role to assign (must not be the default role).
+     * @return A new {@code CcaInformation} object with the role added.
+     * @throws RoleAlreadyAssignedException If the role is already assigned.
+     * @throws DefaultRoleNotAllowedException If the role to add is the default role.
+     */
+    public CcaInformation addRole(Role roleToAdd) {
+        if (!role.isDefaultRole()) {
+            throw new RoleAlreadyAssignedException();
+        }
+        if (roleToAdd.isDefaultRole()) {
+            throw new DefaultRoleNotAllowedException();
+        }
+        return new CcaInformation(cca, roleToAdd, attendance);
     }
 
     /**
