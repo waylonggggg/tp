@@ -180,7 +180,7 @@ public class Person {
 
     /**
      * Adds the specified role to the person for the specified CCA name.
-     *.{@code cca} must exist in the person's CCA information.
+     * {@code cca} must exist in the person's CCA information.
      *
      * @param cca The CCA name to add role for.
      * @param role The role to add.

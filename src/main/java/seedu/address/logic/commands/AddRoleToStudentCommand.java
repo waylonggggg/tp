@@ -15,6 +15,9 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 import seedu.address.model.role.Role;
 
+/**
+ * Adds a role to a student identified using it's displayed index from the address book.
+ */
 public class AddRoleToStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "add_r";
@@ -81,6 +84,7 @@ public class AddRoleToStudentCommand extends Command {
         }
 
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole)));
+        return new CommandResult(String.format(
+                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole)));
     }
 }
