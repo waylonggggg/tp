@@ -35,6 +35,7 @@ public class AddRoleToStudentCommand extends Command {
     public static final String MESSAGE_ROLE_ALREADY_ASSIGNED = "This student already has a role in this CCA.";
     public static final String MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE = "Cannot assign a default role "
             + DEFAULT_ROLE_NAME + " to a student.";
+    public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA.";
 
     private final Index studentIndex;
     private final Cca cca;
@@ -71,6 +72,10 @@ public class AddRoleToStudentCommand extends Command {
 
         if (role.isDefaultRole()) {
             throw new CommandException(MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE);
+        }
+
+        if (!cca.hasRole(role)) {
+            throw new CommandException(MESSAGE_ROLE_NOT_FOUND);
         }
 
         Person personWithAddedRole = personToAddRole.addRole(cca, role);

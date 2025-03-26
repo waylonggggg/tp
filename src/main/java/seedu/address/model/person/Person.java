@@ -180,6 +180,8 @@ public class Person {
 
     /**
      * Adds the specified role to the person for the specified CCA name.
+     * The current {@code role} of the person in the CCA must be the default role.
+     * {@code role} must be a valid role defined in the CCA and not the default role.
      * {@code cca} must exist in the person's CCA information.
      *
      * @param cca The CCA name to add role for.
@@ -188,6 +190,7 @@ public class Person {
      */
     public Person addRole(Cca cca, Role role) {
         CcaInformation oldCcaInformation = getCcaInformation(cca);
+
         CcaInformation newCcaInformation = oldCcaInformation.addRole(role);
 
         // Replace old ccaInformation with new ccaInformation.
