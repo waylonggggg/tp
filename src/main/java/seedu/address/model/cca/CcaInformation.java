@@ -84,6 +84,7 @@ public class CcaInformation {
 
     @Override
     public String toString() {
-        return cca + " | Role: " + role + " | " + attendance;
+        String roleStr = role.map(Role::toString).orElse("[No Role]");
+        return cca + " | Role: " + roleStr + " | " + attendance;
     }
 }
