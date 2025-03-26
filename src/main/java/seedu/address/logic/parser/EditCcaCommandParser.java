@@ -50,7 +50,8 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
             editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_TOTAL_SESSIONS).isPresent()) {
-            editCcaDescriptor.setTotalSessions(ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
+            editCcaDescriptor.setTotalSessions(
+                    ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
         }
         parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editCcaDescriptor::setRoles);
 

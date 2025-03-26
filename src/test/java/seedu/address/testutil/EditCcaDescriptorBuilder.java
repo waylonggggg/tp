@@ -1,24 +1,18 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCcaCommand.EditCcaDescriptor;
-import seedu.address.logic.commands.EditStudentCommand;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.role.Role;
 
+/**
+ * A utility class to help with building EditCcaDescriptor objects.
+ */
 public class EditCcaDescriptorBuilder {
 
     private EditCcaDescriptor descriptor;

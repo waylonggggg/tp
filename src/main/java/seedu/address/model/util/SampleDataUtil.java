@@ -118,7 +118,8 @@ public class SampleDataUtil {
 
             Cca existingCca = getCcaByName(uniqueCcaList, new CcaName(ccaName)); //Check if the cca exists
             int totalSessions = existingCca.getTotalSessions().getSessionCount();
-            Optional<Role> roleReference = Optional.ofNullable(findRoleInCca(existingCca, roleName)); // Check if the role exists in the CCA
+            Optional<Role> roleReference = Optional.ofNullable(findRoleInCca(existingCca, roleName)); // Check if the
+            // role exists in the CCA
 
             // Create Attendance object
             Attendance attendance = new Attendance(new SessionCount(attendedSessions), new SessionCount(totalSessions));

@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -8,10 +12,10 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.EditCcaCommand.EditCcaDescriptor;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
 import seedu.address.model.role.Role;
-import seedu.address.logic.commands.EditCcaCommand.EditCcaDescriptor;
 
 public class EditCcaDescriptorTest {
 
