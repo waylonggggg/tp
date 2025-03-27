@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -90,7 +89,6 @@ public class EditStudentCommandTest {
     // For the original test to pass it required that 'edit_s 1 c/' to not change anything in the first person
     // which is not what we want.
     @Test
-    @Disabled
     public void execute_clearCcas_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON); // Ensure the person is visible
 
