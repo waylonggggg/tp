@@ -69,6 +69,13 @@ public class CcaInformation {
     }
 
     /**
+     * Returns if the role of this {@code CcaInformation} is the default role.
+     */
+    public boolean isDefaultRole() {
+        return role.isDefaultRole();
+    }
+
+    /**
      * Returns a new {@code CcaInformation} object with the role added.
      * The current {@code role} of CCA Information must be a default role.
      * {@code roleToAdd} must not be the default role and must be defined in the CCA.

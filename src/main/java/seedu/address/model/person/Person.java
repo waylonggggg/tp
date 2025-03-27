@@ -225,7 +225,7 @@ public class Person {
      */
     public boolean isDefaultRoleInCca(Cca cca) {
         CcaInformation ccaInformation = getCcaInformation(cca);
-        return ccaInformation.getRole().isDefaultRole();
+        return ccaInformation.isDefaultRole();
     }
 
     /**

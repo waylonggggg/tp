@@ -12,7 +12,7 @@ public class Role {
     public static final String MESSAGE_CONSTRAINTS = "Role names should be alphanumeric";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9\\- ]+$"; // Allow hyphens and spaces
     // TODO: change to Member when merged with Edit commnad.
-    public static final String DEFAULT_ROLE_NAME = "member";
+    public static final String DEFAULT_ROLE_NAME = "Member";
 
     public static final Role DEFAULT_ROLE = new Role(DEFAULT_ROLE_NAME);
 
