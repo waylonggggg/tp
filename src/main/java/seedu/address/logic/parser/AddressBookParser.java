@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecordAttendanceCommand;
+import seedu.address.logic.commands.exceptions.DeleteRoleFromStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -77,6 +78,9 @@ public class AddressBookParser {
 
         case AddRoleToStudentCommand.COMMAND_WORD:
             return new AddRoleToStudentCommandParser().parse(arguments);
+
+        case DeleteRoleFromStudentCommand.COMMAND_WORD:
+            return new DeleteRoleFromStudentCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

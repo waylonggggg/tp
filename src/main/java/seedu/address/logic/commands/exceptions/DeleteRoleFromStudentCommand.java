@@ -1,9 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.exceptions;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
-import static seedu.address.model.role.Role.DEFAULT_ROLE_NAME;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,50 +10,41 @@ import java.util.Optional;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.model.role.Role;
 
 /**
- * Adds a role of a specified cca to a student identified using it's displayed index from the address book.
+ * Deletes a role and sets to a default role of a specified cca from a student identified using it's displayed index from the address book.
  */
-public class AddRoleToStudentCommand extends Command {
+public class DeleteRoleFromStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = "add_r";
+    public static final String COMMAND_WORD = "delete_r";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a role to the student identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a role from the student identified "
             + "by the index number used in the displayed student list. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME "
-            + PREFIX_ROLE + "ROLE\n"
+            + PREFIX_CCA + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball "
-            + PREFIX_ROLE + "Center";
+            + PREFIX_CCA + "Basketball";
 
-    public static final String MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS = "Added role to student: %1$s";
-    public static final String MESSAGE_ROLE_ALREADY_ASSIGNED = "This student already has a role in this CCA.";
-    public static final String MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE = "Cannot assign a default role "
-            + DEFAULT_ROLE_NAME + " to a student.";
+    public static final String MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS = "Deleted role from student: %1$s";
+    public static final String MESSAGE_ROLE_NOT_ASSIGNED = "This student does not have a role in this CCA.";
 
     private final Index studentIndex;
     private final CcaName ccaName;
-    private final Role role;
 
     /**
-     * @param studentIndex of the student in the filtered student list to add role
-     * @param ccaName of the CCA to add role
-     * @param role of the role to add
+     * @param studentIndex of the student in the filtered student list to delete role
+     * @param ccaName of the CCA to delete role
      */
-    public AddRoleToStudentCommand(Index studentIndex, CcaName ccaName, Role role) {
-        requireNonNull(studentIndex);
-        requireNonNull(ccaName);
-        requireNonNull(role);
+    public DeleteRoleFromStudentCommand(Index studentIndex, CcaName ccaName) {
+        requireAllNonNull(studentIndex, ccaName);
         this.studentIndex = studentIndex;
         this.ccaName = ccaName;
-        this.role = role;
     }
 
     @Override
@@ -66,7 +56,7 @@ public class AddRoleToStudentCommand extends Command {
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Person personToAddRole = lastShownPersonList.get(studentIndex.getZeroBased());
+        Person personToDeleteRole = lastShownPersonList.get(studentIndex.getZeroBased());
 
         Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
         if (searchedCca.isEmpty()) {
@@ -74,35 +64,27 @@ public class AddRoleToStudentCommand extends Command {
         }
         Cca targetCca = searchedCca.get();
 
-        if (!personToAddRole.hasCca(targetCca)) {
+        if (!personToDeleteRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         }
 
-        if (!personToAddRole.isDefaultRoleInCca(targetCca)) {
-            throw new CommandException(MESSAGE_ROLE_ALREADY_ASSIGNED);
+        if (personToDeleteRole.isDefaultRoleInCca(targetCca)) {
+            throw new CommandException(MESSAGE_ROLE_NOT_ASSIGNED);
         }
 
-        if (role.isDefaultRole()) {
-            throw new CommandException(MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE);
-        }
-
-        if (!targetCca.hasRole(role)) {
-            throw new CommandException(Messages.MESSAGE_ROLE_NOT_FOUND);
-        }
-
-        Person personWithAddedRole = personToAddRole.addRole(targetCca, role);
+        Person personWithDeletedRole = personToDeleteRole.deleteRole(targetCca);
 
         try {
 
-            model.setPerson(personToAddRole, personWithAddedRole);
+            model.setPerson(personToDeleteRole, personWithDeletedRole);
 
         } catch (IllegalArgumentException e) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
 
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(
-                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole)));
+        return new CommandResult(
+                String.format(MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS, personWithDeletedRole));
     }
 
     /**
@@ -127,14 +109,13 @@ public class AddRoleToStudentCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof AddRoleToStudentCommand)) {
+        if (!(other instanceof DeleteRoleFromStudentCommand)) {
             return false;
         }
 
-        AddRoleToStudentCommand otherCommand = (AddRoleToStudentCommand) other;
+        DeleteRoleFromStudentCommand otherCommand = (DeleteRoleFromStudentCommand) other;
         return studentIndex.equals(otherCommand.studentIndex)
-                && ccaName.equals(otherCommand.ccaName)
-                && role.equals(otherCommand.role);
+                && ccaName.equals(otherCommand.ccaName);
     }
 
     @Override
@@ -142,7 +123,6 @@ public class AddRoleToStudentCommand extends Command {
         return new ToStringBuilder(this)
                 .add("studentIndex", studentIndex)
                 .add("ccaName", ccaName)
-                .add("role", role)
                 .toString();
     }
 }

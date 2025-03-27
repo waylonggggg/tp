@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.model.role.Role;
 import seedu.address.model.role.exceptions.DefaultRoleNotAllowedException;
+import seedu.address.model.role.exceptions.NoRoleAssignedException;
 import seedu.address.model.role.exceptions.RoleAlreadyAssignedException;
 import seedu.address.model.role.exceptions.RoleNotFoundException;
 
@@ -97,6 +98,20 @@ public class CcaInformation {
             throw new RoleNotFoundException();
         }
         return new CcaInformation(cca, roleToAdd, attendance);
+    }
+
+    /**
+     * Returns a new {@code CcaInformation} object with the role deleted.
+     * The current {@code role} of CCA Information must not be the default role.
+     *
+     * @return A new {@code CcaInformation} object with the role deleted.
+     * @throws NoRoleAssignedException If the role is not assigned.
+     */
+    public CcaInformation deleteRole() {
+        if (role.isDefaultRole()) {
+            throw new NoRoleAssignedException();
+        }
+        return new CcaInformation(cca, Role.DEFAULT_ROLE, attendance);
     }
 
     /**

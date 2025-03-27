@@ -202,6 +202,27 @@ public class Person {
     }
 
     /**
+     * Deletes the role of the person for the specified CCA.
+     * The current {@code role} of the person in the CCA must not be the default role.
+     * {@code cca} must exist in the person's CCA information.
+     *
+     * @param cca The CCA to delete role for.
+     * @return A new Person object with the role deleted.
+     */
+    public Person deleteRole(Cca cca) {
+        CcaInformation oldCcaInformation = getCcaInformation(cca);
+
+        CcaInformation newCcaInformation = oldCcaInformation.deleteRole();
+
+        // Replace old ccaInformation with new ccaInformation.
+        Set<CcaInformation> newCcaInformations = ccaInformations;
+        newCcaInformations.remove(oldCcaInformation);
+        newCcaInformations.add(newCcaInformation);
+
+        return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      *
