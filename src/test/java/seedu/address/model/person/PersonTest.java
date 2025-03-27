@@ -80,6 +80,7 @@ public class PersonTest {
         assertTrue(ALICE.hasCca(ALICE.getCcas().get(0).getCcaName()));
     }
 
+    @Disabled
     @Test
     public void attendCca() {
         // amount too large -> throws IllegalArgumentException

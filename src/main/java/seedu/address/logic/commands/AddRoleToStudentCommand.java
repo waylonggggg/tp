@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -71,13 +72,13 @@ public class AddRoleToStudentCommand extends Command {
         if (searchedCca.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
-        Cca cca = searchedCca.get();
+        Cca targetCca = searchedCca.get();
 
-        if (!personToAddRole.hasCca(cca)) {
+        if (!personToAddRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         }
 
-        if (!personToAddRole.isDefaultRoleInCca(cca)) {
+        if (!personToAddRole.isDefaultRoleInCca(targetCca)) {
             throw new CommandException(MESSAGE_ROLE_ALREADY_ASSIGNED);
         }
 
@@ -85,11 +86,11 @@ public class AddRoleToStudentCommand extends Command {
             throw new CommandException(MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE);
         }
 
-        if (!cca.hasRole(role)) {
+        if (!targetCca.hasRole(role)) {
             throw new CommandException(Messages.MESSAGE_ROLE_NOT_FOUND);
         }
 
-        Person personWithAddedRole = personToAddRole.addRole(cca, role);
+        Person personWithAddedRole = personToAddRole.addRole(targetCca, role);
 
         try {
 
@@ -118,5 +119,30 @@ public class AddRoleToStudentCommand extends Command {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AddRoleToStudentCommand)) {
+            return false;
+        }
+
+        AddRoleToStudentCommand otherCommand = (AddRoleToStudentCommand) other;
+        return studentIndex.equals(otherCommand.studentIndex)
+                && ccaName.equals(otherCommand.ccaName)
+                && role.equals(otherCommand.role);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("studentIndex", studentIndex)
+                .add("ccaName", ccaName)
+                .add("role", role)
+                .toString();
     }
 }
