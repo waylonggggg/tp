@@ -18,7 +18,8 @@ import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a role and sets to a default role of a specified cca from a student identified using it's displayed index from the address book.
+ * Deletes a role and sets to a default role of a specified cca from a student identified
+ * using it's displayed index from the address book.
  */
 public class DeleteRoleFromStudentCommand extends Command {
 
