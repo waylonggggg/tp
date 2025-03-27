@@ -131,10 +131,10 @@ public class PersonTest {
     }
 
     @Test
-    @Disabled
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", ccas=" + ALICE.getCcas() + "}";
+                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
+                + ", ccainformations=" + ALICE.getCcaInformations() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
