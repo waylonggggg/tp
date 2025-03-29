@@ -5,22 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.CAPTAIN;
 import static seedu.address.testutil.TypicalCcas.TENNIS;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_PRESIDENT;
-//import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.cca.Amount;
@@ -131,10 +127,10 @@ public class PersonTest {
     }
 
     @Test
-    @Disabled
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", ccas=" + ALICE.getCcas() + "}";
+                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
+                + ", ccainformations=" + ALICE.getCcaInformations() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
