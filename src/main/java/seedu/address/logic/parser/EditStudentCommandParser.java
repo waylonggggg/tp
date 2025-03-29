@@ -61,7 +61,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
 
         if (argMultimap.getValue(PREFIX_CCA).isPresent()) {
             String ccaInputValue = argMultimap.getValue(PREFIX_CCA).get();
-            
             if (ccaInputValue.trim().isEmpty()) {
                 editPersonDescriptor.setCcaInformation(Collections.emptySet());
             } else {
