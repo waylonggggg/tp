@@ -29,7 +29,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
      */
     public EditStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        // CHANGED: Removed PREFIX_ROLE from tokenization as role is no longer supported.
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_CCA);
@@ -43,7 +42,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        // CHANGED: Verify only the relevant prefixes (role prefix removed)
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_CCA);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -61,10 +59,9 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
 
-        // CHANGED: Process CCA input independently.
         if (argMultimap.getValue(PREFIX_CCA).isPresent()) {
             String ccaInputValue = argMultimap.getValue(PREFIX_CCA).get();
-            // CHANGED: If input is empty (user entered "c/" without any text), clear the CCAs.
+            
             if (ccaInputValue.trim().isEmpty()) {
                 editPersonDescriptor.setCcaInformation(Collections.emptySet());
             } else {

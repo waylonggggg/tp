@@ -35,7 +35,6 @@ public class EditStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "edit_s";
 
-    // CHANGED: Updated usage format to remove role and use "c/" for CCA only.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
             + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -104,7 +103,6 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        // CHANGED: Only CCA information is updated. Role is no longer part of this command.
         Set<CcaInformation> updatedCcaInformation =
                 editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformations());
 

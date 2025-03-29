@@ -170,7 +170,7 @@ public class ParserUtil {
      * @param roleName The Role name.
      * @return A set containing one {@code CcaInformation}.
      */
-    public static Set<CcaInformation> parseCcaInformation(String ccaName, String roleName) throws ParseException { 
+    public static Set<CcaInformation> parseCcaInformation(String ccaName, String roleName) throws ParseException {
         CcaName parsedCcaName = parseCcaName(ccaName);
 
         Cca cca = new Cca(parsedCcaName);
