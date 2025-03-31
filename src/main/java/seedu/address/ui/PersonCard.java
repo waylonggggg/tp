@@ -63,7 +63,10 @@ public class PersonCard extends UiPart<Region> {
                 .sorted()
                 .forEach(role -> roles.getChildren().add(new Label(role)));
 
-        if (!person.getCcaInformations().isEmpty()) {
+        // Display CCA info or "No CCA" if none
+        if (person.getCcaInformations().isEmpty()) {
+            ccas.setText("No CCA");
+        } else {
             String ccaText = person.getCcaInformations().stream()
                     .sorted(Comparator.comparing(ccaInfo -> ccaInfo.getCca().getCcaName().fullCcaName))
                     .map(ccaInfo -> String.format("%s (%d/%d)",
@@ -72,8 +75,7 @@ public class PersonCard extends UiPart<Region> {
                             ccaInfo.getAttendance().getTotalSessions().getSessionCount()))
                     .collect(Collectors.joining(", "));
 
-            ccas.setText(ccaText.isEmpty() ? "No CCAs" : "CCAs: " + ccaText);
+            ccas.setText("CCAs: " + ccaText);
         }
-
     }
 }
