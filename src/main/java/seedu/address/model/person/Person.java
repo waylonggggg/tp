@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Amount;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
@@ -138,21 +137,33 @@ public class Person {
     }
 
     /**
+     * Checks if the person can attend a specified number of sessions in the CCA.
+     *
+     * @param ccaName The CCA name to check attendance for.
+     * @param amount The number of sessions to check.
+     * @return {@code true} if the person can attend the specified number of sessions, otherwise {@code false}.
+     */
+    public boolean canAttend(CcaName ccaName, Amount amount) {
+        if (!hasCca(ccaName)) {
+            return false;
+        }
+        CcaInformation ccaInformation = getCcaInformation(ccaName);
+        return ccaInformation.getAttendance().canAttend(amount);
+    }
+
+    /**
      * Updates the attendance record of the person for the specified CCA.
      *
      * @param ccaName The CCA name to update attendance for.
      * @param amount The amount to add to the person's attendance record.
      * @return A new Person object with the updated attendance record.
      */
-    public Person attendCca(CcaName ccaName, Amount amount) throws IllegalArgumentException, CcaNotFoundException {
+    public Person attend(CcaName ccaName, Amount amount) {
         if (!hasCca(ccaName)) {
             throw new CcaNotFoundException();
         }
         CcaInformation ccaInformation = getCcaInformation(ccaName);
-        Attendance attendance = ccaInformation.getAttendance();
-        Attendance newAttendance = attendance.attend(amount);
-        CcaInformation newCcaInformation = new CcaInformation(ccaInformation.getCca(), ccaInformation.getRole(),
-                newAttendance);
+        CcaInformation newCcaInformation = ccaInformation.attend(amount);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);
         newCcaInformations.add(newCcaInformation);

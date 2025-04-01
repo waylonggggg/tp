@@ -52,6 +52,16 @@ public class Attendance {
     }
 
     /**
+     * Returns true if the amount of sessions attended is less than or equal to the total number of sessions.
+     *
+     * @param amount The amount of sessions to be added.
+     * @return true if the amount of sessions attended is valid, false otherwise.
+     */
+    public boolean canAttend(Amount amount) {
+        return isValidAttendance(sessionsAttended.addAmount(amount), totalSessions);
+    }
+
+    /**
      * Returns a new Attendance object with the amount added.
      */
     public Attendance attend(Amount amount) {

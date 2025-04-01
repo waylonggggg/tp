@@ -77,13 +77,13 @@ public class PersonTest {
     }
 
     @Test
-    public void attendCca() {
+    public void attend() {
         // amount too large -> throws IllegalArgumentException
-        assertThrows(IllegalArgumentException.class, () -> ALICE.attendCca(
+        assertThrows(IllegalArgumentException.class, () -> ALICE.attend(
             ALICE.getCcas().get(0).getCcaName(), new Amount(100)));
 
         // valid attendance -> returns true
-        Person aliceWithAttendance = ALICE.attendCca(BASKETBALL.getCcaName(), new Amount(1));
+        Person aliceWithAttendance = ALICE.attend(BASKETBALL.getCcaName(), new Amount(1));
         Set<CcaInformation> expectedCcaInformations = new HashSet<>();
         expectedCcaInformations.add(new CcaInformation(BASKETBALL, CAPTAIN,
                 BASKETBALL.createNewAttendance().attend(new Amount(1))));

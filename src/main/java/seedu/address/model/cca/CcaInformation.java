@@ -56,6 +56,25 @@ public class CcaInformation {
     }
 
     /**
+     * Checks if the person can attend a specified number of sessions in the CCA.
+     *
+     * @param amount The number of sessions to check.
+     * @return True if the person can attend the specified number of sessions, false otherwise.
+     */
+    public boolean canAttend(Amount amount) {
+        return attendance.canAttend(amount);
+    }
+
+    /**
+     * Returns the attendance record of the person in the CCA as an {@code Amount} object.
+     *
+     * @return The {@code Amount} object representing the attendance.
+     */
+    public CcaInformation attend(Amount amount) {
+        return new CcaInformation(cca, role, attendance.attend(amount));
+    }
+
+    /**
      * Checks if this {@code CcaInformation} is equal to another object.
      * Two instances are considered equal if they have the same CCA, role, and attendance record.
      *
