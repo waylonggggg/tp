@@ -95,6 +95,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isValidPersonCcas(Person person) {
+        requireNonNull(person);
+        return addressBook.isValidPersonCcas(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
