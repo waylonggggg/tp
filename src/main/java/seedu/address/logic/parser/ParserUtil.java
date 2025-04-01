@@ -164,6 +164,7 @@ public class ParserUtil {
 
     /**
      * Parses a single CCA name, Role name and amount into a {@code CcaInformation}.
+     *
      * @param ccaName The CCA name.
      * @param roleName The Role name.
      * @return A {@code CcaInformation} object with the default {@code Attendance}.
@@ -178,6 +179,23 @@ public class ParserUtil {
         return new CcaInformation(cca, role, attendance);
     }
 
+
+    /**
+     * Parses a {@code String ccaName} into a {@code Set<CcaInformation>} with a default role.
+     * This method is used when only the CCA name is provided.
+     *
+     * @param ccaName The CCA name.
+     * @return A set containing one {@code CcaInformation} with a default role.
+     */
+    public static Set<CcaInformation> parseCcaInformation(String ccaName) throws ParseException {
+        // This is an overloaded version of the method parseCcaInformation
+        // Define a default role that will be used since role editing is not allowed.
+        String defaultRole = "Member"; // Change this if a different default is required.
+        Set<CcaInformation> ccaInformations = new HashSet<CcaInformation>();
+        ccaInformations.add(parseCcaInformation(ccaName, defaultRole));
+        return ccaInformations;
+    }
+
     /**
      * Parses a {@code String ccaName} into a {@code CcaName}.
      * Leading and trailing whitespaces will be trimmed.
@@ -189,6 +207,7 @@ public class ParserUtil {
     public static CcaName parseCcaName(String ccaName) throws ParseException {
         requireNonNull(ccaName);
         String trimmedCcaName = ccaName.trim();
+
         if (!CcaName.isValidCcaName(trimmedCcaName)) {
             throw new ParseException(CcaName.MESSAGE_CONSTRAINTS);
         }
