@@ -27,6 +27,7 @@ public class CcaBuilder {
     public CcaBuilder() {
         ccaName = new CcaName(DEFAULT_CCA_NAME);
         roles = new HashSet<>();
+        roles.add(Role.DEFAULT_ROLE);
         totalSessions = new SessionCount(DEFAULT_TOTAL_SESSIONS);
     }
 
@@ -38,6 +39,7 @@ public class CcaBuilder {
     public CcaBuilder(Cca ccaToCopy) {
         ccaName = ccaToCopy.getCcaName();
         roles = new HashSet<>(ccaToCopy.getRoles());
+        roles.add(Role.DEFAULT_ROLE);
         totalSessions = ccaToCopy.getTotalSessions();
     }
 
