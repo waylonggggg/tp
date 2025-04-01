@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
 
         person.getCcaInformations().stream()
                 .map(ccaInfo -> ccaInfo.getCca().getCcaName().fullCcaName + " "
-                        + ccaInfo.getRole().map(role -> role.roleName).orElse("No role"))
+                        + ccaInfo.getRole())
                 .distinct()
                 .sorted()
                 .forEach(role -> roles.getChildren().add(new Label(role)));

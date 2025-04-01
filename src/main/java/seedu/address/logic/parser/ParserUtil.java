@@ -177,7 +177,7 @@ public class ParserUtil {
 
         // Create CCA and Role objects (No validation done)
         Cca cca = new Cca(new CcaName(ccaName));
-        Optional<Role> role = Optional.of(new Role(roleName));
+        Role role = new Role(roleName);
 
         // Create CcaInformation with default attended sessions = 0
         ccaInformations.add(new CcaInformation(cca, role, cca.createNewAttendance()));

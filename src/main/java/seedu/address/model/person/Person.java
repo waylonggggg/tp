@@ -174,15 +174,12 @@ public class Person {
     public Person updateCca(Cca target, Cca editedCca) {
         CcaInformation ccaInformation = getCcaInformation(target.getCcaName());
 
-        Optional<Role> currentRole = ccaInformation.getRole();
-
-        // Checks if the person's current role in the cca exists in the edited cca
-        Optional<Role> newRole = currentRole.filter(editedCca.getRoles()::contains);
+        Role currentRole = ccaInformation.getRole();
 
         Attendance newAttendance = new Attendance(
                 ccaInformation.getAttendance().getSessionsAttended(), editedCca.getTotalSessions());
 
-        CcaInformation newCcaInformation = new CcaInformation(editedCca, newRole, newAttendance);
+        CcaInformation newCcaInformation = new CcaInformation(editedCca, currentRole, newAttendance);
 
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);

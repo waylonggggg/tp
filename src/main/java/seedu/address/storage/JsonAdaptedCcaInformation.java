@@ -43,7 +43,7 @@ class JsonAdaptedCcaInformation {
      */
     public JsonAdaptedCcaInformation(CcaInformation source) {
         this.cca = new JsonAdaptedCca(source.getCca());
-        this.role = source.getRole().map(JsonAdaptedRole::new).orElse(null);
+        this.role = new JsonAdaptedRole(source.getRole());
         this.attendedSessions = source.getAttendance().getSessionsAttended().getSessionCount();
         this.totalSessions = source.getAttendance().getTotalSessions().getSessionCount();
     }
@@ -62,7 +62,7 @@ class JsonAdaptedCcaInformation {
         }
 
         final Cca modelCca = cca.toModelType();
-        final Optional<Role> modelRole = role != null ? Optional.of(role.toModelType()) : Optional.empty();
+        final Role modelRole = role.toModelType();
 
         final int derivedTotalSessions = modelCca.getTotalSessions().getSessionCount();
 
