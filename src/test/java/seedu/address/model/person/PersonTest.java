@@ -17,6 +17,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.cca.Amount;
