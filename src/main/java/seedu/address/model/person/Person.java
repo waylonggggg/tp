@@ -146,14 +146,21 @@ public class Person {
     }
 
     /**
-     * Removes the specified CCA from the person's CCA information.
+     * Removes the specified CCA from the person's CCA information based on CCA name identity.
+     * If multiple entries exist for the same CCA name (due to past errors), this will remove all of them.
      *
-     * @param cca The CCA to remove.
-     * @return A new Person object with the specified CCA removed.
+     * @param ccaToRemove The CCA whose name determines which entries to remove.
+     * @return A new Person object with the specified CCA entries removed.
      */
-    public Person removeCca(Cca cca) {
-        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
-        newCcaInformations.removeIf(c -> c.getCca().equals(cca));
+    public Person removeCca(Cca ccaToRemove) { // Parameter is the Cca object to identify which name to remove
+        requireNonNull(ccaToRemove);
+        Set<CcaInformation> newCcaInformations = new HashSet<>();
+        for (CcaInformation currentInfo : this.ccaInformations) {
+            // Keep the CcaInformation only if its Cca does NOT have the same name as the one to remove
+            if (!currentInfo.getCca().isSameCca(ccaToRemove)) {
+                newCcaInformations.add(currentInfo);
+            }
+        }
         return new Person(name, phone, email, address, newCcaInformations);
     }
 
