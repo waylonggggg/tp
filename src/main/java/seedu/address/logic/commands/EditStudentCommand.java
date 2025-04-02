@@ -18,12 +18,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.cca.CcaInformation;
 
 /**
  * Edits the details of an existing student in the address book.
@@ -46,7 +46,8 @@ public class EditStudentCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited student: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided (name, phone, email, or address).";
+    public static final String MESSAGE_NOT_EDITED =
+            "At least one field to edit must be provided (name, phone, email, or address).";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
 
     private final Index index;

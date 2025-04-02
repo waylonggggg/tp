@@ -1,22 +1,16 @@
-// --- Updated: seedu.address.logic.parser.EditStudentCommandParser.java ---
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-// REMOVE: import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-
-// REMOVE: import java.util.Collections;
-// REMOVE: import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditStudentCommand;
 import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-// REMOVE: import seedu.address.model.cca.CcaInformation;
 
 /**
  * Parses input arguments and creates a new EditStudentCommand object.

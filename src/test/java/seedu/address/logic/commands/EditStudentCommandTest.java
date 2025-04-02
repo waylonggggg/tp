@@ -3,22 +3,16 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-// Import the original descriptors from CommandTestUtil - they are now correct
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-// Import necessary validation constants
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-// Common command testing utilities
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-// Typical test data
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook; // Assuming this provides persons with CCAs
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -120,7 +114,6 @@ public class EditStudentCommandTest {
         assertEquals(personBeforeEdit, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
     }
 
-    // TEST REMOVED: execute_clearCcas_success() was here but is no longer valid for EditStudentCommand.
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
@@ -213,11 +206,9 @@ public class EditStudentCommandTest {
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor(); // Test with empty descriptor
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         EditStudentCommand editStudentCommand = new EditStudentCommand(index, editPersonDescriptor);
 
-        // Expected string representation, ensure EditPersonDescriptor's toString is correct
-        // (It should not include ccaInformation anymore)
         String expected = EditStudentCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editStudentCommand.toString());
