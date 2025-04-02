@@ -167,7 +167,7 @@ public class Person {
             return false;
         }
         CcaInformation ccaInformation = getCcaInformation(ccaName);
-        return ccaInformation.getAttendance().canAttend(amount);
+        return ccaInformation.canAttend(amount);
     }
 
     /**
