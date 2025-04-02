@@ -1,6 +1,7 @@
 package seedu.address.model.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -28,6 +29,7 @@ public class Cca {
         requireNonNull(ccaName);
         this.ccaName = ccaName;
         this.roles = new HashSet<>();
+        this.roles.add(Role.DEFAULT_ROLE);
         this.totalSessions = new SessionCount(0);
     }
 
@@ -39,10 +41,10 @@ public class Cca {
      * @param totalSessions The total number of sessions conducted for this CCA.
      */
     public Cca(CcaName ccaName, Set<Role> roles, SessionCount totalSessions) {
-        requireNonNull(ccaName);
-        requireNonNull(roles);
+        requireAllNonNull(ccaName, roles, totalSessions);
         this.ccaName = ccaName;
         this.roles = new HashSet<>(roles);
+        this.roles.add(Role.DEFAULT_ROLE);
         this.totalSessions = totalSessions;
     }
 
