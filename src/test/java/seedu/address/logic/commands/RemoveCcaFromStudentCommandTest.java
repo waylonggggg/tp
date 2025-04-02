@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalCcas.CCA_NAME_BASKETBALL; // Example CCA Name person has
-import static seedu.address.testutil.TypicalCcas.CCA_NAME_TENNIS;     // Example CCA Name person doesn't have
+import static seedu.address.testutil.TypicalCcas.CCA_NAME_BASKETBALL;
+import static seedu.address.testutil.TypicalCcas.CCA_NAME_TENNIS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 

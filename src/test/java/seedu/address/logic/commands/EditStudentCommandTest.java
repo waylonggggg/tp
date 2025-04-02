@@ -42,10 +42,10 @@ public class EditStudentCommandTest {
 
         // Create a builder with the *new* details for non-CCA fields
         PersonBuilder editedPersonBuilder = new PersonBuilder()
-                .withName("New Valid Name") // Use valid data
-                .withPhone("98765432")      // Use valid data
-                .withEmail("newvalid@example.com") // Use valid data
-                .withAddress("New Valid Address Blk 456"); // Use valid data
+                .withName("New Valid Name")
+                .withPhone("98765432")
+                .withEmail("newvalid@example.com")
+                .withAddress("New Valid Address Blk 456");
 
         // Manually add the original CCAs from personToEdit to the edited person builder
         editedPersonBuilder.withCcaInformations(personToEdit.getCcaInformations());

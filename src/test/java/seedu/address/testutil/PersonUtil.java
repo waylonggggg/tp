@@ -7,13 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-// Removed unused import if Set is no longer needed here
-// import java.util.Set;
-
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
-// Removed unused import
-// import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Person;
 
 /**
@@ -64,13 +59,6 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
 
-        // REMOVED: Block for handling CcaInformation, as it's no longer in EditPersonDescriptor
-        /*
-        if (descriptor.getCcaInformation().isPresent()) {
-            // ... logic removed ...
-        }
-        */
-        // Trim trailing space if any prefixes were added
         return sb.toString().trim();
     }
 }

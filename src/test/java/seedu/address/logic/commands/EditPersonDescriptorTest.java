@@ -97,6 +97,7 @@ public class EditPersonDescriptorTest {
 
         // Multiple fields set -> true
         // Use a valid phone number here too
-        assertTrue(new EditPersonDescriptorBuilder().withName("A").withPhone("123").build().isAnyFieldEdited()); // Fixed
+        assertTrue(new EditPersonDescriptorBuilder()
+                .withName("A").withPhone("123").build().isAnyFieldEdited()); // Fixed
     }
 }

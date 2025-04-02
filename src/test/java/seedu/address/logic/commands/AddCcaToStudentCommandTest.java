@@ -83,7 +83,7 @@ public class AddCcaToStudentCommandTest {
         expectedModel.setPerson(personToEdit, expectedPerson); // Set person in expected model
 
         // Create and execute the command targeting INDEX_FIRST_PERSON within the *filtered* list
-        AddCcaToStudentCommand command = new AddCcaToStudentCommand(INDEX_FIRST_PERSON, CCA_NAME_TENNIS); // <-- Fixed Index
+        AddCcaToStudentCommand command = new AddCcaToStudentCommand(INDEX_FIRST_PERSON, CCA_NAME_TENNIS);
         String expectedMessage = String.format(AddCcaToStudentCommand.MESSAGE_ADD_CCA_SUCCESS,
                 Messages.format(expectedPerson), Messages.format(CCA_NAME_TENNIS));
 
