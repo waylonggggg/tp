@@ -89,7 +89,8 @@ public class CcaTest {
 
     @Test
     public void getRoles() {
-        assertEquals(Set.of(new Role(VALID_ROLE_MEMBER), new Role(VALID_ROLE_CAPTAIN), new Role(VALID_ROLE_VICE_CAPTAIN)), BASKETBALL.getRoles());
+        assertEquals(Set.of(new Role(VALID_ROLE_MEMBER), new Role(VALID_ROLE_CAPTAIN),
+                new Role(VALID_ROLE_VICE_CAPTAIN)), BASKETBALL.getRoles());
     }
 
     @Test

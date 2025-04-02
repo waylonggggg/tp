@@ -31,23 +31,32 @@ public class TypicalCcas {
     public static final int LARGE_TOTAL_SESSIONS = 20;
 
     public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
-            .withRoles(VALID_ROLE_PRESIDENT, VALID_ROLE_VICE_PRESIDENT, VALID_ROLE_MEMBER).withTotalSessions(SMALL_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_PRESIDENT, VALID_ROLE_VICE_PRESIDENT, VALID_ROLE_MEMBER)
+            .withTotalSessions(SMALL_TOTAL_SESSIONS).build();
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(LARGE_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(LARGE_TOTAL_SESSIONS).build();
     public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING)
-            .withRoles(VALID_ROLE_PRESIDENT, VALID_ROLE_VICE_PRESIDENT, VALID_ROLE_MEMBER).withTotalSessions(LARGE_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_PRESIDENT, VALID_ROLE_VICE_PRESIDENT, VALID_ROLE_MEMBER)
+            .withTotalSessions(LARGE_TOTAL_SESSIONS).build();
     public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(SMALL_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(SMALL_TOTAL_SESSIONS).build();
     public static final Cca TABLE_TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TABLE_TENNIS)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
     public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(LARGE_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(LARGE_TOTAL_SESSIONS).build();
     public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
     public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL)
-            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER).withTotalSessions(SMALL_TOTAL_SESSIONS).build();
+            .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
+            .withTotalSessions(SMALL_TOTAL_SESSIONS).build();
 
     private TypicalCcas() {
     } // prevents instantiation

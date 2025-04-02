@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;

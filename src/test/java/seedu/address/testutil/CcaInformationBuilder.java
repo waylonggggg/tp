@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
 import seedu.address.model.role.Role;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building CCAInformation objects.
