@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -250,14 +251,17 @@ public class Person {
     }
 
     /**
-     * Returns true if the person has the specified CCA.
+     * Returns true if the person has the specified CCA, checking by CCA identity (name only).
+     * This defines a looser check suitable for enrollment status.
      *
      * @param cca The CCA to check for.
-     * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
+     * @return {@code true} if the person is enrolled in a CCA with the same name, otherwise {@code false}.
      */
     public boolean hasCca(Cca cca) {
-        for (Cca c : getCcas()) {
-            if (c.equals(cca)) {
+        requireNonNull(cca);
+        for (Cca c : getCcas()) { // getCcas() extracts Cca from CcaInformation
+            // Use isSameCca (checks name only) instead of equals (checks name, roles, sessions)
+            if (c.isSameCca(cca)) {
                 return true;
             }
         }
