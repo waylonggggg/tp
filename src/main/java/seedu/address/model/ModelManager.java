@@ -11,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.person.Person;
 
 /**
@@ -98,6 +95,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isValidPersonCcas(Person person) {
+        requireNonNull(person);
+        return addressBook.isValidPersonCcas(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -147,15 +150,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCca);
 
         addressBook.setCca(target, editedCca);
-    }
-
-    // TODO: move this method logic to RecordAttendanceCommand.
-    @Override
-    public void recordAttendance(CcaName ccaName, Person person, Amount amount)
-            throws IllegalArgumentException, CcaNotFoundException {
-        requireAllNonNull(person, ccaName, amount);
-        Person newPerson = person.attendCca(ccaName, amount);
-        addressBook.setPerson(person, newPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
