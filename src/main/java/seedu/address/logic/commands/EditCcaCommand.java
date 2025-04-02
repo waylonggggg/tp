@@ -21,7 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
-import seedu.address.model.person.Person;
 import seedu.address.model.role.Role;
 
 /**

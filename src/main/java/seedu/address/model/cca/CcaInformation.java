@@ -2,8 +2,6 @@ package seedu.address.model.cca;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Optional;
-
 import seedu.address.model.role.Role;
 import seedu.address.model.role.exceptions.DefaultRoleNotAllowedException;
 import seedu.address.model.role.exceptions.NoRoleAssignedException;

@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
@@ -92,7 +91,7 @@ public class EditPersonDescriptorBuilder {
         Role role = new Role(roleName);
         Attendance attendance = new Attendance(new SessionCount(0), new SessionCount(totalSessions));
 
-        ccaInfoSet.add(new CcaInformation(cca, Optional.of(role), attendance));
+        ccaInfoSet.add(new CcaInformation(cca, role, attendance));
         descriptor.setCcaInformation(ccaInfoSet);
         return this;
     }

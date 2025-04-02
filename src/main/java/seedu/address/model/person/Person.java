@@ -186,8 +186,7 @@ public class Person {
      *
      * @param target The original CCA to be updated. This contains the CCA's current details in the person's record.
      * @param editedCca The edited CCA containing the new details, including the total number of sessions.
-     * @return A new {@code Person} object with the updated CCA information, including the preserved role and updated
-     * attendance.
+     * @return A new {@code Person} object with the updated CCA information.
      */
     public Person updateCca(Cca target, Cca editedCca) {
         CcaInformation targetCcaInformation = getCcaInformation(target.getCcaName());
