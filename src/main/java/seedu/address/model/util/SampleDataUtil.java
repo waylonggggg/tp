@@ -116,7 +116,7 @@ public class SampleDataUtil {
             String roleName = ccaInformationData[i + 1];
             int attendedSessions = Integer.parseInt(ccaInformationData[i + 2]);
 
-            Cca existingCca = getCcaByName(uniqueCcaList, new CcaName(ccaName)); //Check if the cca exists
+            Cca existingCca = getCcaByName(uniqueCcaList, new CcaName(ccaName));
             int totalSessions = existingCca.getTotalSessions().getSessionCount();
 
             // Check if the role exists in the cca
@@ -165,16 +165,6 @@ public class SampleDataUtil {
     public static Set<Role> getRoleSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Role::new)
-                .collect(Collectors.toSet());
-    }
-
-    /**
-     * Returns a cca set containing the list of strings given.
-     */
-    public static Set<Cca> getCcaSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(CcaName::new)
-                .map(Cca::new)
                 .collect(Collectors.toSet());
     }
 

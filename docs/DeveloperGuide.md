@@ -479,7 +479,38 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC8: Add a role to a student in a CCA**
+**UC8: Edit a cca**
+
+**MSS**
+
+1. System shows list of CCAs.
+2. User requests to edit a CCA's information from the list.
+3. System edits the CCA from the list.
+4. System shows the CCA has been edited.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2b. The parameters to edit does not exist.
+
+    * 2b1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2c. The parameters to edit is invalid.
+
+    * 2c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC9: Add a role to a student in a CCA**
 
 **MSS**
 
@@ -527,7 +558,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 3.
 
-**UC9: Delete a role from a student in a CCA**
+**UC10: Delete a role from a student in a CCA**
 
 **MSS**
 
@@ -558,7 +589,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC10: Add CCA to a student**
+**UC11: Add CCA to a student**
 
 **MSS**
 
@@ -594,7 +625,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case ends.
 
-**UC11: Delete a CCA from a student**
+**UC12: Delete a CCA from a student**
 
 **MSS**
 
@@ -625,7 +656,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC11: Clear all the student**
+**UC13: Clear all the student**
 
 **MSS**
 
@@ -635,7 +666,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
     Use case ends.
 
-**UC12: Record a student's attendance**
+**UC14: Record a student's attendance**
 
 **MSS**
 1.  User <u>lists the students (UC1)</u>.

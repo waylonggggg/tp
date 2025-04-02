@@ -126,9 +126,10 @@ Format: `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
 * Existing values will be updated to the input values.
 * The new name must not match any existing any cca names in the cca list.
 * The amount of total sessions must be a non-negative integer.
+* Regardless of the input for the role field, a "Member" role will automatically be created.
 
 Examples:
-*  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit_c 1 n/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
