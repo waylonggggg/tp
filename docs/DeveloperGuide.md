@@ -180,7 +180,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 |-----: | :------: | :---------------------------------- | :----------------------------------------------------------- |:-----------------------------------------------------------------------------------------|
 | 1     | `* * *`  | HAM                                 | create new students in the student list                             | store their information.                                                                 |
 | 2     | `* * *`  | HAM                                 | delete existing students from the student list                       | remove ex-students and other redundant data.                                             |
-| 3     | `* *`    | HAM                                 | view student profiles by searching by name                   | provide personalized service.                                                            |
+| 3     | `* *`    | HAM                                 | filter student list by name                   | find students quickly.                                                            |
 | 4     | `* * *`  | HAM                                 | create a CCA role                                            | label students according to specific responsibilities in that CCA.                       |
 | 5     | `* * *`  | HAM                                 | delete an existing CCA role                                  | remove any outdated roles from a CCA                             |
 | 6     | `* * *`  | HAM                                 | add roles to a student in a CCA                              | categorize students by their responsibilities (e.g. captain, exco, non-official member). |
@@ -192,17 +192,23 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 | 12    | `* * *`  | new HAM ready to start using the app | purge all current data                                       | remove any sample student information used for testing.                                  |
 | 13    | `*`      | HAM taking over from another HAM     | import student profiles                                      | transfer existing student information into my system.                                    |
 | 14    | `*`      | HAM taking over from another HAM     | export student profiles                                      | pass the current student information on to another HAM.                                  |
-| 15    | `* * *`  | HAM                                 | record a student’s attendance in a CCA                | accurately track attendance.                                                             |
-| 16    | `* *`    | HAM                                 | set a maximum attendance for CCA                             | have a better idea of the student’s attendance rate.                                     |
-| 17    | `* * *`  | HAM                                 | create a new CCA                                             | assign it to students.                                                                   |
-| 18    | `* * *`  | HAM                                 | delete a CCA                                                | remove any CCA that are no longer active or needed.                                          |
-| 19    | `* * *`  | HAM                                 | add a CCA to a student                                       | keep their records accurate.                                                             |
-| 20    | `* * *`  | HAM                                 | delete a CCA from a student                                  | update their status if they leave or switch CCAs.                                        |
-| 21    | `* * *`  | HAM                                 | view the list of CCAs separately from the student list       | see all CCAs at once.                                                                    |
-| 22    | `* *`    | HAM                                 | see the list of roles in a CCA                               | know which roles can be assigned to students.                                            |
-! 23   | `* *`    | HAM                                 | have automatic validation of CCA names when adding CCA to student | avoid errors when adding CCA to students.                                                  |
-| 24    | `* *`    | HAM                                 | have automatic validation of role names when adding role to student | avoid errors when adding roles to students.                                               |
-| 25    | `* *`    | HAM                                 | find students by name                               | quickly locate a student in the list.                                                    |
+| 15    | `* * *`  | HAM                                 | record a student’s attendance in a CCA                | accurately record students' attendance of CCA sessions                                                             |
+| 16    | `* * *`  | HAM                                 | see the number of sessions each student has attended                | accurately track students' attendance                                                             |
+| 17    | `* *`    | HAM                                 | set a maximum attendance for CCA                             | have a better idea of the student’s attendance rate.                                     |
+| 18    | `* * *`  | HAM                                 | create a new CCA                                             | assign it to students.                                                                   |
+| 19    | `* * *`  | HAM                                 | delete a CCA                                                | remove any CCA that are no longer active or needed.                                          |
+| 20    | `* * *`  | HAM                                 | add a CCA to a student                                       | keep their records accurate.                                                             |
+| 21    | `* * *`  | HAM                                 | delete a CCA from a student                                  | update their status if they leave or switch CCAs.                                        |
+| 22    | `* * *`  | HAM                                 | view the list of CCAs separately from the student list       | see all CCAs at once.                                                                    |
+| 23    | `* *`    | HAM                                 | see the list of roles in a CCA                               | know which roles can be assigned to students.                                            |
+| 24   | `* *`    | HAM                                 | have automatic validation of CCA names when adding CCA to student | avoid errors when adding CCA to students.                                                  |
+| 25    | `* *`    | HAM                                 | have automatic validation of role names when adding role to student | avoid errors when adding roles to students.                                               |
+| 26    | `* *`    | HAM                                 | save my changes when I exit the application                                      | avoid losing important changes                                                                  |
+| 27   | `* *`    | HAM                                 | see the list of all students in the system | know who is in the system.                                                                |
+| 28   | `* *`    | HAM                                 | see the list of all CCAs in the system | know which CCAs are in the system.                                                        |
+| 29   | `* *`    | HAM                                 | see the list of roles in each CCA | know which roles each CCA has.                                                        |
+| 30   | `* *`    | HAM                                 | record attendance for more than one session at a time | save time when recording attendance. |
+
 
 
 ### Use cases
@@ -398,10 +404,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 **Extensions**
 
-* 2a. The CCA list is empty.
-
-  Use case ends.
-
 * 3a. The student does not exist in the student list.
 
     * 3a1. System shows an error message.
@@ -418,7 +420,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
     * 3c1. System shows student already has role in the CCA.
 
-      Use case ends.
+      Use case resumes at step 3.
 
 * 3d. The student is not in the CCA.
 
@@ -469,12 +471,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
       Use case resumes at step 2.
 
-* 2e. The role does not exist.
-
-   * 2e1. System shows an error message.
-
-      Use case resumes at step 2.
-
 **UC11: Add CCA to a student**
 
 **MSS**
@@ -509,7 +505,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
     * 3c1. System shows student already in CCA.
 
-      Use case ends.
+      Use case resumes at step 3.
 
 **UC12: Delete a CCA from a student**
 
@@ -542,7 +538,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
       Use case resumes at step 2.
 
-**UC13: Clear all the student**
+**UC13: Clear all students**
 
 **MSS**
 
@@ -560,7 +556,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 3. System increments the student’s attendance in that CCA by the requested amount.
 4. System shows that the attendance has been updated successfully.
 
-Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -587,6 +583,14 @@ Use case ends.
     * 2d1. System shows an error message.
 
       Use case resumes at step 2.
+
+### UC15: Exit the application
+
+**MSS**
+1. User requests to exit the application.
+2. System saves all the data and closes the application.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
@@ -747,7 +751,9 @@ testers are expected to do more \*exploratory\* testing.
        Expected: The app does not have the `Chess` CCA. Error details shown in the status message.
     5. Test case: `add_c 0 c/Basketball`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
-    6. Other test cases to try: `add_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    6. Test case: `add_c 1 c/Member`
+       Expected: Error details shown in the status message because default role cannot be assigned.
+    7. Other test cases to try: `add_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting CCAs from a student
