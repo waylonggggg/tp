@@ -3,16 +3,22 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+// Import the original descriptors from CommandTestUtil - they are now correct
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+// Import necessary validation constants
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+// Common command testing utilities
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+// Typical test data
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook; // Assuming this provides persons with CCAs
 
 import org.junit.jupiter.api.Test;
 
@@ -32,19 +38,39 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditStudentCommandTest {
 
+    // Assume getTypicalAddressBook() provides persons, some possibly with CCAs.
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        // Get the original person to ensure their CCAs are preserved
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        // Create a builder with the *new* details for non-CCA fields
+        PersonBuilder editedPersonBuilder = new PersonBuilder()
+                .withName("New Valid Name") // Use valid data
+                .withPhone("98765432")      // Use valid data
+                .withEmail("newvalid@example.com") // Use valid data
+                .withAddress("New Valid Address Blk 456"); // Use valid data
+
+        // Manually add the original CCAs from personToEdit to the edited person builder
+        editedPersonBuilder.withCcaInformations(personToEdit.getCcaInformations());
+        Person editedPerson = editedPersonBuilder.build(); // This person has new details + original CCAs
+
+        // The descriptor only contains the fields being changed (Name, Phone, Email, Address)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName("New Valid Name")
+                .withPhone("98765432")
+                .withEmail("newvalid@example.com")
+                .withAddress("New Valid Address Blk 456").build();
+
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(
                 EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.setPerson(personToEdit, editedPerson); // Update the model with the person having preserved CCAs
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
@@ -54,11 +80,14 @@ public class EditStudentCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
+        // Start building based on the last person (copies all fields including CCAs)
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .build();
+        // Edit only Name and Phone, other fields (Email, Address, CCAs) remain the same
+        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        // Descriptor only includes Name and Phone
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(indexLastPerson, descriptor);
 
@@ -73,53 +102,33 @@ public class EditStudentCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
+        // Create command with an empty descriptor
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        // The person being "edited" is the original person, as no changes should occur
+        Person personBeforeEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
+        // Expected message should format the original person details
         String expectedMessage = String.format(
-                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(personBeforeEdit));
 
+        // Expected model is identical to the original model before the command execution
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
+        // The command should succeed but result in no change to the model state
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+        // Verify the person object in the list is still the same one
+        assertEquals(personBeforeEdit, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
     }
 
-    // note that this test case is newly added to test that 'edit_s 1 c/' indeed removes all the CCAs that
-    // the 1st person has. The original test is removed because it is no longer applicable.
-    // For the original test to pass it required that 'edit_s 1 c/' to not change anything in the first person
-    // which is not what we want.
-    @Test
-    public void execute_clearCcas_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON); // Ensure the person is visible
-
-        // Get the existing person and confirm that they have at least one CCA
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        assertFalse(personInFilteredList.getCcas().isEmpty()); // Ensure CCAs exist before clearing
-
-        // Create an expected edited person with no CCAs
-        Person editedPerson = new PersonBuilder(personInFilteredList).build(); // Empty CCAs
-
-        // Create the editStudent command with an empty CCA field (c/)
-        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().build()); // No args -> clear CCAs
-
-        // Expected success message
-        String expectedMessage = String.format(
-                EditStudentCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
-
-        // Prepare expected model
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
-
-        // Assert command success
-        assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
-    }
-
+    // TEST REMOVED: execute_clearCcas_success() was here but is no longer valid for EditStudentCommand.
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        // Create a descriptor matching the first person's identifying details (usually Name)
+        // Assumes EditPersonDescriptorBuilder(person) extracts only Name,Phone,Email,Address
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
+        // Try to edit the second person to have the same identity as the first person
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_PERSON);
@@ -127,53 +136,57 @@ public class EditStudentCommandTest {
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST_PERSON); // Filter list to show only the first person
 
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
+        // Get details of the second person from the *original* address book
+        Person personInAddressBook = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        // Create a descriptor matching the second person's identifying details
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personInAddressBook).build();
+        // Try to edit the first person (currently the only one in the filtered list)
+        // to have the same identity as the second person
+        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
+        // Create an index that is one greater than the size of the list
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        // Descriptor with some valid field
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex, descriptor);
 
+        // Expect failure due to invalid index
         assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of address book.
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        showPersonAtIndex(model, INDEX_FIRST_PERSON); // Filter list to show only one person
+        Index outOfBoundIndex = INDEX_SECOND_PERSON; // Index 2 (0-based 1) is now out of bounds for the filtered list
+
+        // Ensure that outOfBoundIndex is still within the bounds of the main address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
+        // Create the command with the out-of-bounds index for the filtered list
         EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
+        // Expect failure due to invalid index within the context of the filtered list
         assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_nonExistentCcaName_failure() {
-        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                        .withCcaInformation("Drinking", "member", 20).build());
-
-        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_CCA_NOT_FOUND);
-    }
+    // TEST REMOVED: execute_nonExistentCcaName_failure() was here but is no longer valid for EditStudentCommand.
 
     @Test
     public void equals() {
+        // Use the original DESC_AMY and DESC_BOB constants from CommandTestUtil
+        // They are suitable as EditPersonDescriptor no longer holds CCAs.
         final EditStudentCommand standardCommand = new EditStudentCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
@@ -200,11 +213,13 @@ public class EditStudentCommandTest {
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor(); // Test with empty descriptor
         EditStudentCommand editStudentCommand = new EditStudentCommand(index, editPersonDescriptor);
+
+        // Expected string representation, ensure EditPersonDescriptor's toString is correct
+        // (It should not include ccaInformation anymore)
         String expected = EditStudentCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editStudentCommand.toString());
     }
-
 }

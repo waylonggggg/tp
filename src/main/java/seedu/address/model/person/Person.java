@@ -282,6 +282,7 @@ public class Person {
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */
     public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
         for (Cca c : getCcas()) {
             if (c.getCcaName().equals(ccaName)) {
                 return true;

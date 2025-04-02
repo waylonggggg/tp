@@ -1,23 +1,28 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
+// Removed unused CCA/Role related imports if they are no longer needed by other methods
+// import seedu.address.model.cca.Attendance;
+// import seedu.address.model.cca.Cca;
+// import seedu.address.model.cca.CcaInformation;
+// import seedu.address.model.cca.CcaName;
+// import seedu.address.model.cca.SessionCount;
+// import seedu.address.model.role.Role;
+// import java.util.HashSet;
+// import java.util.Set;
+
 
 import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
-import seedu.address.model.cca.Attendance;
-import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
-import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.role.Role;
+
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
+ * This builder corresponds to the EditPersonDescriptor used by EditStudentCommand,
+ * which only handles Name, Phone, Email, and Address.
  */
 public class EditPersonDescriptorBuilder {
 
@@ -28,11 +33,13 @@ public class EditPersonDescriptorBuilder {
     }
 
     public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
+        // Uses EditPersonDescriptor's copy constructor, which should already be updated
         this.descriptor = new EditPersonDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * for Name, Phone, Email, and Address only. CCA information is ignored.
      */
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
@@ -40,7 +47,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
-        descriptor.setCcaInformation(person.getCcaInformations());
+        // REMOVED: descriptor.setCcaInformation(person.getCcaInformations());
     }
 
     /**
@@ -75,26 +82,15 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    /**
-     * Parses the provided CCA and role into a {@code Set<CcaInformation>} and assigns it to the `EditPersonDescriptor`.
-     * By default, it initializes the attendance with zero attended sessions.
-     *
-     * @param ccaName The name of the CCA.
-     * @param roleName The role associated with the CCA.
-     * @param totalSessions The total number of sessions for this CCA.
-     * @return The updated `EditPersonDescriptorBuilder` instance.
-     */
+    // METHOD REMOVED: withCcaInformation(String ccaName, String roleName, int totalSessions)
+    // This method is no longer valid as EditPersonDescriptor does not store CCA info.
+    /*
     public EditPersonDescriptorBuilder withCcaInformation(String ccaName, String roleName, int totalSessions) {
-        Set<CcaInformation> ccaInfoSet = new HashSet<>();
-
-        Cca cca = new Cca(new CcaName(ccaName), new HashSet<>(), new SessionCount(totalSessions));
-        Role role = new Role(roleName);
-        Attendance attendance = new Attendance(new SessionCount(0), new SessionCount(totalSessions));
-
-        ccaInfoSet.add(new CcaInformation(cca, role, attendance));
-        descriptor.setCcaInformation(ccaInfoSet);
+        // ... implementation removed ...
+        // descriptor.setCcaInformation(ccaInfoSet); // This line is no longer valid
         return this;
     }
+    */
 
     public EditPersonDescriptor build() {
         return descriptor;
