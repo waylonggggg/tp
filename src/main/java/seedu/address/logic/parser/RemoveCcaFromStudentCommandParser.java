@@ -1,4 +1,3 @@
-// --- New File: seedu.address.logic.parser.RemoveCcaFromStudentCommandParser.java ---
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
@@ -27,7 +26,6 @@ public class RemoveCcaFromStudentCommandParser implements Parser<RemoveCcaFromSt
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CCA);
 
-        // Ensure CCA prefix is present and preamble (index) exists
         if (!arePrefixesPresent(argMultimap, PREFIX_CCA)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
@@ -38,12 +36,10 @@ public class RemoveCcaFromStudentCommandParser implements Parser<RemoveCcaFromSt
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            // Re-throw with specific command usage context
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCcaFromStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        // Check for duplicate prefixes.
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA);
 
         CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA).get());

@@ -1,4 +1,3 @@
-// --- New File: seedu.address.logic.commands.AddCcaToStudentCommand.java ---
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -20,7 +19,7 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.model.role.Role; // Needed for default role
+import seedu.address.model.role.Role;
 
 /**
  * Adds a CCA to a student identified using it's displayed index from the address book.
@@ -39,7 +38,6 @@ public class AddCcaToStudentCommand extends Command {
 
     public static final String MESSAGE_ADD_CCA_SUCCESS = "Added CCA %2$s to student: %1$s";
     public static final String MESSAGE_CCA_ALREADY_PRESENT = "This student is already enrolled in this CCA.";
-    // Using existing Messages.MESSAGE_CCA_NOT_FOUND for CCA not in system
 
     private final Index studentIndex;
     private final CcaName ccaName;
@@ -58,34 +56,27 @@ public class AddCcaToStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Cca> lastCcaList = model.getCcaList(); // Use getCcaList() which returns List<Cca>
+        List<Cca> lastCcaList = model.getCcaList();
 
-        // Validate Student Index
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person personToAddCca = lastShownPersonList.get(studentIndex.getZeroBased());
 
-        // Find the CCA in the system's CCA list
         Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
         if (searchedCca.isEmpty()) {
-            // Use the specific message for CCA not existing in the address book
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
         Cca targetCca = searchedCca.get();
 
-        // Check if student already has this CCA
         if (personToAddCca.hasCca(targetCca)) {
             throw new CommandException(MESSAGE_CCA_ALREADY_PRESENT);
         }
 
-        // Create the new CcaInformation for the student
-        // Use the default role and create initial attendance based on the CCA's total sessions
         CcaInformation newCcaInfo = new CcaInformation(targetCca,
                 new Role(Role.DEFAULT_ROLE_NAME),
                 targetCca.createNewAttendance());
 
-        // Create the updated person
         Set<CcaInformation> updatedCcaInformations = new HashSet<>(personToAddCca.getCcaInformations());
         updatedCcaInformations.add(newCcaInfo);
 
@@ -93,14 +84,9 @@ public class AddCcaToStudentCommand extends Command {
                 personToAddCca.getEmail(), personToAddCca.getAddress(),
                 updatedCcaInformations);
 
-        // Update the model
-        // setPerson might throw IllegalArgumentException if the added CCA (targetCca)
-        // doesn't exist in the model's internal CCA list during validation.
-        // This check is slightly redundant since we found it earlier, but good practice.
         try {
             model.setPerson(personToAddCca, personWithAddedCca);
         } catch (IllegalArgumentException e) {
-            // This likely corresponds to MESSAGE_CCA_NOT_FOUND if setPerson checks CCA existence.
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
 
