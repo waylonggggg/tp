@@ -55,6 +55,9 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 * Items in square brackets are optional.<br>
   e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
 
+* Items with ... after them can be used multiple times including zero times.
+e.g. `[r/ROLE]`... can be used as `  `(i.e. 0 times), `r/President`, `r/Vice-President` `r/Treasurer` etc.
+
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
