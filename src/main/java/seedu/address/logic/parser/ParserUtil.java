@@ -171,29 +171,13 @@ public class ParserUtil {
      * @throws ParseException
      */
     public static CcaInformation parseCcaInformation(String ccaName, String roleName) throws ParseException {
-
-        Cca cca = parseCca(ccaName);
+        Cca cca = parseCca(ccaName); // This creates a basic Cca object, doesn't fetch from model
         Role role = parseRole(roleName);
+        // This assumes the parsed Cca object can create a valid default Attendance.
+        // It might be better if the command fetches the actual Cca from the model
+        // before creating CcaInformation, as done in AddCcaToStudentCommand.
         Attendance attendance = cca.createNewAttendance();
-
         return new CcaInformation(cca, role, attendance);
-    }
-
-
-    /**
-     * Parses a {@code String ccaName} into a {@code Set<CcaInformation>} with a default role.
-     * This method is used when only the CCA name is provided.
-     *
-     * @param ccaName The CCA name.
-     * @return A set containing one {@code CcaInformation} with a default role.
-     */
-    public static Set<CcaInformation> parseCcaInformation(String ccaName) throws ParseException {
-        // This is an overloaded version of the method parseCcaInformation
-        // Define a default role that will be used since role editing is not allowed.
-        String defaultRole = "Member"; // Change this if a different default is required.
-        Set<CcaInformation> ccaInformations = new HashSet<CcaInformation>();
-        ccaInformations.add(parseCcaInformation(ccaName, defaultRole));
-        return ccaInformations;
     }
 
     /**

@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCcaToStudentCommand; // New import
 import seedu.address.logic.commands.AddRoleToStudentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -21,7 +22,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecordAttendanceCommand;
-import seedu.address.logic.commands.exceptions.DeleteRoleFromStudentCommand;
+
+import seedu.address.logic.commands.exceptions.DeleteRoleFromStudentCommand; // Note: This import seems misplaced, maybe should be DeleteRoleFromStudentCommand in commands package?
+// Assuming DeleteRoleFromStudentCommand is in logic.commands, not logic.commands.exceptions
+// import seedu.address.logic.commands.DeleteRoleFromStudentCommand; // Correct import if it's in commands package
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,10 +80,15 @@ public class AddressBookParser {
         case RecordAttendanceCommand.COMMAND_WORD:
             return new RecordAttendanceCommandParser().parse(arguments);
 
+        case AddCcaToStudentCommand.COMMAND_WORD: // New case
+            return new AddCcaToStudentCommandParser().parse(arguments);
+
+
         case AddRoleToStudentCommand.COMMAND_WORD:
             return new AddRoleToStudentCommandParser().parse(arguments);
 
         case DeleteRoleFromStudentCommand.COMMAND_WORD:
+            // Ensure the correct DeleteRoleFromStudentCommandParser is imported/used
             return new DeleteRoleFromStudentCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
