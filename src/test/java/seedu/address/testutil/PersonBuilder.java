@@ -56,14 +56,6 @@ public class PersonBuilder {
         return this;
     }
 
-    /*
-    public PersonBuilder withCcaInformation(ObservableList<Cca> uniqueCcaList, String... ccaInformationData)
-    throws IllegalValueException {
-        this.ccaInformation = SampleDataUtil.getCcaInformationSet(uniqueCcaList, ccaInformationData);
-        return this;
-    }
-    */
-
     /**
      * Sets the {@code Cca} of the {@code Person} that we are building.
      */

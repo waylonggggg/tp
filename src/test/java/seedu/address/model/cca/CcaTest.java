@@ -5,18 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_GARDENING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_CAPTAIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_MEMBER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_VICE_CAPTAIN;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
-import static seedu.address.testutil.TypicalCcas.CAPTAIN;
 import static seedu.address.testutil.TypicalCcas.GARDENING;
 import static seedu.address.testutil.TypicalCcas.MEDIUM_TOTAL_SESSIONS;
-import static seedu.address.testutil.TypicalCcas.MEMBER;
-import static seedu.address.testutil.TypicalCcas.VICE_CAPTAIN;
 
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.role.Role;
 import seedu.address.testutil.CcaBuilder;
 
 public class CcaTest {
@@ -88,7 +89,7 @@ public class CcaTest {
 
     @Test
     public void getRoles() {
-        assertEquals(Set.of(MEMBER, CAPTAIN, VICE_CAPTAIN), BASKETBALL.getRoles());
+        assertEquals(Set.of(new Role(VALID_ROLE_MEMBER), new Role(VALID_ROLE_CAPTAIN), new Role(VALID_ROLE_VICE_CAPTAIN)), BASKETBALL.getRoles());
     }
 
     @Test
