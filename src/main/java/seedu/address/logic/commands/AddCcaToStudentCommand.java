@@ -99,7 +99,7 @@ public class AddCcaToStudentCommand extends Command {
 
         // Create the new CcaInformation with default role and attendance
         CcaInformation newCcaInfo = new CcaInformation(targetCca,
-                new Role(Role.DEFAULT_ROLE_NAME),
+                Role.DEFAULT_ROLE,
                 targetCca.createNewAttendance());
 
         // Create the updated Person object
