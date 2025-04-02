@@ -15,6 +15,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateCcaCommand;
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.DeleteCcaCommand;
+import seedu.address.logic.commands.DeleteRoleFromStudentCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
 import seedu.address.logic.commands.EditCcaCommand;
 import seedu.address.logic.commands.EditStudentCommand;
@@ -24,7 +25,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecordAttendanceCommand;
 import seedu.address.logic.commands.RemoveCcaFromStudentCommand;
-import seedu.address.logic.commands.exceptions.DeleteRoleFromStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
