@@ -11,9 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.Amount;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
@@ -168,24 +166,6 @@ public class ParserUtil {
             throw new ParseException(Messages.MESSAGE_INVALID_AMOUNT);
         }
         return new Amount(Integer.parseInt(trimmedAmount));
-    }
-
-    /**
-     * Parses a single CCA name, Role name and amount into a {@code CcaInformation}.
-     *
-     * @param ccaName The CCA name.
-     * @param roleName The Role name.
-     * @return A {@code CcaInformation} object with the default {@code Attendance}.
-     * @throws ParseException
-     */
-    public static CcaInformation parseCcaInformation(String ccaName, String roleName) throws ParseException {
-        Cca cca = parseCca(ccaName); // This creates a basic Cca object, doesn't fetch from model
-        Role role = parseRole(roleName);
-        // This assumes the parsed Cca object can create a valid default Attendance.
-        // It might be better if the command fetches the actual Cca from the model
-        // before creating CcaInformation, as done in AddCcaToStudentCommand.
-        Attendance attendance = cca.createNewAttendance();
-        return new CcaInformation(cca, role, attendance);
     }
 
     /**

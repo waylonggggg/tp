@@ -34,13 +34,11 @@ public class TypicalCcas {
     public static final Role CAPTAIN = new Role("Captain");
     public static final Role VICE_CAPTAIN = new Role("Vice-Captain");
 
-    public static final Set<Role> ACTING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
-            new Role("Vice-President"), new Role("Member")));
+    public static final Set<Role> ACTING_ROLES = new HashSet<>(Arrays.asList(PRESIDENT, VICE_PRESIDENT, MEMBER));
     public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
             .withRoles(ACTING_ROLES).build(); // Assumes default sessions (e.g., 0)
 
-    public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
-            new Role("Vice-Captain"), new Role("Member")));
+    public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(CAPTAIN, VICE_CAPTAIN, MEMBER));
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
             .withRoles(BASKETBALL_ROLES).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build(); // Has sessions = 10
 

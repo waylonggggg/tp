@@ -139,7 +139,6 @@ public class EditStudentCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        // REMOVED: private Set<CcaInformation> ccaInformation;
 
         public EditPersonDescriptor() {}
 
