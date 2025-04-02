@@ -342,6 +342,22 @@ public class Person {
     }
 
     /**
+     * Creates and returns a new Person object with the given CcaInformation added.
+     * It is the caller's responsibility to ensure the added CCA is not a duplicate
+     * based on the application's definition (e.g., using hasCca before calling this).
+     *
+     * @param newCcaInfo The CcaInformation to add. Cannot be null.
+     * @return A new Person object instance with the added CCA information.
+     */
+    public Person addCca(CcaInformation newCcaInfo) {
+        requireNonNull(newCcaInfo);
+        Set<CcaInformation> updatedCcas = new HashSet<>(this.ccaInformations);
+        boolean added = updatedCcas.add(newCcaInfo);
+        
+        return new Person(this.name, this.phone, this.email, this.address, updatedCcas);
+    }
+
+    /**
      * Checks if two persons are equal based on all identity and data fields.
      * Defines a stronger notion of equality.
      *

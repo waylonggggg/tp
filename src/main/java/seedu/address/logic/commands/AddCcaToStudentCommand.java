@@ -92,22 +92,19 @@ public class AddCcaToStudentCommand extends Command {
         Cca targetCca = searchedCca.get();
         assert targetCca != null : "Target Cca object should exist if Optional is not empty.";
 
-        // Check 3: Ensure student doesn't already have this CCA
         if (personToAddCca.hasCca(targetCca)) {
             throw new CommandException(MESSAGE_CCA_ALREADY_PRESENT);
         }
 
-        // Create the new CcaInformation with default role and attendance
         CcaInformation newCcaInfo = new CcaInformation(targetCca,
                 Role.DEFAULT_ROLE,
                 targetCca.createNewAttendance());
 
-        // Create the updated Person object
         Set<CcaInformation> updatedCcaInformations = new HashSet<>(personToAddCca.getCcaInformations());
         updatedCcaInformations.add(newCcaInfo);
-        Person personWithAddedCca = new Person(personToAddCca.getName(), personToAddCca.getPhone(),
-                personToAddCca.getEmail(), personToAddCca.getAddress(),
-                updatedCcaInformations);
+
+        Person personWithAddedCca = personToAddCca.addCca(newCcaInfo);
+
         assert personWithAddedCca != null : "Newly created Person object should not be null.";
         assert personWithAddedCca.hasCca(targetCca) : "Newly created Person should have the target CCA.";
 
