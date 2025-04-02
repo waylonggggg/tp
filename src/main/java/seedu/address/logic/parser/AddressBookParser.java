@@ -22,7 +22,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecordAttendanceCommand;
-
+import seedu.address.logic.commands.RemoveCcaFromStudentCommand; // New import
 import seedu.address.logic.commands.exceptions.DeleteRoleFromStudentCommand; // Note: This import seems misplaced, maybe should be DeleteRoleFromStudentCommand in commands package?
 // Assuming DeleteRoleFromStudentCommand is in logic.commands, not logic.commands.exceptions
 // import seedu.address.logic.commands.DeleteRoleFromStudentCommand; // Correct import if it's in commands package
@@ -83,6 +83,8 @@ public class AddressBookParser {
         case AddCcaToStudentCommand.COMMAND_WORD: // New case
             return new AddCcaToStudentCommandParser().parse(arguments);
 
+        case RemoveCcaFromStudentCommand.COMMAND_WORD: // New case
+            return new RemoveCcaFromStudentCommandParser().parse(arguments);
 
         case AddRoleToStudentCommand.COMMAND_WORD:
             return new AddRoleToStudentCommandParser().parse(arguments);
