@@ -29,7 +29,7 @@ public class EditCcaCommandParserTest {
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
                 .withCcaName("Choir")
-                .withRoles("President")
+                .withRoles("President", "Member")
                 .withTotalSessions("10")
                 .build();
 

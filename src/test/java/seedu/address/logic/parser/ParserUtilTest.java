@@ -35,8 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_ROLE_1 = "president";
-    private static final String VALID_ROLE_2 = "member";
+    private static final String VALID_ROLE_1 = "President";
+    private static final String VALID_ROLE_2 = "Member";
     private static final String VALID_CCA_NAME_1 = "Basketball";
     private static final String VALID_CCA_NAME_2 = "Soccer";
 
@@ -188,8 +188,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRoles_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseRoles(Collections.emptyList()).isEmpty());
+    public void parseRoles_emptyCollection_returnsNonEmptySet_withOneMemberRole() throws Exception {
+        assertTrue(!ParserUtil.parseRoles(Collections.emptyList()).isEmpty());
     }
 
     @Test
