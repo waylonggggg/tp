@@ -595,7 +595,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 1.  User <u>requests to list the students (UC1)</u>.
 2. System shows list of CCAs.
-3. User requests to add a CCA to a specific student. 
+3. User requests to add a CCA to a specific student.
 4. System adds the CCA to the student.
 5. System shows the CCA has been added.
 
