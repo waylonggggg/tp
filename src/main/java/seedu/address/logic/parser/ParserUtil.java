@@ -143,22 +143,13 @@ public class ParserUtil {
         for (String roleName : roles) {
             if (roleName.equals(Role.DEFAULT_ROLE_NAME)) {
                 roleSet.add(Role.DEFAULT_ROLE);
-            }
-            roleSet.add(parseRole(roleName));
-        }
-
-        // Checks if the role set contains the default member role
-        boolean hasMemberRole = false;
-        for (Role role : roleSet) {
-            if (role.isDefaultRole()) {
-                hasMemberRole = true;
-                break;
+            } else {
+                roleSet.add(parseRole(roleName));
             }
         }
 
-        if (!hasMemberRole) {
-            roleSet.add(Role.DEFAULT_ROLE);
-        }
+        roleSet.add(Role.DEFAULT_ROLE);
+
         return roleSet;
     }
 
