@@ -16,6 +16,7 @@ import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.role.Role;
 
@@ -165,23 +166,72 @@ public class Person {
     }
 
     /**
+     * Checks if the person can attend a specified number of sessions in the CCA.
+     *
+     * @param ccaName The CCA name to check attendance for.
+     * @param amount The number of sessions to check.
+     * @return {@code true} if the person can attend the specified number of sessions, otherwise {@code false}.
+     */
+    public boolean canAttend(CcaName ccaName, Amount amount) {
+        if (!hasCca(ccaName)) {
+            return false;
+        }
+        CcaInformation ccaInformation = getCcaInformation(ccaName);
+        return ccaInformation.canAttend(amount);
+    }
+
+    /**
      * Updates the attendance record of the person for the specified CCA.
      *
      * @param ccaName The CCA name to update attendance for.
      * @param amount The amount to add to the person's attendance record.
      * @return A new Person object with the updated attendance record.
      */
-    public Person attendCca(CcaName ccaName, Amount amount) throws IllegalArgumentException, CcaNotFoundException {
+    public Person attend(CcaName ccaName, Amount amount) {
         if (!hasCca(ccaName)) {
             throw new CcaNotFoundException();
         }
         CcaInformation ccaInformation = getCcaInformation(ccaName);
-        Attendance attendance = ccaInformation.getAttendance();
-        Attendance newAttendance = attendance.attend(amount);
-        CcaInformation newCcaInformation = new CcaInformation(ccaInformation.getCca(), ccaInformation.getRole(),
-                newAttendance);
+        CcaInformation newCcaInformation = ccaInformation.attend(amount);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);
+        newCcaInformations.add(newCcaInformation);
+        return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
+     * Updates the specified CCA information in the person's record with the edited CCA details.
+     * This includes updating the total number of sessions while preserving the existing role and sessions attended.
+     * If the role in the edited CCA does not match the current role, it will default to a predefined role.
+     *
+     * @param target The original CCA to be updated. This contains the CCA's current details in the person's record.
+     * @param editedCca The edited CCA containing the new details, including the total number of sessions.
+     * @return A new {@code Person} object with the updated CCA information.
+     */
+    public Person updateCca(Cca target, Cca editedCca) {
+        CcaInformation targetCcaInformation = getCcaInformation(target.getCcaName());
+
+        Role currentRole = targetCcaInformation.getRole();
+        if (!editedCca.hasRole(currentRole)) {
+            currentRole = Role.DEFAULT_ROLE;
+        }
+
+        SessionCount currentAttendanceSessionCount = targetCcaInformation.getAttendance().getSessionsAttended();
+        SessionCount newCcaTotalSessionCount = editedCca.getTotalSessions();
+
+        Attendance newAttendance;
+
+        // Ensures sessions attended is less than the new cca total session count
+        if (currentAttendanceSessionCount.getSessionCount() > newCcaTotalSessionCount.getSessionCount()) {
+            newAttendance = new Attendance(new SessionCount(newCcaTotalSessionCount.getSessionCount()),
+                    newCcaTotalSessionCount);
+        } else {
+            newAttendance = new Attendance(currentAttendanceSessionCount, newCcaTotalSessionCount);
+        }
+
+        CcaInformation newCcaInformation = new CcaInformation(editedCca, currentRole, newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.remove(targetCcaInformation);
         newCcaInformations.add(newCcaInformation);
         return new Person(name, phone, email, address, newCcaInformations);
     }

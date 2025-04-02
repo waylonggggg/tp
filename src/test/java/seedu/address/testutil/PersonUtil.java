@@ -40,7 +40,6 @@ public class PersonUtil {
         // Include CCA/Role information - assuming CreateStudent handles this format
         person.getCcaInformations().forEach(ccaInfo -> {
             sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
-            // If CreateStudentCommand does not handle roles with PREFIX_ROLE, this line should be removed
             sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
         });
         // Trim trailing space if any prefixes were added

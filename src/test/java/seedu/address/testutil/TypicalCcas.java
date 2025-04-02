@@ -34,7 +34,6 @@ public class TypicalCcas {
     public static final Role CAPTAIN = new Role("Captain");
     public static final Role VICE_CAPTAIN = new Role("Vice-Captain");
 
-    // --- CCA Definitions ---
     public static final Set<Role> ACTING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
             new Role("Vice-President"), new Role("Member")));
     public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
@@ -80,8 +79,6 @@ public class TypicalCcas {
     public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING)
             .withRoles(GARDENING_ROLES).build(); // Assumes default sessions (e.g., 0)
 
-
-    // --- ADD THESE CCANAME CONSTANTS ---
     public static final CcaName CCA_NAME_BASKETBALL = BASKETBALL.getCcaName();
     public static final CcaName CCA_NAME_TENNIS = TENNIS.getCcaName();
     public static final CcaName CCA_NAME_BADMINTON = BADMINTON.getCcaName();
@@ -91,11 +88,9 @@ public class TypicalCcas {
     public static final CcaName CCA_NAME_VOLLEYBALL = VOLLEYBALL.getCcaName();
     public static final CcaName CCA_NAME_TRACK_AND_FIELD = TRACK_AND_FIELD.getCcaName();
     public static final CcaName CCA_NAME_GARDENING = GARDENING.getCcaName();
-    // --- END OF ADDED CONSTANTS ---
-
 
     private TypicalCcas() {
-    } // prevents instantiation
+    }
 
     /**
      * Returns an {@code AddressBook} with all the typical ccas.

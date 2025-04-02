@@ -12,8 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.exceptions.CcaNotFoundException;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -61,17 +59,13 @@ public class RecordAttendanceCommand extends Command {
         Person student = lastShownList.get(studentIndex.getZeroBased());
         if (!student.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
-        try {
-            model.recordAttendance(ccaName, student, amount);
-            Name studentName = student.getName();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(studentName),
-                    Messages.format(ccaName), Messages.format(amount)));
-        } catch (CcaNotFoundException e) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        } catch (IllegalArgumentException e) {
+        } else if (!student.canAttend(ccaName, amount)) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
         }
+        Person updatedStudent = student.attend(ccaName, amount);
+        model.setPerson(student, updatedStudent);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(student.getName()),
+                Messages.format(ccaName), Messages.format(amount)));
     }
 
     @Override

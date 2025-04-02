@@ -55,6 +55,9 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 * Items in square brackets are optional.<br>
   e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
 
+* Items with ... after them can be used multiple times including zero times.
+e.g. `[r/ROLE]`... can be used as `  `(i.e. 0 times), `r/President`, `r/Vice-President` `r/Treasurer` etc.
+
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
@@ -114,6 +117,22 @@ Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/R
 
 Examples:
 *  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+
+### Editing a cca : `edit_c`
+
+Edits an existing cca in the address book.
+
+Format: `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
+
+* Edits the cca at the specified `INDEX`. The index refers to the index number shown in the displayed cca list. The index **must be a positive integer** 1, 2, 3, …
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* The new name must not match any existing any cca names in the cca list.
+* The amount of total sessions must be a non-negative integer.
+* Regardless of the input for the role field, a "Member" role will automatically be created.
+
+Examples:
+*  `edit_c 1 n/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
