@@ -14,7 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CcaBuilder {
 
-    public static final String DEFAULT_CCA_NAME = "basketball";
+    public static final String DEFAULT_CCA_NAME = "Basketball";
     public static final int DEFAULT_TOTAL_SESSIONS = 0;
 
     private CcaName ccaName;
