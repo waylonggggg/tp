@@ -188,7 +188,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRoles_emptyCollection_returnsNonEmptySet_withOneMemberRole() throws Exception {
+    public void parseRoles_emptyCollection_returnsNonEmptySet() throws Exception {
         assertTrue(!ParserUtil.parseRoles(Collections.emptyList()).isEmpty());
     }
 
