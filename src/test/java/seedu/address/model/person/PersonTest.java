@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
-import static seedu.address.testutil.TypicalCcas.CAPTAIN;
 import static seedu.address.testutil.TypicalCcas.TENNIS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -24,6 +23,7 @@ import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.role.Role;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -87,7 +87,7 @@ public class PersonTest {
         // valid attendance -> returns true
         Person aliceWithAttendance = ALICE.attend(BASKETBALL.getCcaName(), new Amount(1));
         Set<CcaInformation> expectedCcaInformations = new HashSet<>();
-        expectedCcaInformations.add(new CcaInformation(BASKETBALL, CAPTAIN,
+        expectedCcaInformations.add(new CcaInformation(BASKETBALL, new Role("Captain"),
                 BASKETBALL.createNewAttendance().attend(new Amount(1))));
         Person expectedAlice = new PersonBuilder(ALICE).withCcaInformations(expectedCcaInformations).build();
         assertEquals(expectedAlice, aliceWithAttendance);
