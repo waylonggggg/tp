@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName; // <-- Import CcaName
 import seedu.address.model.role.Role;
 
 /**
@@ -25,49 +26,73 @@ import seedu.address.model.role.Role;
 public class TypicalCcas {
 
     public static final int SMALL_TOTAL_SESSIONS = 5;
-    public static final int MEDIUM_TOTAL_SESSIONS = 10;
+    public static final int MEDIUM_TOTAL_SESSIONS = 10; // Note: Basketball uses 10 here
     public static final int LARGE_TOTAL_SESSIONS = 15;
     public static final Role PRESIDENT = new Role("President");
     public static final Role VICE_PRESIDENT = new Role("Vice-President");
     public static final Role MEMBER = new Role("Member");
     public static final Role CAPTAIN = new Role("Captain");
     public static final Role VICE_CAPTAIN = new Role("Vice-Captain");
+
+    // --- CCA Definitions ---
     public static final Set<Role> ACTING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
             new Role("Vice-President"), new Role("Member")));
     public static final Cca ACTING = new CcaBuilder().withCcaName(VALID_CCA_NAME_ACTING)
-            .withRoles(ACTING_ROLES).build();
+            .withRoles(ACTING_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> BASKETBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BASKETBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL)
-            .withRoles(BASKETBALL_ROLES).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build();
+            .withRoles(BASKETBALL_ROLES).withTotalSessions(MEDIUM_TOTAL_SESSIONS).build(); // Has sessions = 10
+
     public static final Set<Role> BADMINTON_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca BADMINTON = new CcaBuilder().withCcaName(VALID_CCA_NAME_BADMINTON)
-            .withRoles(BADMINTON_ROLES).build();
+            .withRoles(BADMINTON_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> SWIMMING_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca SWIMMING = new CcaBuilder().withCcaName(VALID_CCA_NAME_SWIMMING)
-            .withRoles(SWIMMING_ROLES).build();
+            .withRoles(SWIMMING_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> TABLE_TENNIS_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TABLE_TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TABLE_TENNIS)
-            .withRoles(TABLE_TENNIS_ROLES).build();
+            .withRoles(TABLE_TENNIS_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> TENNIS_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TENNIS = new CcaBuilder().withCcaName(VALID_CCA_NAME_TENNIS)
-            .withRoles(TENNIS_ROLES).build();
+            .withRoles(TENNIS_ROLES).build(); // Assumes default sessions (e.g., 0) - Update if needed for tests
+
     public static final Set<Role> VOLLEYBALL_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL)
-            .withRoles(VOLLEYBALL_ROLES).build();
+            .withRoles(VOLLEYBALL_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> TRACK_AND_FIELD_ROLES = new HashSet<>(Arrays.asList(new Role("Captain"),
             new Role("Vice-Captain"), new Role("Member")));
     public static final Cca TRACK_AND_FIELD = new CcaBuilder().withCcaName(VALID_CCA_NAME_TRACK_AND_FIELD)
-            .withRoles(TRACK_AND_FIELD_ROLES).build();
+            .withRoles(TRACK_AND_FIELD_ROLES).build(); // Assumes default sessions (e.g., 0)
+
     public static final Set<Role> GARDENING_ROLES = new HashSet<>(Arrays.asList(new Role("President"),
             new Role("Vice-President"), new Role("Member")));
     public static final Cca GARDENING = new CcaBuilder().withCcaName(VALID_CCA_NAME_GARDENING)
-            .withRoles(GARDENING_ROLES).build();
+            .withRoles(GARDENING_ROLES).build(); // Assumes default sessions (e.g., 0)
+
+
+    // --- ADD THESE CCANAME CONSTANTS ---
+    public static final CcaName CCA_NAME_BASKETBALL = BASKETBALL.getCcaName();
+    public static final CcaName CCA_NAME_TENNIS = TENNIS.getCcaName();
+    public static final CcaName CCA_NAME_BADMINTON = BADMINTON.getCcaName();
+    public static final CcaName CCA_NAME_ACTING = ACTING.getCcaName();
+    public static final CcaName CCA_NAME_SWIMMING = SWIMMING.getCcaName();
+    public static final CcaName CCA_NAME_TABLE_TENNIS = TABLE_TENNIS.getCcaName();
+    public static final CcaName CCA_NAME_VOLLEYBALL = VOLLEYBALL.getCcaName();
+    public static final CcaName CCA_NAME_TRACK_AND_FIELD = TRACK_AND_FIELD.getCcaName();
+    public static final CcaName CCA_NAME_GARDENING = GARDENING.getCcaName();
+    // --- END OF ADDED CONSTANTS ---
+
 
     private TypicalCcas() {
     } // prevents instantiation
