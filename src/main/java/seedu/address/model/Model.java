@@ -85,6 +85,11 @@ public interface Model {
     boolean hasCca(Cca cca);
 
     /**
+     * Returns true if a cca with the same name as {@code ccaName} exists in the address book.
+     */
+    boolean hasCca(CcaName ccaName);
+
+    /**
      * Adds the given cca.
      * {@code cca} must not already exist in the address book.
      */
@@ -95,6 +100,12 @@ public interface Model {
      * The cca must exist in the address book.
      */
     void deleteCca(Cca target);
+
+    /**
+     * Gets the cca with the same name as {@code ccaName} in the address book.
+     * The cca must exist in the address book.
+     */
+    Cca getCca(CcaName ccaName);
 
     /**
      * Replaces the given cca {@code target} with {@code editedCca}.

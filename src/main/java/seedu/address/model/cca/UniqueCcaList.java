@@ -37,6 +37,14 @@ public class UniqueCcaList implements Iterable<Cca> {
     }
 
     /**
+     * Returns true if the list contains an equivalent CCA with the given {@code ccaName} as the given argument.
+     */
+    public boolean contains(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return internalList.stream().anyMatch(cca -> cca.getCcaName().equals(ccaName));
+    }
+
+    /**
      * Adds a CCA to the list.
      * The CCA must not already exist in the list.
      */
@@ -46,6 +54,20 @@ public class UniqueCcaList implements Iterable<Cca> {
             throw new DuplicateCcaException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Gets the CCA with the given {@code ccaName} from the list.
+     * The CCA must exist in the list.
+     */
+    public Cca getCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        for (Cca cca : internalList) {
+            if (cca.getCcaName().equals(ccaName)) {
+                return cca;
+            }
+        }
+        throw new CcaNotFoundException();
     }
 
     /**

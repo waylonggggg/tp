@@ -83,12 +83,22 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasCca(CcaName ccaName) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteCca(Cca target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Cca getCca(CcaName ccaName) {
         throw new AssertionError("This method should not be called.");
     }
 
