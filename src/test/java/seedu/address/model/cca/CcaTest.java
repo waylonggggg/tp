@@ -7,13 +7,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKET
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_GARDENING;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
+import static seedu.address.testutil.TypicalCcas.CAPTAIN;
 import static seedu.address.testutil.TypicalCcas.GARDENING;
+import static seedu.address.testutil.TypicalCcas.MEDIUM_TOTAL_SESSIONS;
+import static seedu.address.testutil.TypicalCcas.MEMBER;
+import static seedu.address.testutil.TypicalCcas.VICE_CAPTAIN;
 
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.role.Role;
 import seedu.address.testutil.CcaBuilder;
 
 public class CcaTest {
@@ -85,15 +88,11 @@ public class CcaTest {
 
     @Test
     public void getRoles() {
-        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player")
-                .withTotalSessions(15).build();
-        assertEquals(Set.of(new Role("Captain"), new Role("Player")), basketball.getRoles());
+        assertEquals(Set.of(MEMBER, CAPTAIN, VICE_CAPTAIN), BASKETBALL.getRoles());
     }
 
     @Test
     public void getTotalSessions() {
-        Cca basketball = new CcaBuilder().withCcaName("Basketball").withRoles("Captain", "Player")
-                .withTotalSessions(15).build();
-        assertEquals(15, basketball.getTotalSessions().getSessionCount());
+        assertEquals(MEDIUM_TOTAL_SESSIONS, BASKETBALL.getTotalSessions().getSessionCount());
     }
 }
