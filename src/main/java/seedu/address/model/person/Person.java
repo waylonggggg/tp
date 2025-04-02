@@ -11,9 +11,11 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Amount;
+import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.role.Role;
 
@@ -185,6 +187,43 @@ public class Person {
         CcaInformation newCcaInformation = ccaInformation.attend(amount);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);
+        newCcaInformations.add(newCcaInformation);
+        return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
+     * Updates the specified CCA information in the person's record with the edited CCA details.
+     * This includes updating the total number of sessions while preserving the existing role and sessions attended.
+     * If the role in the edited CCA does not match the current role, it will default to a predefined role.
+     *
+     * @param target The original CCA to be updated. This contains the CCA's current details in the person's record.
+     * @param editedCca The edited CCA containing the new details, including the total number of sessions.
+     * @return A new {@code Person} object with the updated CCA information.
+     */
+    public Person updateCca(Cca target, Cca editedCca) {
+        CcaInformation targetCcaInformation = getCcaInformation(target.getCcaName());
+
+        Role currentRole = targetCcaInformation.getRole();
+        if (!editedCca.hasRole(currentRole)) {
+            currentRole = Role.DEFAULT_ROLE;
+        }
+
+        SessionCount currentAttendanceSessionCount = targetCcaInformation.getAttendance().getSessionsAttended();
+        SessionCount newCcaTotalSessionCount = editedCca.getTotalSessions();
+
+        Attendance newAttendance;
+
+        // Ensures sessions attended is less than the new cca total session count
+        if (currentAttendanceSessionCount.getSessionCount() > newCcaTotalSessionCount.getSessionCount()) {
+            newAttendance = new Attendance(new SessionCount(newCcaTotalSessionCount.getSessionCount()),
+                    newCcaTotalSessionCount);
+        } else {
+            newAttendance = new Attendance(currentAttendanceSessionCount, newCcaTotalSessionCount);
+        }
+
+        CcaInformation newCcaInformation = new CcaInformation(editedCca, currentRole, newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.remove(targetCcaInformation);
         newCcaInformations.add(newCcaInformation);
         return new Person(name, phone, email, address, newCcaInformations);
     }
