@@ -108,16 +108,8 @@ public class AddCcaToStudentCommand extends Command {
         assert personWithAddedCca != null : "Newly created Person object should not be null.";
         assert personWithAddedCca.hasCca(targetCca) : "Newly created Person should have the target CCA.";
 
-        // Update the model
-        try {
-            model.setPerson(personToAddCca, personWithAddedCca);
-        } catch (IllegalArgumentException e) {
-            // This catch block handles potential validation errors within model.setPerson,
-            // mapping them to MESSAGE_CCA_NOT_FOUND as per previous discussion.
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
+        model.setPerson(personToAddCca, personWithAddedCca);
 
-        // Update the filter and return result
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_ADD_CCA_SUCCESS,
                 Messages.format(personWithAddedCca),

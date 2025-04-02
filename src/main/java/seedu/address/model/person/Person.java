@@ -353,7 +353,7 @@ public class Person {
         requireNonNull(newCcaInfo);
         Set<CcaInformation> updatedCcas = new HashSet<>(this.ccaInformations);
         boolean added = updatedCcas.add(newCcaInfo);
-        
+
         return new Person(this.name, this.phone, this.email, this.address, updatedCcas);
     }
 
