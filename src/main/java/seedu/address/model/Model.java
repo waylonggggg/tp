@@ -59,6 +59,12 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if all the CCAs of the given person are valid.
+     * The person must exist in the address book.
+     */
+    boolean isValidPersonCcas(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
