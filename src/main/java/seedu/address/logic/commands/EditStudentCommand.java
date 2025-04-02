@@ -40,7 +40,7 @@ public class EditStudentCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS]\n" // REMOVED CCA PREFIX
+            + "[" + PREFIX_ADDRESS + "ADDRESS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -81,18 +81,11 @@ public class EditStudentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        // The IllegalArgumentException previously caught here was related to
-        // CcaNotFound in setPerson when validating CCAs. Since we are no longer
-        // editing CCAs here, this specific catch might be less relevant,
-        // but setPerson might have other validations. Keep it general for now.
-        try {
-            model.setPerson(personToEdit, editedPerson);
-        } catch (IllegalArgumentException e) {
-            // This might catch other issues in setPerson if they exist.
-            // If specifically CcaNotFound is the only expected one, this could be removed.
-            // For now, keep a general message or refine if setPerson's exceptions are known.
-            throw new CommandException("An unexpected error occurred while editing the student: " + e.getMessage());
+        if (!model.isValidPersonCcas(editedPerson)) {
+            // This exception indicates a CCA associated with the person doesn't exist in the AddressBook's CCA list.
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
+        model.setPerson(personToEdit, editedPerson);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
