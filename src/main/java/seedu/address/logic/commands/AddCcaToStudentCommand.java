@@ -73,15 +73,12 @@ public class AddCcaToStudentCommand extends Command {
         }
 
         CcaInformation newCcaInfo = new CcaInformation(targetCca, Role.DEFAULT_ROLE, targetCca.createNewAttendance());
-        Set<CcaInformation> updatedCcaInformations = new HashSet<>(personToAddCca.getCcaInformations());
 
-        updatedCcaInformations.add(newCcaInfo);
         Person personWithAddedCca = personToAddCca.addCca(newCcaInfo);
 
         model.setPerson(personToAddCca, personWithAddedCca);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_CCA_SUCCESS, Messages.format(personWithAddedCca),
-                Messages.format(ccaName)));
+        return new CommandResult(String.format(MESSAGE_ADD_CCA_SUCCESS, Messages.format(personWithAddedCca)));
     }
 
     @Override
@@ -96,7 +93,7 @@ public class AddCcaToStudentCommand extends Command {
         }
 
         AddCcaToStudentCommand otherCommand = (AddCcaToStudentCommand) other;
-        assert otherCommand != null : "Object should be an instance of AddCcaToStudentCommand.";
+
         return studentIndex.equals(otherCommand.studentIndex)
                 && ccaName.equals(otherCommand.ccaName);
     }
