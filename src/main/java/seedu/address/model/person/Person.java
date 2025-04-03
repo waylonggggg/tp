@@ -18,6 +18,7 @@ import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
+import seedu.address.model.cca.exceptions.DuplicateCcaException;
 import seedu.address.model.role.Role;
 
 /**
@@ -137,10 +138,15 @@ public class Person {
      *
      * @param cca The CCA to add.
      * @return A new Person object instance with the specified CCA information added.
+     * @throws DuplicateCcaException if CCA is already present in the person.
      */
     public Person addCca(Cca cca) {
         requireNonNull(cca);
         Attendance newAttendance = cca.createNewAttendance();
+
+        if (hasCca(cca)) {
+            throw new DuplicateCcaException();
+        }
 
         CcaInformation newCcaInformation = new CcaInformation(cca, Role.DEFAULT_ROLE, newAttendance);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
@@ -154,14 +160,19 @@ public class Person {
      *
      * @param cca The CCA to remove.
      * @return A new Person object with the specified CCA Information removed.
+     * @throws CcaNotFoundException If the person is not enrolled in the CCA.
      */
     public Person removeCca(Cca cca) {
         requireNonNull(cca);
-        Set<CcaInformation> newCcaInformations = new HashSet<>();
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+
+        if (!hasCca(cca)) {
+            throw new CcaNotFoundException();
+        }
 
         for (CcaInformation currentInfo : this.ccaInformations) {
-            if (!currentInfo.isSameCca(cca)) {
-                newCcaInformations.add(currentInfo);
+            if (currentInfo.isSameCca(cca)) {
+                newCcaInformations.remove(currentInfo);
             }
         }
 
@@ -189,6 +200,7 @@ public class Person {
      * @param cca The CCA to update attendance for.
      * @param amount The amount to add to the person's attendance record.
      * @return A new Person object with the updated attendance record.
+     * @throws CcaNotFoundException If the person is not enrolled in the CCA.
      */
     public Person attend(Cca cca, Amount amount) {
         if (!hasCca(cca)) {
@@ -219,19 +231,10 @@ public class Person {
             currentRole = Role.DEFAULT_ROLE;
         }
 
-        SessionCount currentAttendanceSessionCount = targetCcaInformation.getAttendance().getSessionsAttended();
-        SessionCount newCcaTotalSessionCount = editedCca.getTotalSessions();
+        Attendance attendanceToUpdate = targetCcaInformation.getAttendance();
+        SessionCount newTotalSessions = editedCca.getTotalSessions();
 
-        Attendance newAttendance;
-
-        // Ensures sessions attended is less than the new cca total session count, if not, manually lower attendance
-        // count to match that of the cca's total sessions
-        if (currentAttendanceSessionCount.getSessionCount() > newCcaTotalSessionCount.getSessionCount()) {
-            newAttendance = new Attendance(new SessionCount(newCcaTotalSessionCount.getSessionCount()),
-                    newCcaTotalSessionCount);
-        } else {
-            newAttendance = new Attendance(currentAttendanceSessionCount, newCcaTotalSessionCount);
-        }
+        Attendance newAttendance = attendanceToUpdate.updateTotalSessions(newTotalSessions);
 
         CcaInformation newCcaInformation = new CcaInformation(editedCca, currentRole, newAttendance);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
