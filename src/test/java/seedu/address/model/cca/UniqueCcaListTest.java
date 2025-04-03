@@ -17,7 +17,7 @@ public class UniqueCcaListTest {
 
     @Test
     public void contains_nullCca_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueCcaList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniqueCcaList.contains((Cca) null));
     }
 
     @Test

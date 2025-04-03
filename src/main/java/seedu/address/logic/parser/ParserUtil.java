@@ -11,9 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.Amount;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
@@ -168,40 +166,6 @@ public class ParserUtil {
             throw new ParseException(Messages.MESSAGE_INVALID_AMOUNT);
         }
         return new Amount(Integer.parseInt(trimmedAmount));
-    }
-
-    /**
-     * Parses a single CCA name, Role name and amount into a {@code CcaInformation}.
-     *
-     * @param ccaName The CCA name.
-     * @param roleName The Role name.
-     * @return A {@code CcaInformation} object with the default {@code Attendance}.
-     * @throws ParseException
-     */
-    public static CcaInformation parseCcaInformation(String ccaName, String roleName) throws ParseException {
-
-        Cca cca = parseCca(ccaName);
-        Role role = parseRole(roleName);
-        Attendance attendance = cca.createNewAttendance();
-
-        return new CcaInformation(cca, role, attendance);
-    }
-
-
-    /**
-     * Parses a {@code String ccaName} into a {@code Set<CcaInformation>} with a default role.
-     * This method is used when only the CCA name is provided.
-     *
-     * @param ccaName The CCA name.
-     * @return A set containing one {@code CcaInformation} with a default role.
-     */
-    public static Set<CcaInformation> parseCcaInformation(String ccaName) throws ParseException {
-        // This is an overloaded version of the method parseCcaInformation
-        // Define a default role that will be used since role editing is not allowed.
-        String defaultRole = "Member"; // Change this if a different default is required.
-        Set<CcaInformation> ccaInformations = new HashSet<CcaInformation>();
-        ccaInformations.add(parseCcaInformation(ccaName, defaultRole));
-        return ccaInformations;
     }
 
     /**

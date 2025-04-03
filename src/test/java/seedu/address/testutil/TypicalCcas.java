@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 
 /**
  * A utility class containing a list of {@code Cca} objects to be used in tests.
@@ -57,6 +58,16 @@ public class TypicalCcas {
     public static final Cca VOLLEYBALL = new CcaBuilder().withCcaName(VALID_CCA_NAME_VOLLEYBALL)
             .withRoles(VALID_ROLE_CAPTAIN, VALID_ROLE_VICE_CAPTAIN, VALID_ROLE_MEMBER)
             .withTotalSessions(SMALL_TOTAL_SESSIONS).build();
+
+    public static final CcaName CCA_NAME_BASKETBALL = BASKETBALL.getCcaName();
+    public static final CcaName CCA_NAME_TENNIS = TENNIS.getCcaName();
+    public static final CcaName CCA_NAME_BADMINTON = BADMINTON.getCcaName();
+    public static final CcaName CCA_NAME_ACTING = ACTING.getCcaName();
+    public static final CcaName CCA_NAME_SWIMMING = SWIMMING.getCcaName();
+    public static final CcaName CCA_NAME_TABLE_TENNIS = TABLE_TENNIS.getCcaName();
+    public static final CcaName CCA_NAME_VOLLEYBALL = VOLLEYBALL.getCcaName();
+    public static final CcaName CCA_NAME_TRACK_AND_FIELD = TRACK_AND_FIELD.getCcaName();
+    public static final CcaName CCA_NAME_GARDENING = GARDENING.getCcaName();
 
     private TypicalCcas() {
     } // prevents instantiation

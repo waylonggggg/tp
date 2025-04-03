@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Amount;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
@@ -52,6 +53,11 @@ public class RecordAttendanceCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        if (!model.hasCca(ccaName)) {
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
+        }
+        Cca cca = model.getCca(ccaName);
+
         if (studentIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -59,10 +65,10 @@ public class RecordAttendanceCommand extends Command {
         Person student = lastShownList.get(studentIndex.getZeroBased());
         if (!student.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        } else if (!student.canAttend(ccaName, amount)) {
+        } else if (!student.canAttend(cca, amount)) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
         }
-        Person updatedStudent = student.attend(ccaName, amount);
+        Person updatedStudent = student.attend(cca, amount);
         model.setPerson(student, updatedStudent);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(student.getName()),
                 Messages.format(ccaName), Messages.format(amount)));

@@ -101,7 +101,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasCca_nullCca_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasCca(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasCca((Cca) null));
     }
 
     @Test
