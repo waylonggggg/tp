@@ -96,6 +96,15 @@ public class CcaInformation {
     }
 
     /**
+     *  Returns if the CCA of this {@code CcaInformation} is the same with the other CCA provided.
+     * @param otherCca
+     * @return
+     */
+    public boolean isSameCca(Cca otherCca) {
+        return cca.isSameCca(otherCca);
+    }
+
+    /**
      * Returns a new {@code CcaInformation} object with the role added.
      * The current {@code role} of CCA Information must be a default role.
      * {@code roleToAdd} must not be the default role and must be defined in the CCA.

@@ -131,21 +131,40 @@ public class Person {
     }
 
     /**
+     * Creates and returns a new Person object with the given CCA added.
+     * It is the caller's responsibility to ensure the added CCA is not a duplicate
+     * based on the application's definition (e.g., using hasCca before calling this).
+     *
+     * @param cca The CCA to add.
+     * @return A new Person object instance with the specified CCA information added.
+     */
+    public Person addCca(Cca cca) {
+        requireNonNull(cca);
+        Attendance newAttendance = cca.createNewAttendance();
+
+        CcaInformation newCcaInformation = new CcaInformation(cca, Role.DEFAULT_ROLE, newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.add(newCcaInformation);
+        return new Person(this.name, this.phone, this.email, this.address, newCcaInformations);
+    }
+
+    /**
      * Removes the specified CCA from the person's CCA information based on CCA name identity.
      * If multiple entries exist for the same CCA name (due to past errors), this will remove all of them.
      *
-     * @param ccaToRemove The CCA whose name determines which entries to remove.
-     * @return A new Person object with the specified CCA entries removed.
+     * @param cca The CCA to remove.
+     * @return A new Person object with the specified CCA Information removed.
      */
-    public Person removeCca(Cca ccaToRemove) { // Parameter is the Cca object to identify which name to remove
-        requireNonNull(ccaToRemove);
+    public Person removeCca(Cca cca) {
+        requireNonNull(cca);
         Set<CcaInformation> newCcaInformations = new HashSet<>();
+
         for (CcaInformation currentInfo : this.ccaInformations) {
-            // Keep the CcaInformation only if its Cca does NOT have the same name as the one to remove
-            if (!currentInfo.getCca().isSameCca(ccaToRemove)) {
+            if (!currentInfo.isSameCca(cca)) {
                 newCcaInformations.add(currentInfo);
             }
         }
+
         return new Person(name, phone, email, address, newCcaInformations);
     }
 
@@ -229,7 +248,7 @@ public class Person {
      *
      * @param cca The CCA name to add role for.
      * @param role The role to add.
-     * @return A new Person object with the specified role added.
+     * @return A new {@code Person} object with the specified CCA Information added with a role.
      */
     public Person addRole(Cca cca, Role role) {
         CcaInformation oldCcaInformation = getCcaInformation(cca);
@@ -250,7 +269,7 @@ public class Person {
      * {@code cca} must exist in the person's CCA information.
      *
      * @param cca The CCA to remove role for.
-     * @return A new Person object with the role deleted.
+     * @return A new {@code Person} object with the specified CCA Information deleted with a role.
      */
     public Person removeRole(Cca cca) {
         CcaInformation oldCcaInformation = getCcaInformation(cca);
@@ -324,22 +343,6 @@ public class Person {
             }
         }
         return false;
-    }
-
-    /**
-     * Creates and returns a new Person object with the given CcaInformation added.
-     * It is the caller's responsibility to ensure the added CCA is not a duplicate
-     * based on the application's definition (e.g., using hasCca before calling this).
-     *
-     * @param newCcaInfo The CcaInformation to add. Cannot be null.
-     * @return A new Person object instance with the added CCA information.
-     */
-    public Person addCca(CcaInformation newCcaInfo) {
-        requireNonNull(newCcaInfo);
-        Set<CcaInformation> updatedCcas = new HashSet<>(this.ccaInformations);
-        boolean added = updatedCcas.add(newCcaInfo);
-
-        return new Person(this.name, this.phone, this.email, this.address, updatedCcas);
     }
 
     /**

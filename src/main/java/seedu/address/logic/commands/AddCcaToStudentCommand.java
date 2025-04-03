@@ -70,9 +70,7 @@ public class AddCcaToStudentCommand extends Command {
             throw new CommandException(MESSAGE_CCA_ALREADY_PRESENT);
         }
 
-        CcaInformation newCcaInfo = new CcaInformation(targetCca, Role.DEFAULT_ROLE, targetCca.createNewAttendance());
-
-        Person personWithAddedCca = personToAddCca.addCca(newCcaInfo);
+        Person personWithAddedCca = personToAddCca.addCca(targetCca);
 
         model.setPerson(personToAddCca, personWithAddedCca);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
