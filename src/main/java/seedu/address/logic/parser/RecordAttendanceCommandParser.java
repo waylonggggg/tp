@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 
 import java.util.stream.Stream;
 
@@ -24,18 +24,18 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
      */
     public RecordAttendanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_AMOUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA, PREFIX_AMOUNT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA, PREFIX_AMOUNT)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecordAttendanceCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA);
         try {
             Index studentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
+            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA).get());
             Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
 
             return new RecordAttendanceCommand(studentIndex, ccaName, amount);
