@@ -27,7 +27,6 @@ import seedu.address.model.person.Phone;
 
 /**
  * Edits the details of an existing student in the address book.
- * Does not allow editing of CCAs or Roles. Use add_c/remove_c and add_r/delete_r instead.
  */
 public class EditStudentCommand extends Command {
 
@@ -54,13 +53,11 @@ public class EditStudentCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the student in the filtered student list to edit
-     * @param editPersonDescriptor details to edit the student with
+     * Creates an EditStudentCommand to edit the {@code Person} specified by the index.
      */
     public EditStudentCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
-
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
@@ -82,7 +79,6 @@ public class EditStudentCommand extends Command {
         }
 
         if (!model.isValidPersonCcas(editedPerson)) {
-            // This exception indicates a CCA associated with the person doesn't exist in the AddressBook's CCA list.
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
         model.setPerson(personToEdit, editedPerson);
@@ -103,7 +99,6 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        // Preserve original CCAs
         Set<CcaInformation> updatedCcaInformation = personToEdit.getCcaInformations();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedCcaInformation);
@@ -150,14 +145,12 @@ public class EditStudentCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            // REMOVED: setCcaInformation(toCopy.ccaInformation);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            // REMOVED: ccaInformation from check
             return CollectionUtil.isAnyNonNull(name, phone, email, address);
         }
 
@@ -193,9 +186,6 @@ public class EditStudentCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        // REMOVED: setCcaInformation method
-        // REMOVED: getCcaInformation method
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -205,7 +195,6 @@ public class EditStudentCommand extends Command {
                 return false;
             }
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            // REMOVED: ccaInformation from comparison
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
@@ -214,7 +203,6 @@ public class EditStudentCommand extends Command {
 
         @Override
         public String toString() {
-            // REMOVED: ccaInformation from toString
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("phone", phone)

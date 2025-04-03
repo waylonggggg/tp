@@ -30,8 +30,7 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
     public EditCcaCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME,
-                        PREFIX_ROLE, PREFIX_TOTAL_SESSIONS);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_ROLE, PREFIX_TOTAL_SESSIONS);
 
         Index index;
 

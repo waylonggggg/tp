@@ -36,8 +36,8 @@ public class RemoveCcaFromStudentCommand extends Command {
     private final CcaName ccaName;
 
     /**
-     * @param studentIndex of the student in the filtered student list to remove CCA from.
-     * @param ccaName of the CCA to remove.
+     * Creates a RemoveCcaFromStudentCommand to remove the specified {@code CcaName} from the student at
+     * the specified {@code studentIndex}.
      */
     public RemoveCcaFromStudentCommand(Index studentIndex, CcaName ccaName) {
         requireAllNonNull(studentIndex, ccaName);
@@ -70,8 +70,7 @@ public class RemoveCcaFromStudentCommand extends Command {
         model.setPerson(personToRemoveCca, personWithRemovedCca);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS,
-                Messages.format(personWithRemovedCca),
+        return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS, Messages.format(personWithRemovedCca),
                 Messages.format(ccaName)));
     }
 
