@@ -90,22 +90,6 @@ public class Person {
         return address;
     }
 
-    // TODO: Remove this method after record attendance method in model is removed.
-    /**
-     * Returns the CCA information associated with the specified CCA.
-     *
-     * @param ccaName The CCA name to retrieve information for.
-     * @return The {@code CcaInformation} object associated with the specified CCA.
-     */
-    public CcaInformation getCcaInformation(CcaName ccaName) throws CcaNotFoundException {
-        for (CcaInformation ccaInformation : ccaInformations) {
-            if (ccaInformation.getCca().getCcaName().equals(ccaName)) {
-                return ccaInformation;
-            }
-        }
-        throw new CcaNotFoundException();
-    }
-
     /**
      * Returns the CCA information associated with the specified CCA.
      * {@code cca} must exist in the person's CCA information.
@@ -168,30 +152,30 @@ public class Person {
     /**
      * Checks if the person can attend a specified number of sessions in the CCA.
      *
-     * @param ccaName The CCA name to check attendance for.
+     * @param cca The CCA to check attendance for.
      * @param amount The number of sessions to check.
      * @return {@code true} if the person can attend the specified number of sessions, otherwise {@code false}.
      */
-    public boolean canAttend(CcaName ccaName, Amount amount) {
-        if (!hasCca(ccaName)) {
+    public boolean canAttend(Cca cca, Amount amount) {
+        if (!hasCca(cca)) {
             return false;
         }
-        CcaInformation ccaInformation = getCcaInformation(ccaName);
+        CcaInformation ccaInformation = getCcaInformation(cca);
         return ccaInformation.canAttend(amount);
     }
 
     /**
      * Updates the attendance record of the person for the specified CCA.
      *
-     * @param ccaName The CCA name to update attendance for.
+     * @param cca The CCA to update attendance for.
      * @param amount The amount to add to the person's attendance record.
      * @return A new Person object with the updated attendance record.
      */
-    public Person attend(CcaName ccaName, Amount amount) {
-        if (!hasCca(ccaName)) {
+    public Person attend(Cca cca, Amount amount) {
+        if (!hasCca(cca)) {
             throw new CcaNotFoundException();
         }
-        CcaInformation ccaInformation = getCcaInformation(ccaName);
+        CcaInformation ccaInformation = getCcaInformation(cca);
         CcaInformation newCcaInformation = ccaInformation.attend(amount);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);
@@ -209,7 +193,7 @@ public class Person {
      * @return A new {@code Person} object with the updated CCA information.
      */
     public Person updateCca(Cca target, Cca editedCca) {
-        CcaInformation targetCcaInformation = getCcaInformation(target.getCcaName());
+        CcaInformation targetCcaInformation = getCcaInformation(target);
 
         Role currentRole = targetCcaInformation.getRole();
         if (!editedCca.hasRole(currentRole)) {
