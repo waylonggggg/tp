@@ -14,7 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CcaBuilder {
 
-    public static final String DEFAULT_CCA_NAME = "basketball";
+    public static final String DEFAULT_CCA_NAME = "Handball";
     public static final int DEFAULT_TOTAL_SESSIONS = 0;
 
     private CcaName ccaName;
@@ -56,14 +56,6 @@ public class CcaBuilder {
      */
     public CcaBuilder withRoles(String... roles) {
         this.roles = SampleDataUtil.getRoleSet(roles);
-        return this;
-    }
-
-    /**
-     * Sets the {@code roles} of the {@code Cca} that we are building.
-     */
-    public CcaBuilder withRoles(Set<Role> roles) {
-        this.roles = roles;
         return this;
     }
 

@@ -59,8 +59,11 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_ROLE_PRESIDENT = "president";
-    public static final String VALID_ROLE_MEMBER = "member";
+    public static final String VALID_ROLE_PRESIDENT = "President";
+    public static final String VALID_ROLE_VICE_PRESIDENT = "Vice-President";
+    public static final String VALID_ROLE_CAPTAIN = "Captain";
+    public static final String VALID_ROLE_VICE_CAPTAIN = "Vice-Captain";
+    public static final String VALID_ROLE_MEMBER = "Member";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -79,7 +82,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "hubby*"; // '*' not allowed in roles
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "member*"; // '*' not allowed in roles
     public static final String INVALID_CCA_DESC = " " + PREFIX_CCA_NAME + "Badminton*"; // '*' not allowed in ccas
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "-1"; // amount not allowed in ccas
 

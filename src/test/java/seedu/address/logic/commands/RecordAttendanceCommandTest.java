@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKET
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_SWIMMING;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
-import static seedu.address.testutil.TypicalCcas.MEMBER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
+import seedu.address.model.role.Role;
 import seedu.address.testutil.ModelStub;
 
 public class RecordAttendanceCommandTest {
@@ -36,7 +36,7 @@ public class RecordAttendanceCommandTest {
 
         Cca validCca = BASKETBALL;
         Set<CcaInformation> ccaInformations = new HashSet<>();
-        ccaInformations.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
+        ccaInformations.add(new CcaInformation(validCca, Role.DEFAULT_ROLE, validCca.createNewAttendance()));
         Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
@@ -58,7 +58,7 @@ public class RecordAttendanceCommandTest {
 
         Cca validCca = BASKETBALL;
         Set<CcaInformation> ccaInformations = new HashSet<>();
-        ccaInformations.add(new CcaInformation(validCca, MEMBER, validCca.createNewAttendance()));
+        ccaInformations.add(new CcaInformation(validCca, Role.DEFAULT_ROLE, validCca.createNewAttendance()));
         Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
