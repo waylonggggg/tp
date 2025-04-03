@@ -68,6 +68,21 @@ public class Attendance {
         return new Attendance(sessionsAttended.addAmount(amount), totalSessions);
     }
 
+    /**
+     * Return a new Attendance object with updated total sessions.
+     * If the current sessions attended more than the new total sessions, it lowers the session attended
+     * to match the updated total sessions.
+     *
+     * @param updatedTotalSessions The total sessions to update.
+     * @return a new Attendance object with the updated total sessions.
+     */
+    public Attendance updateTotalSessions(SessionCount updatedTotalSessions) {
+        if (sessionsAttended.getSessionCount() > updatedTotalSessions.getSessionCount()) {
+            return new Attendance(updatedTotalSessions, updatedTotalSessions);
+        }
+        return new Attendance(sessionsAttended, updatedTotalSessions);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

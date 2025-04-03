@@ -13,10 +13,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.model.role.Role;
 
 /**
  * Adds a CCA to a student identified using their displayed index from the address book.
@@ -70,9 +68,7 @@ public class AddCcaToStudentCommand extends Command {
             throw new CommandException(MESSAGE_CCA_ALREADY_PRESENT);
         }
 
-        CcaInformation newCcaInfo = new CcaInformation(targetCca, Role.DEFAULT_ROLE, targetCca.createNewAttendance());
-
-        Person personWithAddedCca = personToAddCca.addCca(newCcaInfo);
+        Person personWithAddedCca = personToAddCca.addCca(targetCca);
 
         model.setPerson(personToAddCca, personWithAddedCca);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
