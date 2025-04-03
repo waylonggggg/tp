@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -18,13 +18,13 @@ import seedu.address.testutil.TypicalCcas;
 public class RemoveCcaFromStudentCommandParserTest {
 
     // Use constants defined in TypicalCcas for consistency
-    private static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA
+    private static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA_NAME
             + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName;
-    private static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA
+    private static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA_NAME
             + TypicalCcas.CCA_NAME_TENNIS.fullCcaName;
 
     // Example of an invalid CCA name description based on CcaName constraints
-    private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA + "Basket*ball";
+    private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basket*ball";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCcaFromStudentCommand.MESSAGE_USAGE);
@@ -40,8 +40,8 @@ public class RemoveCcaFromStudentCommandParserTest {
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no cca name specified
-        assertParseFailure(parser, "1 " + PREFIX_CCA, CcaName.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1 " + PREFIX_CCA + " ", CcaName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME, CcaName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME + " ", CcaName.MESSAGE_CONSTRAINTS);
 
 
         // no index and no field specified
@@ -100,7 +100,7 @@ public class RemoveCcaFromStudentCommandParserTest {
     public void parse_duplicateFields_failure() {
         // Duplicate CCA prefixes
         String userInput = INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + CCA_NAME_DESC_TENNIS;
-        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CCA));
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CCA_NAME));
     }
 
     @Test

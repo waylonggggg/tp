@@ -22,7 +22,7 @@ public class CreateCcaCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Cca expectedCca = new CcaBuilder().withCcaName("Basketball").build();
+        Cca expectedCca = new CcaBuilder().withCcaName(VALID_CCA_NAME_BASKETBALL).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + CCA_NAME_DESC_BASKETBALL,

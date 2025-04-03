@@ -89,7 +89,7 @@ Examples:
 
 Adds a CCA to the list of CCAs.
 
-Format: `create_c n/CCA_NAME`
+Format: `create_c c/CCA_NAME`
 
 <box type="warning" seamless>
 
@@ -98,7 +98,7 @@ CCA names are case-sensitive. For example, `Basketball` and `basketball` are con
 </box>
 
 Examples:
-* `create_c n/Basketball`
+* `create_c c/Basketball`
 
 ### Adding a role to a student in a CCA: `add_r`
 
@@ -154,7 +154,7 @@ Examples:
 
 Edits an existing cca in the address book.
 
-Format: `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
+Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
 
 <box type="warning" seamless>
 
@@ -172,12 +172,12 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
 
 Examples:
-*  `edit_c 1 n/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
+*  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
 
-Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
+Format: `attend INDEX [c/CCA_NAME] [a/AMOUNT]`
 
 * Records the attendance of the student at the specified `INDEX` in the specified CCA.
 * The index refers to the index number shown in the displayed student list.
@@ -188,8 +188,8 @@ Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
 * The resulting total sessions attended by the student must not exceed the total sessions of the CCA.
 
 Examples:
-* `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
-* `attend 3 n/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
+* `attend 2 c/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
+* `attend 3 c/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
 
 ### Locating students by name: `find`
 
@@ -315,7 +315,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Create Student**    | `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​` <br> e.g., `create_s n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
-**Create CCA**    | `create_c n/CCA_NAME` <br> e.g., `create_c Basketball`
+**Create CCA**    | `create_c c/CCA_NAME` <br> e.g., `create_c c/Basketball`
 **Add Role**    | `add_r INDEX c/CCA_NAME r/ROLE_NAME` <br> e.g., `add_r 2 c/Basketball r/Captain`
 **Add CCA**    | `add_c INDEX c/CCA_NAME` <br> e.g., `add_c 2 c/Basketball`
 **Clear**  | `clear`
@@ -324,8 +324,8 @@ Action     | Format, Examples
 **Delete Role** | `delete_r INDEX c/CCA_NAME`<br> e.g., `delete_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
 **Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
-**Edit CCA**   | `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 n/Basketball r/Captain r/Vice-Captain t/40`
-**Record Attendance**   | `attend INDEX [n/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 n/Basketball a/1`
+**Record Attendance**   | `attend INDEX [c/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 c/Basketball a/1`
+**Edit CCA**   | `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 c/Basketball r/Captain r/Vice-Captain t/40`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
