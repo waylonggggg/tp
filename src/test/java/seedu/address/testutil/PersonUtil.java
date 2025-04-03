@@ -7,11 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.CreateStudentCommand;
 import seedu.address.logic.commands.EditStudentCommand.EditPersonDescriptor;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,31 +18,38 @@ public class PersonUtil {
 
     /**
      * Returns a create student command string for adding the {@code person}.
+     * Assumes CreateStudentCommand can handle the generated details string including CCAs/Roles.
      */
     public static String getCreateStudentCommand(Person person) {
         return CreateStudentCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code person}'s details,
+     * including Name, Phone, Email, Address, and potentially CCAs/Roles
+     * intended for use with CreateStudentCommand.
+     * NOTE: Check if CreateStudentCommand actually handles PREFIX_ROLE.
      */
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        sb.append(PREFIX_NAME).append(person.getName().fullName).append(" ");
+        sb.append(PREFIX_PHONE).append(person.getPhone().value).append(" ");
+        sb.append(PREFIX_EMAIL).append(person.getEmail().value).append(" ");
+        sb.append(PREFIX_ADDRESS).append(person.getAddress().value).append(" ");
 
-        // Extract CCA and role details
+        // Include CCA/Role information - assuming CreateStudent handles this format
         person.getCcaInformations().forEach(ccaInfo -> {
             sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
-            sb.append(PREFIX_ROLE).append(ccaInfo.getRole()).append(" ");
+            sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
         });
-        return sb.toString();
+        // Trim trailing space if any prefixes were added
+        return sb.toString().trim();
     }
 
     /**
      * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * This only includes Name, Phone, Email, and Address details, as EditStudentCommand
+     * no longer handles CCAs or Roles.
      */
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
@@ -54,18 +58,6 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
 
-        // Extract CCA and role details if present
-        if (descriptor.getCcaInformation().isPresent()) {
-            Set<CcaInformation> ccaInfoSet = descriptor.getCcaInformation().get();
-            if (ccaInfoSet.isEmpty()) {
-                sb.append(PREFIX_CCA); // Handle case where all CCAs are cleared
-            } else {
-                ccaInfoSet.forEach(ccaInfo -> {
-                    sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
-                    sb.append(PREFIX_ROLE).append(ccaInfo.getRole()).append(" ");
-                });
-            }
-        }
-        return sb.toString();
+        return sb.toString().trim();
     }
 }

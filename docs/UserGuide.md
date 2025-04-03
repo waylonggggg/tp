@@ -98,25 +98,40 @@ Format: `create_c n/CCA_NAME`
 Examples:
 * `create_c n/Basketball`
 
+### Adding a CCA to a student : `add_c`
+
+Assigns an existing CCA from the CCA list to a specific student. The student will be assigned a default role (e.g., "Member") for the added CCA.
+
+Format: `add_c INDEX c/CCA_NAME`
+
+* Assigns the CCA specified by `CCA_NAME` to the student at the specified `INDEX`.
+* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
+* The `CCA_NAME` provided must exactly match the name of a CCA already present in the main CCA list (use `list` or view the CCA panel to see available CCAs).
+* The student must **not** already be assigned to the specified CCA.
+
+Examples:
+* `add_c 2 c/Tennis` Assigns the existing "Tennis" CCA to the student at index 2 in the current student list. The student gets the default role for Tennis.
+
 ### Listing all persons : `list`
 
 Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a student : `edit_s`
+### Editing a student's basic details : `edit_s`
 
-Edits an existing student in the address book.
+Edits the name, phone, email, or address of an existing student in the address book.
 
-Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`
+Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing CCAs, the existing CCAs of the person will be removed i.e adding of CCAs is not cumulative.
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* At least one of the optional fields (`n/`, `p/`, `e/`, `a/`) must be provided.
+* Existing values for the specified fields will be overwritten by the new input values.
 
 Examples:
-*  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
+* `edit_s 3 n/Peter Tan a/Blk 123, Clementi Ave 4, #05-06` Edits the name and address of the student at index 3. Their phone, email, CCAs, and roles remain unchanged.
 
 ### Editing a cca : `edit_c`
 
@@ -195,6 +210,20 @@ Format: `delete_c INDEX`
 
 Examples:
 * `delete_c 2` deletes the 2nd CCA in the CCA list.
+
+### Removing a CCA from a student : `remove_c`
+
+Removes a specific CCA assignment (including its associated role and attendance) from a student.
+
+Format: `remove_c INDEX c/CCA_NAME`
+
+* Removes the CCA specified by `CCA_NAME` from the student at the specified `INDEX`.
+* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
+* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful. 
+
+Examples:
+* `remove_c 1 c/Basketball` Removes the "Basketball" CCA assignment from the student at index 1 in the current student list.
 
 ### Clearing all entries : `clear`
 
