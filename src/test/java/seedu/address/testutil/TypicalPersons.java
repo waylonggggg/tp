@@ -8,6 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_CAPTAIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_MEMBER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_PRESIDENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_VICE_CAPTAIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_VICE_PRESIDENT;
 import static seedu.address.testutil.TypicalCcas.ACTING;
 import static seedu.address.testutil.TypicalCcas.BADMINTON;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
@@ -34,41 +39,41 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final CcaInformation ALICE_ACTING = new CcaInformationBuilder().withCca(ACTING)
-            .withRole("Vice-President").withAttendance(8).build();
+            .withRole(VALID_ROLE_VICE_PRESIDENT).withAttendance(8).build();
     public static final CcaInformation ALICE_BASKETBALL = new CcaInformationBuilder().withCca(BASKETBALL)
-            .withRole("Member").withAttendance(10).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(10).build();
     public static final CcaInformation BENSON_BADMINTON = new CcaInformationBuilder().withCca(BADMINTON)
-            .withRole("Member").withAttendance(7).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(7).build();
     public static final CcaInformation BENSON_SWIMMING = new CcaInformationBuilder().withCca(SWIMMING)
-            .withRole("Captain").withAttendance(9).build();
+            .withRole(VALID_ROLE_CAPTAIN).withAttendance(9).build();
     public static final CcaInformation CARL_TABLE_TENNIS = new CcaInformationBuilder().withCca(TABLE_TENNIS)
-            .withRole("Captain").withAttendance(12).build();
+            .withRole(VALID_ROLE_CAPTAIN).withAttendance(12).build();
     public static final CcaInformation CARL_TENNIS = new CcaInformationBuilder().withCca(TENNIS)
-            .withRole("Member").withAttendance(17).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(17).build();
     public static final CcaInformation DANIEL_TRACK_AND_FIELD = new CcaInformationBuilder().withCca(TRACK_AND_FIELD)
-            .withRole("Vice-Captain").withAttendance(12).build();
+            .withRole(VALID_ROLE_VICE_CAPTAIN).withAttendance(12).build();
     public static final CcaInformation DANIEL_VOLLEYBALL = new CcaInformationBuilder().withCca(VOLLEYBALL)
-            .withRole("Member").withAttendance(8).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(8).build();
     public static final CcaInformation ELLE_BADMINTON = new CcaInformationBuilder().withCca(BADMINTON)
-            .withRole("Vice-Captain").withAttendance(14).build();
+            .withRole(VALID_ROLE_VICE_CAPTAIN).withAttendance(14).build();
     public static final CcaInformation ELLE_GARDENING = new CcaInformationBuilder().withCca(GARDENING)
-            .withRole("President").withAttendance(17).build();
+            .withRole(VALID_ROLE_PRESIDENT).withAttendance(17).build();
     public static final CcaInformation FIONA_SWIMMING = new CcaInformationBuilder().withCca(SWIMMING)
-            .withRole("Member").withAttendance(8).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(8).build();
     public static final CcaInformation FIONA_TENNIS = new CcaInformationBuilder().withCca(TENNIS)
-            .withRole("Member").withAttendance(12).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(12).build();
     public static final CcaInformation GEORGE_BASKETBALL = new CcaInformationBuilder().withCca(BASKETBALL)
-            .withRole("Member").withAttendance(11).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(11).build();
     public static final CcaInformation GEORGE_GARDENING = new CcaInformationBuilder().withCca(GARDENING)
-            .withRole("Vice-President").withAttendance(12).build();
+            .withRole(VALID_ROLE_VICE_PRESIDENT).withAttendance(12).build();
     public static final CcaInformation HOON_TABLE_TENNIS = new CcaInformationBuilder().withCca(TABLE_TENNIS)
-            .withRole("Vice-Captain").withAttendance(13).build();
+            .withRole(VALID_ROLE_VICE_CAPTAIN).withAttendance(13).build();
     public static final CcaInformation HOON_VOLLEYBALL = new CcaInformationBuilder().withCca(VOLLEYBALL)
-            .withRole("Captain").withAttendance(8).build();
+            .withRole(VALID_ROLE_VICE_CAPTAIN).withAttendance(8).build();
     public static final CcaInformation IDA_ACTING = new CcaInformationBuilder().withCca(ACTING)
-            .withRole("Member").withAttendance(4).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(4).build();
     public static final CcaInformation IDA_TRACK_AND_FIELD = new CcaInformationBuilder().withCca(TRACK_AND_FIELD)
-            .withRole("Member").withAttendance(11).build();
+            .withRole(VALID_ROLE_MEMBER).withAttendance(11).build();
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com").withPhone("94351253")

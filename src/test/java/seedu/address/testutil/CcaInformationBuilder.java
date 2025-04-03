@@ -12,7 +12,7 @@ import seedu.address.model.role.Role;
  */
 public class CcaInformationBuilder {
 
-    public static final String DEFAULT_CCA_NAME = "Basketball";
+    public static final String DEFAULT_CCA_NAME = "Handball";
     public static final int DEFAULT_SESSIONS_ATTENDED = 0;
     public static final int DEFAULT_TOTAL_SESSIONS = 0;
 
