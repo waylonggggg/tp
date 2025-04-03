@@ -106,6 +106,12 @@ public class RecordAttendanceCommandTest {
         }
 
         @Override
+        public boolean hasCca(CcaName ccaName) {
+            requireNonNull(ccaName);
+            return ccasAdded.stream().anyMatch(cca -> cca.getCcaName().equals(ccaName));
+        }
+
+        @Override
         public Cca getCca(CcaName ccaName) {
             for (Cca cca : ccasAdded) {
                 if (cca.getCcaName().equals(ccaName)) {
