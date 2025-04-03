@@ -36,7 +36,7 @@ public class RecordAttendanceCommandTest {
 
         Cca validCca = BASKETBALL;
         Set<CcaInformation> ccaInformations = new HashSet<>();
-        ccaInformations.add(new CcaInformation(validCca, new Role("Member"), validCca.createNewAttendance()));
+        ccaInformations.add(new CcaInformation(validCca, Role.DEFAULT_ROLE, validCca.createNewAttendance()));
         Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
@@ -58,7 +58,7 @@ public class RecordAttendanceCommandTest {
 
         Cca validCca = BASKETBALL;
         Set<CcaInformation> ccaInformations = new HashSet<>();
-        ccaInformations.add(new CcaInformation(validCca, new Role("Member"), validCca.createNewAttendance()));
+        ccaInformations.add(new CcaInformation(validCca, Role.DEFAULT_ROLE, validCca.createNewAttendance()));
         Person validPerson = ALICE;
         modelStub.addCca(validCca);
         modelStub.addPerson(validPerson);
