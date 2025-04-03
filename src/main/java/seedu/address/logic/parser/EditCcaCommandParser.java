@@ -18,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.role.Role;
 
 /**
- * Parses input arguments and creates a new EditCcaCommand object
+ * Parses input arguments and creates a new EditCcaCommand object.
  */
 public class EditCcaCommandParser implements Parser<EditCcaCommand> {
 

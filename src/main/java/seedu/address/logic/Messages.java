@@ -23,11 +23,11 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer";
     public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
-            + "address book.";
-    public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA.";
-    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The CCA does not exist in the person.";
+            + "address book";
+    public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA";
+    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The CCA does not exist in the person";
 
 
     /**

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCcaCommand object
+ * Parses input arguments and creates a new DeleteCcaCommand object.
  */
 public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
 

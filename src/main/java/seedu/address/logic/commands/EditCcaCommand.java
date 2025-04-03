@@ -168,7 +168,8 @@ public class EditCcaCommand extends Command {
          */
         public Optional<Set<Role>> getRoles() {
             return (roles != null)
-                    ? Optional.of(Collections.unmodifiableSet(roles)) : Optional.empty();
+                    ? Optional.of(Collections.unmodifiableSet(roles))
+                    : Optional.empty();
         }
 
         public void setTotalSessions(SessionCount totalSessions) {

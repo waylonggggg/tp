@@ -16,31 +16,31 @@ import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a role and sets to a default role of a specified cca from a student identified
+ * Removes a role and sets to a default role of a specified cca from a student identified
  * using it's displayed index from the address book.
  */
-public class DeleteRoleFromStudentCommand extends Command {
+public class RemoveRoleFromStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_r";
+    public static final String COMMAND_WORD = "remove_r";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a role from the student identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a role from the student identified "
             + "by the index number used in the displayed student list. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_CCA_NAME + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CCA_NAME + "Basketball";
 
-    public static final String MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS = "Deleted role from student: %1$s";
+    public static final String MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS = "removed role from student: %1$s";
     public static final String MESSAGE_ROLE_NOT_ASSIGNED = "This student does not have a role in this CCA.";
 
     private final Index studentIndex;
     private final CcaName ccaName;
 
     /**
-     * @param studentIndex of the student in the filtered student list to delete role
-     * @param ccaName of the CCA to delete role
+     * @param studentIndex of the student in the filtered student list to remove role
+     * @param ccaName of the CCA to remove role
      */
-    public DeleteRoleFromStudentCommand(Index studentIndex, CcaName ccaName) {
+    public RemoveRoleFromStudentCommand(Index studentIndex, CcaName ccaName) {
         requireAllNonNull(studentIndex, ccaName);
         this.studentIndex = studentIndex;
         this.ccaName = ccaName;
@@ -55,27 +55,27 @@ public class DeleteRoleFromStudentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDeleteRole = lastShownPersonList.get(studentIndex.getZeroBased());
+        Person personToRemoveRole = lastShownPersonList.get(studentIndex.getZeroBased());
         if (!model.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
 
         Cca targetCca = model.getCca(ccaName);
-        if (!personToDeleteRole.hasCca(targetCca)) {
+        if (!personToRemoveRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         }
-        if (personToDeleteRole.isDefaultRoleInCca(targetCca)) {
+        if (personToRemoveRole.isDefaultRoleInCca(targetCca)) {
             throw new CommandException(MESSAGE_ROLE_NOT_ASSIGNED);
         }
 
-        Person personWithDeletedRole = personToDeleteRole.deleteRole(targetCca);
+        Person personWithRemovedRole = personToRemoveRole.removeRole(targetCca);
         try {
-            model.setPerson(personToDeleteRole, personWithDeletedRole);
+            model.setPerson(personToRemoveRole, personWithRemovedRole);
         } catch (IllegalArgumentException e) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS, personWithDeletedRole));
+        return new CommandResult(String.format(MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS, personWithRemovedRole));
     }
 
     @Override
@@ -84,11 +84,11 @@ public class DeleteRoleFromStudentCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof DeleteRoleFromStudentCommand)) {
+        if (!(other instanceof RemoveRoleFromStudentCommand)) {
             return false;
         }
 
-        DeleteRoleFromStudentCommand otherCommand = (DeleteRoleFromStudentCommand) other;
+        RemoveRoleFromStudentCommand otherCommand = (RemoveRoleFromStudentCommand) other;
         return studentIndex.equals(otherCommand.studentIndex)
                 && ccaName.equals(otherCommand.ccaName);
     }
