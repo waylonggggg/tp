@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
@@ -125,6 +126,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return addressBook.hasCca(ccaName);
+    }
+
+    @Override
     public void addCca(Cca cca) {
         addressBook.addCca(cca);
     }
@@ -143,6 +150,12 @@ public class ModelManager implements Model {
                 addressBook.setPerson(person, newPerson);
             }
         }
+    }
+
+    @Override
+    public Cca getCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return addressBook.getCca(ccaName);
     }
 
     @Override
