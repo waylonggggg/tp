@@ -138,6 +138,10 @@ The `Model` component,
 
 The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the AddressBook and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
 
+For example, the following object diagrams can be formed:
+
+<puml src="diagrams/CcaInformationObjectDiagram.puml" width="450" />
+
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
