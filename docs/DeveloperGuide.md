@@ -146,110 +146,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
-
-This section describes some noteworthy details on how certain features are implemented.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete_s 5` command to delete the 5th student in the address book. The `delete_s` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete_s 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new student. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete_s`, just save the student being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -273,7 +169,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Accommodate the manager’s “lazy” nature by streamlining workflows and reducing complexity.
 * Prioritize typing over mouse usage to align with the manager’s preferences.
 
-**Value proposition**:  It provides a centralized tracking system for the CCA attendance for hall students in different CCAs, which is required for the point calculation. Students are grouped by CCAs, and each student has an attendance/point tracker. CLI commands allow point allocation to be done quickly.
+**Value proposition**:  It provides a centralized tracking system for the CCA attendance for hall students in different CCAs, which is required for the point calculation. Students are grouped by CCAs, and each student has their total attended sessions for each CCA. CLI commands allow easy attendance recording and management of students and CCAs.
 
 ### User stories
 
@@ -282,43 +178,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 | Index | Priority | As a …                             | I can …                                                      | So that I can…                                                                           |
 |-----: | :------: | :---------------------------------- | :----------------------------------------------------------- |:-----------------------------------------------------------------------------------------|
-| 1     | `* * *`  | HAM                                 | create new students in the list                             | store their information.                                                                 |
-| 2     | `* * *`  | HAM                                 | delete existing students from the list                       | remove ex-students and other redundant data.                                             |
-| 3     | `* *`    | HAM                                 | view student profiles by searching by name                   | provide personalized service.                                                            |
-| 4     | `* *`    | HAM                                 | view student profiles sorted by their last update            | access the most recent data easily.                                                      |
-| 5     | `* * *`  | HAM                                 | create a CCA role                                            | label students according to specific responsibilities in that CCA.                       |
-| 6     | `* * *`  | HAM                                 | delete an existing CCA role                                  | revert any changes or mistakes made when labeling a student.                             |
-| 7     | `* * *`  | HAM                                 | add roles to a student in a CCA                              | categorize students by their responsibilities (e.g. captain, exco, non-official member). |
-| 8     | `* * *`  | HAM                                 | delete a role from a student in a CCA                        | remove any outdated labels (e.g. if the student resigns from a role).                    |
-| 9     | `* *`    | HAM                                 | search for students by their roles                           | easily find students who share the same responsibilities.                                |
-| 10    | `* *`    | HAM                                 | edit student profiles                                        | keep their information up to date and recover from mistakes (e.g. a change of address).  |
-| 11    | `*`      | HAM                                 | add additional remarks to students                           | record special circumstances (e.g. poor behavior).                                       |
-| 12    | `*`      | new HAM                             | use the “help” command                                       | learn how to use the application.                                                        |
-| 13    | `*`      | experienced HAM                     | set custom keybinds or shortcuts                             | use commands more quickly.                                                               |
-| 14    | `*`      | HAM                                 | undo commands                                                | easily recover from mistakes or accidents.                                               |
-| 15    | `*`      | HAM                                 | archive student profiles                                     | remove inactive students while still retaining their data for future reference.          |
-| 16    | `* * *`  | potential HAM exploring the app      | see the application populated with sample student information | understand how it looks in active use.                                                   |
-| 17    | `* * *`  | new HAM ready to start using the app | purge all current data                                       | remove any sample student information used for testing.                                  |
-| 18    | `*`      | HAM taking over from another HAM     | import student profiles                                      | transfer existing student information into my system.                                    |
-| 19    | `*`      | HAM taking over from another HAM     | export student profiles                                      | pass the current student information on to another HAM.                                  |
-| 20    | `* * *`  | HAM                                 | record a student’s attendance in a CCA by 1                  | accurately track attendance.                                                             |
-| 21    | `* *`    | HAM                                 | set a maximum attendance for CCA                             | have a better idea of the student’s attendance rate.                                     |
-| 22    | `* *`    | HAM                                 | record attendance in bulk                                    | dont have to update attendance student by student.                                       |
-| 23    | `*`      | HAM                                 | view the access history of student profiles                  | keep track of my past interactions.                                                      |
-| 24    | `* * *`  | HAM                                 | create a new CCA                                             | assign it to students.                                                                   |
-| 25    | `* * *`  | HAM                                 | delete a CCA                                                | remove any that are no longer active or needed.                                          |
-| 26    | `* * *`  | HAM                                 | add a CCA to a student                                       | keep their records accurate.                                                             |
-| 27    | `* * *`  | HAM                                 | delete a CCA from a student                                  | update their status if they leave or switch CCAs.                                        |
-| 28    | `* * *`  | HAM                                 | view the list of CCAs separately from the student list       | see all CCAs at once.                                                                    |
-| 29    | `* *`    | HAM                                 | see the number of students in each CCA                       | better manage the distribution of students across CCAs.                                  |
-| 30    | `* *`    | HAM                                 | see the list of roles in a CCA                               | know which roles can be assigned to students.                                            |
-| 31    | `* *`    | HAM                                 | view students by their CCAs                                 | more easily track students in each CCA.                                                  |
-| 32    | `* *`    | HAM                                 | view the calculated hall points each student has             | better understand their overall contributions.                                           |
-| 33    | `*`      | HAM                                 | manually adjust hall points for a student                    | correct any inaccuracies when necessary.                                                 |
-| 34    | `*`      | HAM                                 | highlight students with low attendance in red                | know which students to follow up with.                                                   |
-| 35    | `*`      | HAM                                 | generate reports that give an overview of CCA participation and points | provide data to the hall administration for decision-making.                             |
-| 36    | `*`      | HAM                                 | rank students by their hall points in these reports          | have a clear summary of top performers.                                                  |
-| 37    | `*`      | HAM                                 | edit the multiplier used in point calculations (e.g. changing from 1.5× to 2× for certain roles) | adjust the scoring system as needed.                                                     |
+| 1     | `* * *`  | HAM                                 | create new students in the student list                             | store their information.                                                                 |
+| 2     | `* * *`  | HAM                                 | delete existing students from the student list                       | remove ex-students and other redundant data.                                             |
+| 3     | `* *`    | HAM                                 | filter student list by name                   | find students quickly.                                                            |
+| 4     | `* * *`  | HAM                                 | create a CCA role                                            | label students according to specific responsibilities in that CCA.                       |
+| 5     | `* * *`  | HAM                                 | delete an existing CCA role                                  | remove any outdated roles from a CCA                             |
+| 6     | `* * *`  | HAM                                 | add roles to a student in a CCA                              | categorize students by their responsibilities (e.g. captain, exco, non-official member). |
+| 7     | `* * *`  | HAM                                 | delete a role from a student in a CCA                        | remove any outdated roles (e.g. if the student resigns from a role).                    |
+| 8    | `* *`    | HAM                                 | edit student profiles                                        | keep their information up to date and recover from mistakes (e.g. a change of address).  |
+| 9    | `* *`    | HAM                                 | edit CCA profiles                                        | keep CCA information up to date and recover from mistakes (e.g. update total sessions)  |
+| 10    | `*`      | new HAM                             | use the “help” command                                       | learn how to use the application.                                                        |
+| 11    | `* * *`  | potential HAM exploring the app      | see the application populated with sample student information | understand how it looks in active use.                                                   |
+| 12    | `* * *`  | new HAM ready to start using the app | purge all current data                                       | remove any sample student information used for testing.                                  |
+| 13    | `*`      | HAM taking over from another HAM     | import student profiles                                      | transfer existing student information into my system.                                    |
+| 14    | `*`      | HAM taking over from another HAM     | export student profiles                                      | pass the current student information on to another HAM.                                  |
+| 15    | `* * *`  | HAM                                 | record a student’s attendance in a CCA                | accurately record students' attendance of CCA sessions                                                             |
+| 16    | `* * *`  | HAM                                 | see the number of sessions each student has attended                | accurately track students' attendance                                                             |
+| 17    | `* *`    | HAM                                 | set a maximum attendance for CCA                             | have a better idea of the student’s attendance rate.                                     |
+| 18    | `* * *`  | HAM                                 | create a new CCA                                             | assign it to students.                                                                   |
+| 19    | `* * *`  | HAM                                 | delete a CCA                                                | remove any CCA that are no longer active or needed.                                          |
+| 20    | `* * *`  | HAM                                 | add a CCA to a student                                       | keep their records accurate.                                                             |
+| 21    | `* * *`  | HAM                                 | delete a CCA from a student                                  | update their status if they leave or switch CCAs.                                        |
+| 22    | `* * *`  | HAM                                 | view the list of CCAs separately from the student list       | see all CCAs at once.                                                                    |
+| 23    | `* *`    | HAM                                 | see the list of roles in a CCA                               | know which roles can be assigned to students.                                            |
+| 24   | `* *`    | HAM                                 | have automatic validation of CCA names when adding CCA to student | avoid errors when adding CCA to students.                                                  |
+| 25    | `* *`    | HAM                                 | have automatic validation of role names when adding role to student | avoid errors when adding roles to students.                                               |
+| 26    | `* *`    | HAM                                 | save my changes when I exit the application                                      | avoid losing important changes                                                                  |
+| 27   | `* *`    | HAM                                 | see the list of all students in the system | know who is in the system.                                                                |
+| 28   | `* *`    | HAM                                 | see the list of all CCAs in the system | know which CCAs are in the system.                                                        |
+| 29   | `* *`    | HAM                                 | see the list of roles in each CCA | know which roles each CCA has.                                                        |
+| 30   | `* *`    | HAM                                 | record attendance for more than one session at a time | save time when recording attendance. |
+
 
 
 ### Use cases
@@ -339,20 +229,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
   Use case ends.
 
-**UC2: Add a student**
+**UC2: Create a student**
 
 **MSS**
 
 1.  User <u>lists the students (UC1)</u>.
-2. User requests to add a student with the corresponding details.
-3. System adds the student to the list.
+2. User requests to create a student with the corresponding details.
+3. System creates the student and adds it to the student list.
 4. System shows the student has been added.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The student already exists in the list.
+* 2a. The student already exists in the student list.
 
     * 2a1. System shows an error message.
 
@@ -364,14 +254,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 1. User <u>lists the students (UC1)</u>.
 2. User requests to delete a specific student.
-3. System deletes the student from the list.
+3. System deletes the student from the student list.
 4. System shows the student has been deleted.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The student does not exist in the list.
+* 2a. The student does not exist in the student list.
 
     * 2a1. System shows an error message.
 
@@ -390,7 +280,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Extensions**
 
-* 2a. The student does not exist in the list.
+* 2a. The student does not exist in the student list.
 
     * 2a1. System shows an error message.
 
@@ -408,12 +298,6 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-* 2d. The student already has the same information.
-
-  * 2d1. System shows an error message.
-
-    Use case resumes at step 2.
-
 **UC5: Find a student**
 
 **MSS**
@@ -427,30 +311,30 @@ _{Explain here how the data archiving feature will be implemented}_
 **Extensions**
 
 * 1a. No students match the keywords.
-  Use case ends.
-
-* 1a. The student list is empty.
     Use case ends.
 
-* 1b. The keyword is an invalid format or missing keywords.
+* 1b. The student list is empty.
+    Use case ends.
 
-    * 1b1. System shows an error message.
+* 1c. The keyword is an invalid format or missing keywords.
+
+    * 1c1. System shows an error message.
 
         Use case resumes at step 1.
 
-**UC6: Add a CCA**
+**UC6: Create a CCA**
 
 **MSS**
 
-1.  User requests to add a CCA with the corresponding details.
-2.  System adds the CCA to the list.
+1.  User requests to create a CCA with the corresponding details.
+2.  System creates the CCA and adds it to the CCA list.
 3.  System shows the CCA has been added.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The CCA already exists in the list.
+* 1a. The CCA already exists in the CCA list.
 
     * 1a1. System shows an error message.
 
@@ -468,10 +352,6 @@ _{Explain here how the data archiving feature will be implemented}_
     Use case ends.
 
 **Extensions**
-
-* 1a. The CCA list is empty.
-
-  Use case ends.
 
 * 2a. The CCA does not exist in the list.
 
@@ -492,7 +372,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Extensions**
 
-* 2a. The student does not exist in the list.
+* 2a. The CCA does not exist in the CCA list.
 
     * 2a1. System shows an error message.
 
@@ -524,27 +404,23 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Extensions**
 
-* 2a. The CCA list is empty.
-
-  Use case ends.
-
-* 3a. The student does not exist in the list.
+* 3a. The student does not exist in the student list.
 
     * 3a1. System shows an error message.
 
       Use case resumes at step 3.
 
-* 3b. The CCA does not exist in the list.
+* 3b. The CCA does not exist in the CCA list.
 
     * 3b1. System shows an error message.
 
       Use case resumes at step 3.
 
-* 3c. The role already exists for the student in the CCA.
+* 3c. The student already has a role in the CCA.
 
-    * 3c1. System shows role already exists.
+    * 3c1. System shows student already has role in the CCA.
 
-      Use case ends.
+      Use case resumes at step 3.
 
 * 3d. The student is not in the CCA.
 
@@ -571,21 +447,27 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Extensions**
 
-* 2a. The student does not exist in the list.
+* 2a. The student does not exist in the student list.
 
     * 2a1. System shows an error message.
 
       Use case resumes at step 2.
 
-* 2b. The student does not have the role in the CCA.
+* 2b. The CCA does not exist in the CCA list.
 
     * 2b1. System shows an error message.
 
       Use case resumes at step 2.
 
-* 2c. The role does not exist.
+* 2c. The student is not in the CCA.
 
-   * 2c1. System shows an error message.
+    * 2c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2d. The student does not have the role in the CCA.
+
+    * 2d1. System shows an error message.
 
       Use case resumes at step 2.
 
@@ -607,13 +489,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
    Use case ends.
 
-* 3a. The student does not exist in the list.
+* 3a. The student does not exist in the student list.
 
     * 3a1. System shows an error message.
 
       Use case resumes at step 3.
 
-* 3b. The CCA does not exist in the list.
+* 3b. The CCA does not exist in the CCA list.
 
     * 3b1. System shows an error message.
 
@@ -623,7 +505,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
     * 3c1. System shows student already in CCA.
 
-      Use case ends.
+      Use case resumes at step 3.
 
 **UC12: Delete a CCA from a student**
 
@@ -638,13 +520,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Extensions**
 
-* 2a. The student does not exist in the list.
+* 2a. The student does not exist in the student list.
 
    * 2a1. System shows an error message.
 
       Use case resumes at step 2.
 
-* 2b. The CCA does not exist in the list.
+* 2b. The CCA does not exist in the CCA list.
 
    * 2b1. System shows an error message.
 
@@ -656,7 +538,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC13: Clear all the student**
+**UC13: Clear all students**
 
 **MSS**
 
@@ -674,24 +556,41 @@ _{Explain here how the data archiving feature will be implemented}_
 3. System increments the student’s attendance in that CCA by the requested amount.
 4. System shows that the attendance has been updated successfully.
 
-Use case ends.
+    Use case ends.
 
 **Extensions**
-* 2a. The student does not exist in the list.
+
+* 2a. The student does not exist in the student list.
+
     * 2a1. System shows an error message.
+
       Use case resumes at step 2.
 
-* 2b. The specified CCA does not exist in the system.
+* 2b. The CCA does not exist in the CCA list.
+
     * 2b1. System shows an error message.
+
       Use case resumes at step 2.
 
 * 2c. The student is not in the specified CCA.
+
     * 2c1. System shows an error message.
+
       Use case resumes at step 2.
 
 * 2d. The attendance amount is missing or invalid.
+
     * 2d1. System shows an error message.
+
       Use case resumes at step 2.
+
+### UC15: Exit the application
+
+**MSS**
+1. User requests to exit the application.
+2. System saves all the data and closes the application.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
@@ -804,13 +703,13 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Creating a CCA with a CCA name.
     1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
-    2. Test case: `create_c n/Basketball`
+    2. Test case: `create_c c/Basketball`
        Expected: A new CCA is added to the list. The CCA details are shown in the list.
     3. Test case: `create_c`
        Expected: No CCA is added. Error details shown in the status message as the CCA name is not provided.
-    4. Test case: `create_c n/Basketball`
+    4. Test case: `create_c c/Basketball`
        Expected: No CCA is added. Error details shown in the status message as the CCA already exists.
-    5. Other test cases to try: `create_c n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `create_c c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No CCA is added. Error message is shown as parameters with invalid formats were provided.
 
 ### Deleting a CCA
@@ -844,37 +743,39 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Adding CCAs to a student
     1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`.
-    2. Test case: `edit_s 1 c/Basketball c/Acting`
+    2. Test case: `add_c 1 c/Basketball`
        Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
-    3. Test case: `edit_s 1 c/Basketball`
+    3. Test case: `add_c 1 c/Basketball`
        Expected: The first student is already in the `Basketball` CCA. Error details shown in the status message.
-    4. Test case: `edit_s 1 c/Chess`
+    4. Test case: `add_c 1 c/Chess`
        Expected: The app does not have the `Chess` CCA. Error details shown in the status message.
-    5. Test case: `edit_s 0 c/Basketball`
+    5. Test case: `add_c 0 c/Basketball`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
-    6. Other test cases to try: `edit_s 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    6. Test case: `add_c 1 c/Member`
+       Expected: Error details shown in the status message because default role cannot be assigned.
+    7. Other test cases to try: `add_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting CCAs from a student
     1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA.
-    2. Test case: `edit_s 1 c/`
+    2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
-    3. Test case: `edit_s 1 c/`
+    3. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is already not in any CCA. Error details shown in the status message.
-    4. Test case: `edit_s 0 c/`
+    4. Test case: `edit_s 0 c/Basketball`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list. Status bar remains the same.
 
 ### Editing a CCA
 
 1. Editing an existing CCA's name and total sessions.
     1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and name is not `Basketball`.
-    2. Test case: `edit_c 1 n/Basketball t/15 r/President r/Vice-President r/Treasurer`
+    2. Test case: `edit_c 1 c/Basketball t/15 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
-    3. Test case: `edit_c 1 n/Basketball`
+    3. Test case: `edit_c 1 c/Basketball`
        Expected: No CCA is edited as the CCA already has the name `Basketball`. Other details are reserved. Error details shown in the status message as the edit did not change the CCA.
-    4. Test case: `edit_c 0 n/Chess`
+    4. Test case: `edit_c 0 c/Chess`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
-    5. Other test cases to try: `edit_c 1 n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
+    5. Other test cases to try: `edit_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Editing a role of a CCA is handled in separate test cases below.
@@ -907,17 +808,17 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Recording attendance for a student already in a CCA
     1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dancing` CCA is not contained in the first student.
-    2. Test case: `attend 2 n/Basketball a/1`
+    2. Test case: `attend 2 c/Basketball a/1`
    Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
-   3. Test case: `attend 2 n/Chess a/1`
+   3. Test case: `attend 2 c/Chess a/1`
    Expected: No attendance is recorded. An error message is displayed indicating that the `Chess` does not exist).
-   4. Test case: `attend 2 n/Dancing a/1`
+   4. Test case: `attend 2 c/Dancing a/1`
     Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dancing` CCA.
-   5. Test case: `attend 0 n/Basketball a/1`
+   5. Test case: `attend 0 c/Basketball a/1`
     Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range.
-   6. Test case: `attend 2 n/Basketball`
+   6. Test case: `attend 2 c/Basketball`
    Expected: No attendance is recorded. An error message is displayed, indicating missing or invalid parameters (e.g., `a/AMOUNT`).
-   7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 n/Basketball a/abc` (where x is larger than the list size).
+   7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 c/Basketball a/abc` (where x is larger than the list size).
     Expected: Similar to previous.
 
 ### Adding a role to a student
