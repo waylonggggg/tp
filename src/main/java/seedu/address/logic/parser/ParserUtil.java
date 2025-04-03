@@ -11,10 +11,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.Amount;
-import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -140,17 +139,24 @@ public class ParserUtil {
         requireNonNull(roles);
         final Set<Role> roleSet = new HashSet<>();
         for (String roleName : roles) {
-            roleSet.add(parseRole(roleName));
+            if (roleName.equals(Role.DEFAULT_ROLE_NAME)) {
+                roleSet.add(Role.DEFAULT_ROLE);
+            } else {
+                roleSet.add(parseRole(roleName));
+            }
         }
+
+        roleSet.add(Role.DEFAULT_ROLE);
+
         return roleSet;
     }
 
     /**
-     * Parses a {@code String amount} into an {@code int}.
+     * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @param amount The string to be parsed as an integer.
-     * @return An integer.
+     * @return An {@code Amount} object.
      * @throws ParseException if the given {@code amount} is invalid.
      */
     public static Amount parseAmount(String amount) throws ParseException {
@@ -160,40 +166,6 @@ public class ParserUtil {
             throw new ParseException(Messages.MESSAGE_INVALID_AMOUNT);
         }
         return new Amount(Integer.parseInt(trimmedAmount));
-    }
-
-    /**
-     * Parses a single CCA name, Role name and amount into a {@code CcaInformation}.
-     *
-     * @param ccaName The CCA name.
-     * @param roleName The Role name.
-     * @return A {@code CcaInformation} object with the default {@code Attendance}.
-     * @throws ParseException
-     */
-    public static CcaInformation parseCcaInformation(String ccaName, String roleName) throws ParseException {
-
-        Cca cca = parseCca(ccaName);
-        Role role = parseRole(roleName);
-        Attendance attendance = cca.createNewAttendance();
-
-        return new CcaInformation(cca, role, attendance);
-    }
-
-
-    /**
-     * Parses a {@code String ccaName} into a {@code Set<CcaInformation>} with a default role.
-     * This method is used when only the CCA name is provided.
-     *
-     * @param ccaName The CCA name.
-     * @return A set containing one {@code CcaInformation} with a default role.
-     */
-    public static Set<CcaInformation> parseCcaInformation(String ccaName) throws ParseException {
-        // This is an overloaded version of the method parseCcaInformation
-        // Define a default role that will be used since role editing is not allowed.
-        String defaultRole = "Member"; // Change this if a different default is required.
-        Set<CcaInformation> ccaInformations = new HashSet<CcaInformation>();
-        ccaInformations.add(parseCcaInformation(ccaName, defaultRole));
-        return ccaInformations;
     }
 
     /**
@@ -212,6 +184,23 @@ public class ParserUtil {
             throw new ParseException(CcaName.MESSAGE_CONSTRAINTS);
         }
         return new CcaName(trimmedCcaName);
+    }
+
+    /**
+     * Parses a {@code String totalSessions} into a {@code SessionCount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param totalSessions The string to be parsed as a session count.
+     * @return A {@code SessionCount} object.
+     * @throws ParseException if the given {@code totalSessions} is invalid.
+     */
+    public static SessionCount parseTotalSessions(String totalSessions) throws ParseException {
+        requireNonNull(totalSessions);
+        String trimmedTotalSessions = totalSessions.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTotalSessions)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_AMOUNT);
+        }
+        return new SessionCount(Integer.parseInt(trimmedTotalSessions));
     }
 
     /**

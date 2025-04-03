@@ -55,6 +55,9 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 * Items in square brackets are optional.<br>
   e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
 
+* Items with ... after them can be used multiple times including zero times.
+e.g. `[r/ROLE]`... can be used as `  `(i.e. 0 times), `r/President`, `r/Vice-President` `r/Treasurer` etc.
+
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
@@ -79,10 +82,6 @@ Adds a student to the list of students.
 
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
-<box type="tip" seamless>
-
-</box>
-
 Examples:
 * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
@@ -92,8 +91,44 @@ Adds a CCA to the list of CCAs.
 
 Format: `create_c n/CCA_NAME`
 
+<box type="warning" seamless>
+
+**Caution:**
+CCA names are case-sensitive. For example, `Basketball` and `basketball` are considered different CCA names.
+</box>
+
 Examples:
 * `create_c n/Basketball`
+
+### Adding a role to a student in a CCA: `add_r`
+
+Adds a role to a student in a CCA.
+
+Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
+* Adds a role to the student at the specified `INDEX` in the CCA.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** (1, 2, 3, …​)
+* The role must exist in the CCA.
+* The student must be in the CCA.
+* The student must not have an existing role in the CCA.
+
+Examples:
+* `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.
+
+### Adding a CCA to a student : `add_c`
+
+Assigns an existing CCA from the CCA list to a specific student. The student will be assigned a default role (e.g., "Member") for the added CCA.
+
+Format: `add_c INDEX c/CCA_NAME`
+
+* Assigns the CCA specified by `CCA_NAME` to the student at the specified `INDEX`.
+* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
+* The `CCA_NAME` provided must exactly match the name of a CCA already present in the main CCA list (use `list` or view the CCA panel to see available CCAs).
+* The student must **not** already be assigned to the specified CCA.
+
+Examples:
+* `add_c 2 c/Tennis` Assigns the existing "Tennis" CCA to the student at index 2 in the current student list. The student gets the default role for Tennis.
 
 ### Listing all persons : `list`
 
@@ -101,19 +136,43 @@ Shows a list of all students in the address book.
 
 Format: `list`
 
-### Editing a student : `edit_s`
+### Editing a student's basic details : `edit_s`
 
-Edits an existing student in the address book.
+Edits the name, phone, email, or address of an existing student in the address book.
 
-Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`
+Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing CCAs, the existing CCAs of the person will be removed i.e adding of CCAs is not cumulative.
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* At least one of the optional fields (`n/`, `p/`, `e/`, `a/`) must be provided.
+* Existing values for the specified fields will be overwritten by the new input values.
 
 Examples:
-*  `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
+* `edit_s 3 n/Peter Tan a/Blk 123, Clementi Ave 4, #05-06` Edits the name and address of the student at index 3. Their phone, email, CCAs, and roles remain unchanged.
+
+### Editing a cca : `edit_c`
+
+Edits an existing cca in the address book.
+
+Format: `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
+
+<box type="warning" seamless>
+
+**Caution:**
+Role names are case-sensitive. For example, `Captain` and `captain` are considered different.
+</box>
+
+* Edits the cca at the specified `INDEX`. The index refers to the index number shown in the displayed cca list. The index **must be a positive integer** (1, 2, 3, …).
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* The new name must not match any existing any cca names in the cca list.
+* The amount of total sessions must be a non-negative integer.
+* Regardless of the input for the role field, a "Member" role will automatically be created.
+* If an existing student have their role removed from the cca, the student's role will be set to "Member".
+* If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
+
+Examples:
+*  `edit_c 1 n/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
@@ -126,6 +185,7 @@ Format: `attend INDEX [n/CCA_NAME] [a/AMOUNT]`
 * The CCA name must be provided.
 * The amount of attendance must be provided.
 * The amount of attendance must be a positive integer.
+* The resulting total sessions attended by the student must not exceed the total sessions of the CCA.
 
 Examples:
 * `attend 2 n/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
@@ -173,9 +233,39 @@ Format: `delete_c INDEX`
 * The index refers to the index number shown in the displayed CCA list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Unlike student list, the CCA list will always show all CCAs.
+* Deleting a CCA will also delete the CCA from each student that is in the CCA.
 
 Examples:
 * `delete_c 2` deletes the 2nd CCA in the CCA list.
+
+### Deleting a role from a student in a CCA : `delete_r`
+
+Deletes a role from a student in a CCA.
+
+Format: `delete_r INDEX c/CCA_NAME`
+
+* Deletes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
+* The index refers to the index number shown in the displayed student list.
+* The index must be a positive integer (1, 2, 3, …​)
+* The student must be in the CCA.
+* The student must have a role in the CCA.
+
+Examples:
+* `delete_r 2 c/Basketball` Deletes the role of the 2nd student in the student list in the CCA `Basketball`.
+
+### Removing a CCA from a student : `remove_c`
+
+Removes a specific CCA assignment (including its associated role and attendance) from a student.
+
+Format: `remove_c INDEX c/CCA_NAME`
+
+* Removes the CCA specified by `CCA_NAME` from the student at the specified `INDEX`.
+* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
+* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful. 
+
+Examples:
+* `remove_c 1 c/Basketball` Removes the "Basketball" CCA assignment from the student at index 1 in the current student list.
 
 ### Clearing all entries : `clear`
 
@@ -204,10 +294,6 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -230,10 +316,15 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Create Student**    | `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​` <br> e.g., `create_s n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
 **Create CCA**    | `create_c n/CCA_NAME` <br> e.g., `create_c Basketball`
+**Add Role**    | `add_r INDEX c/CCA_NAME r/ROLE_NAME` <br> e.g., `add_r 2 c/Basketball r/Captain`
+**Add CCA**    | `add_c INDEX c/CCA_NAME` <br> e.g., `add_c 2 c/Basketball`
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
+**Delete Role** | `delete_r INDEX c/CCA_NAME`<br> e.g., `delete_r 2 c/Basketball`
+**Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
 **Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
+**Edit CCA**   | `edit_c INDEX [n/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 n/Basketball r/Captain r/Vice-Captain t/40`
 **Record Attendance**   | `attend INDEX [n/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 n/Basketball a/1`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`

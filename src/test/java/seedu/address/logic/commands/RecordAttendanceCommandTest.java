@@ -106,10 +106,26 @@ public class RecordAttendanceCommandTest {
         }
 
         @Override
-        public void recordAttendance(CcaName ccaName, Person person, Amount amount) {
-            requireAllNonNull(person, ccaName, amount);
-            Person newPerson = person.attendCca(ccaName, amount);
-            personsAdded.set(0, newPerson);
+        public boolean hasCca(CcaName ccaName) {
+            requireNonNull(ccaName);
+            return ccasAdded.stream().anyMatch(cca -> cca.getCcaName().equals(ccaName));
+        }
+
+        @Override
+        public Cca getCca(CcaName ccaName) {
+            for (Cca cca : ccasAdded) {
+                if (cca.getCcaName().equals(ccaName)) {
+                    return cca;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            requireAllNonNull(target, editedPerson);
+            personsAdded.remove(target);
+            personsAdded.add(editedPerson);
         }
 
         @Override

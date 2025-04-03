@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
@@ -61,6 +60,12 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if all the CCAs of the given person are valid.
+     * The person must exist in the address book.
+     */
+    boolean isValidPersonCcas(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -85,6 +90,11 @@ public interface Model {
     boolean hasCca(Cca cca);
 
     /**
+     * Returns true if a cca with the same name as {@code ccaName} exists in the address book.
+     */
+    boolean hasCca(CcaName ccaName);
+
+    /**
      * Adds the given cca.
      * {@code cca} must not already exist in the address book.
      */
@@ -97,22 +107,17 @@ public interface Model {
     void deleteCca(Cca target);
 
     /**
+     * Gets the cca with the same name as {@code ccaName} in the address book.
+     * The cca must exist in the address book.
+     */
+    Cca getCca(CcaName ccaName);
+
+    /**
      * Replaces the given cca {@code target} with {@code editedCca}.
      * {@code target} must exist in the address book.
      * The cca identity of {@code editedCca} must not be the same as another existing cca in the address book.
      */
     void setCca(Cca target, Cca editedCca);
-
-    /**
-     * Records the attendance of {@code editedPerson} for {@code target}.
-     * {@code target} must exist in the address book.
-     * {@code editedPerson} must exist in the address book.
-     * {@code amount} must be a valid amount.
-     *
-     * @throws IllegalArgumentException if {@code amount} causes the total sessions attended to exceed
-     *     the total sessions of the cca.
-     */
-    void recordAttendance(CcaName target, Person editedPerson, Amount amount) throws IllegalArgumentException;
 
     /** Returns an unmodifiable view of the cca list */
     ObservableList<Cca> getCcaList();

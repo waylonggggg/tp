@@ -11,10 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.person.Person;
 
 /**
@@ -98,6 +96,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isValidPersonCcas(Person person) {
+        requireNonNull(person);
+        return addressBook.isValidPersonCcas(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -122,6 +126,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return addressBook.hasCca(ccaName);
+    }
+
+    @Override
     public void addCca(Cca cca) {
         addressBook.addCca(cca);
     }
@@ -143,19 +153,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setCca(Cca target, Cca editedCca) {
-        requireAllNonNull(target, editedCca);
-
-        addressBook.setCca(target, editedCca);
+    public Cca getCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return addressBook.getCca(ccaName);
     }
 
-    // TODO: move this method logic to RecordAttendanceCommand.
     @Override
-    public void recordAttendance(CcaName ccaName, Person person, Amount amount)
-            throws IllegalArgumentException, CcaNotFoundException {
-        requireAllNonNull(person, ccaName, amount);
-        Person newPerson = person.attendCca(ccaName, amount);
-        addressBook.setPerson(person, newPerson);
+    public void setCca(Cca target, Cca editedCca) {
+        requireAllNonNull(target, editedCca);
+        addressBook.setCca(target, editedCca);
+
+        // Checks if existing persons in the addressbook possess the cca to be replaced, thus replacing
+        // their corresponding cca with the new cca.
+        for (Person person : this.addressBook.getPersonList()) {
+            if (person.hasCca(target)) {
+                Person newPerson = person.updateCca(target, editedCca);
+                addressBook.setPerson(person, newPerson);
+            }
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================

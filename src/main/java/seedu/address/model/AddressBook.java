@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.cca.UniqueCcaList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -47,13 +48,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
      *
+     * @param person the person to validate
+     * @return true if all CCAs in the person exist in the UniqueCcaList, false otherwise
+     */
+    public boolean isValidPersonCcas(Person person) {
+        requireNonNull(person);
+        for (Cca cca : person.getCcas()) {
+            if (!ccas.contains(cca)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
+     *
      * @throws IllegalArgumentException if any CCA in the person does not exist in the UniqueCcaList.
      */
     private void validatePersonCcas(Person person) throws IllegalArgumentException {
-        for (Cca cca : person.getCcas()) {
-            if (!hasCca(cca)) {
-                throw new IllegalArgumentException(MESSAGE_CCA_NOT_FOUND);
-            }
+        if (!isValidPersonCcas(person)) {
+            throw new IllegalArgumentException(MESSAGE_CCA_NOT_FOUND);
         }
     }
 
@@ -129,11 +144,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// cca-level operations
 
     /**
+     * Returns the Cca with the same name as {@code ccaName} in the address book.
+     */
+    public Cca getCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return ccas.getCca(ccaName);
+    }
+
+    /**
      * Returns true if a cca with the same identity as {@code cca} exists in the address book.
      */
     public boolean hasCca(Cca cca) {
         requireNonNull(cca);
         return ccas.contains(cca);
+    }
+
+    /**
+     * Returns true if a cca with the same name as {@code ccaName} exists in the address book.
+     */
+    public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
+        return ccas.contains(ccaName);
     }
 
     /**

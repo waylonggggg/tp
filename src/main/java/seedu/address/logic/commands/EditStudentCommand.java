@@ -2,14 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +27,7 @@ import seedu.address.model.person.Phone;
 
 /**
  * Edits the details of an existing student in the address book.
+ * Does not allow editing of CCAs or Roles. Use add_c/remove_c and add_r/delete_r instead.
  */
 public class EditStudentCommand extends Command {
 
@@ -42,14 +40,14 @@ public class EditStudentCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_CCA + "CCA_NAME]\n"
+            + "[" + PREFIX_ADDRESS + "ADDRESS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited student: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED =
+            "At least one field to edit must be provided (name, phone, email, or address).";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
 
     private final Index index;
@@ -82,11 +80,12 @@ public class EditStudentCommand extends Command {
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-        try {
-            model.setPerson(personToEdit, editedPerson);
-        } catch (IllegalArgumentException e) {
+
+        if (!model.isValidPersonCcas(editedPerson)) {
+            // This exception indicates a CCA associated with the person doesn't exist in the AddressBook's CCA list.
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
+        model.setPerson(personToEdit, editedPerson);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
@@ -95,6 +94,7 @@ public class EditStudentCommand extends Command {
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
+     * CCAs and Roles are preserved from the original person.
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
@@ -103,8 +103,8 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<CcaInformation> updatedCcaInformation =
-                editPersonDescriptor.getCcaInformation().orElse(personToEdit.getCcaInformations());
+        // Preserve original CCAs
+        Set<CcaInformation> updatedCcaInformation = personToEdit.getCcaInformations();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedCcaInformation);
     }
@@ -114,11 +114,9 @@ public class EditStudentCommand extends Command {
         if (other == this) {
             return true;
         }
-
         if (!(other instanceof EditStudentCommand)) {
             return false;
         }
-
         EditStudentCommand otherEditStudentCommand = (EditStudentCommand) other;
         return index.equals(otherEditStudentCommand.index)
                 && editPersonDescriptor.equals(otherEditStudentCommand.editPersonDescriptor);
@@ -134,34 +132,33 @@ public class EditStudentCommand extends Command {
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the person. CCAs are not stored here.
      */
     public static class EditPersonDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<CcaInformation> ccaInformation;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code ccaInformation} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setCcaInformation(toCopy.ccaInformation);
+            // REMOVED: setCcaInformation(toCopy.ccaInformation);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, ccaInformation);
+            // REMOVED: ccaInformation from check
+            return CollectionUtil.isAnyNonNull(name, phone, email, address);
         }
 
         public void setName(Name name) {
@@ -196,49 +193,33 @@ public class EditStudentCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        /**
-         * Sets {@code ccaInformation} to this object's {@code ccaInformation}.
-         * A defensive copy of {@code ccaInformation} is used internally.
-         */
-        public void setCcaInformation(Set<CcaInformation> ccaInformation) {
-            this.ccaInformation = (ccaInformation != null) ? new HashSet<>(ccaInformation) : null;
-        }
-
-        /**
-         * Returns an unmodifiable set of CCA information.
-         * Returns {@code Optional#empty()} if {@code ccaInformation} is null.
-         */
-        public Optional<Set<CcaInformation>> getCcaInformation() {
-            return (ccaInformation != null)
-                    ? Optional.of(Collections.unmodifiableSet(ccaInformation)) : Optional.empty();
-        }
+        // REMOVED: setCcaInformation method
+        // REMOVED: getCcaInformation method
 
         @Override
         public boolean equals(Object other) {
             if (other == this) {
                 return true;
             }
-
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }
-
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
+            // REMOVED: ccaInformation from comparison
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(ccaInformation, otherEditPersonDescriptor.ccaInformation);
+                    && Objects.equals(address, otherEditPersonDescriptor.address);
         }
 
         @Override
         public String toString() {
+            // REMOVED: ccaInformation from toString
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("ccaInformation", ccaInformation)
                     .toString();
         }
     }

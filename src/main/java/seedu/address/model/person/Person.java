@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import seedu.address.model.cca.Attendance;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.SessionCount;
 import seedu.address.model.cca.exceptions.CcaNotFoundException;
 import seedu.address.model.role.Role;
 
@@ -88,22 +90,6 @@ public class Person {
         return address;
     }
 
-    // TODO: Remove this method after record attendance method in model is removed.
-    /**
-     * Returns the CCA information associated with the specified CCA.
-     *
-     * @param ccaName The CCA name to retrieve information for.
-     * @return The {@code CcaInformation} object associated with the specified CCA.
-     */
-    public CcaInformation getCcaInformation(CcaName ccaName) throws CcaNotFoundException {
-        for (CcaInformation ccaInformation : ccaInformations) {
-            if (ccaInformation.getCca().getCcaName().equals(ccaName)) {
-                return ccaInformation;
-            }
-        }
-        throw new CcaNotFoundException();
-    }
-
     /**
      * Returns the CCA information associated with the specified CCA.
      * {@code cca} must exist in the person's CCA information.
@@ -146,35 +132,91 @@ public class Person {
     }
 
     /**
-     * Removes the specified CCA from the person's CCA information.
+     * Removes the specified CCA from the person's CCA information based on CCA name identity.
+     * If multiple entries exist for the same CCA name (due to past errors), this will remove all of them.
      *
-     * @param cca The CCA to remove.
-     * @return A new Person object with the specified CCA removed.
+     * @param ccaToRemove The CCA whose name determines which entries to remove.
+     * @return A new Person object with the specified CCA entries removed.
      */
-    public Person removeCca(Cca cca) {
-        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
-        newCcaInformations.removeIf(c -> c.getCca().equals(cca));
+    public Person removeCca(Cca ccaToRemove) { // Parameter is the Cca object to identify which name to remove
+        requireNonNull(ccaToRemove);
+        Set<CcaInformation> newCcaInformations = new HashSet<>();
+        for (CcaInformation currentInfo : this.ccaInformations) {
+            // Keep the CcaInformation only if its Cca does NOT have the same name as the one to remove
+            if (!currentInfo.getCca().isSameCca(ccaToRemove)) {
+                newCcaInformations.add(currentInfo);
+            }
+        }
         return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
+     * Checks if the person can attend a specified number of sessions in the CCA.
+     *
+     * @param cca The CCA to check attendance for.
+     * @param amount The number of sessions to check.
+     * @return {@code true} if the person can attend the specified number of sessions, otherwise {@code false}.
+     */
+    public boolean canAttend(Cca cca, Amount amount) {
+        if (!hasCca(cca)) {
+            return false;
+        }
+        CcaInformation ccaInformation = getCcaInformation(cca);
+        return ccaInformation.canAttend(amount);
     }
 
     /**
      * Updates the attendance record of the person for the specified CCA.
      *
-     * @param ccaName The CCA name to update attendance for.
+     * @param cca The CCA to update attendance for.
      * @param amount The amount to add to the person's attendance record.
      * @return A new Person object with the updated attendance record.
      */
-    public Person attendCca(CcaName ccaName, Amount amount) throws IllegalArgumentException, CcaNotFoundException {
-        if (!hasCca(ccaName)) {
+    public Person attend(Cca cca, Amount amount) {
+        if (!hasCca(cca)) {
             throw new CcaNotFoundException();
         }
-        CcaInformation ccaInformation = getCcaInformation(ccaName);
-        Attendance attendance = ccaInformation.getAttendance();
-        Attendance newAttendance = attendance.attend(amount);
-        CcaInformation newCcaInformation = new CcaInformation(ccaInformation.getCca(), ccaInformation.getRole(),
-                newAttendance);
+        CcaInformation ccaInformation = getCcaInformation(cca);
+        CcaInformation newCcaInformation = ccaInformation.attend(amount);
         Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
         newCcaInformations.remove(ccaInformation);
+        newCcaInformations.add(newCcaInformation);
+        return new Person(name, phone, email, address, newCcaInformations);
+    }
+
+    /**
+     * Updates the specified CCA information in the person's record with the edited CCA details.
+     * This includes updating the total number of sessions while preserving the existing role and sessions attended.
+     * If the role in the edited CCA does not match the current role, it will default to a predefined role.
+     *
+     * @param target The original CCA to be updated. This contains the CCA's current details in the person's record.
+     * @param editedCca The edited CCA containing the new details, including the total number of sessions.
+     * @return A new {@code Person} object with the updated CCA information.
+     */
+    public Person updateCca(Cca target, Cca editedCca) {
+        CcaInformation targetCcaInformation = getCcaInformation(target);
+
+        Role currentRole = targetCcaInformation.getRole();
+        if (!editedCca.hasRole(currentRole)) {
+            currentRole = Role.DEFAULT_ROLE;
+        }
+
+        SessionCount currentAttendanceSessionCount = targetCcaInformation.getAttendance().getSessionsAttended();
+        SessionCount newCcaTotalSessionCount = editedCca.getTotalSessions();
+
+        Attendance newAttendance;
+
+        // Ensures sessions attended is less than the new cca total session count
+        if (currentAttendanceSessionCount.getSessionCount() > newCcaTotalSessionCount.getSessionCount()) {
+            newAttendance = new Attendance(new SessionCount(newCcaTotalSessionCount.getSessionCount()),
+                    newCcaTotalSessionCount);
+        } else {
+            newAttendance = new Attendance(currentAttendanceSessionCount, newCcaTotalSessionCount);
+        }
+
+        CcaInformation newCcaInformation = new CcaInformation(editedCca, currentRole, newAttendance);
+        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
+        newCcaInformations.remove(targetCcaInformation);
         newCcaInformations.add(newCcaInformation);
         return new Person(name, phone, email, address, newCcaInformations);
     }
@@ -251,14 +293,17 @@ public class Person {
     }
 
     /**
-     * Returns true if the person has the specified CCA.
+     * Returns true if the person has the specified CCA, checking by CCA identity (name only).
+     * This defines a looser check suitable for enrollment status.
      *
      * @param cca The CCA to check for.
-     * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
+     * @return {@code true} if the person is enrolled in a CCA with the same name, otherwise {@code false}.
      */
     public boolean hasCca(Cca cca) {
-        for (Cca c : getCcas()) {
-            if (c.equals(cca)) {
+        requireNonNull(cca);
+        for (Cca c : getCcas()) { // getCcas() extracts Cca from CcaInformation
+            // Use isSameCca (checks name only) instead of equals (checks name, roles, sessions)
+            if (c.isSameCca(cca)) {
                 return true;
             }
         }
@@ -272,12 +317,29 @@ public class Person {
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */
     public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
         for (Cca c : getCcas()) {
             if (c.getCcaName().equals(ccaName)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Creates and returns a new Person object with the given CcaInformation added.
+     * It is the caller's responsibility to ensure the added CCA is not a duplicate
+     * based on the application's definition (e.g., using hasCca before calling this).
+     *
+     * @param newCcaInfo The CcaInformation to add. Cannot be null.
+     * @return A new Person object instance with the added CCA information.
+     */
+    public Person addCca(CcaInformation newCcaInfo) {
+        requireNonNull(newCcaInfo);
+        Set<CcaInformation> updatedCcas = new HashSet<>(this.ccaInformations);
+        boolean added = updatedCcas.add(newCcaInfo);
+
+        return new Person(this.name, this.phone, this.email, this.address, updatedCcas);
     }
 
     /**

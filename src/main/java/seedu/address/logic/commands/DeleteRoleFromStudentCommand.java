@@ -1,17 +1,15 @@
-package seedu.address.logic.commands.exceptions;
+package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -52,18 +50,16 @@ public class DeleteRoleFromStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Cca> lastCcaList = model.getCcaList();
 
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person personToDeleteRole = lastShownPersonList.get(studentIndex.getZeroBased());
 
-        Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
-        if (searchedCca.isEmpty()) {
+        if (!model.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
-        Cca targetCca = searchedCca.get();
+        Cca targetCca = model.getCca(ccaName);
 
         if (!personToDeleteRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
@@ -86,22 +82,6 @@ public class DeleteRoleFromStudentCommand extends Command {
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(
                 String.format(MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS, personWithDeletedRole));
-    }
-
-    /**
-     * Finds a {@code Cca} from a list of {@code Cca} with the given {@code CcaName}.
-     *
-     * @param ccaList list of {@code Cca} to search from
-     * @param ccaName {@code CcaName} to search for
-     * @return {@code Optional<Cca>} containing the {@code Cca} if found, otherwise {@code Optional.empty()}
-     */
-    public Optional<Cca> findCcaWithCcaName(List<Cca> ccaList, CcaName ccaName) {
-        for (Cca cca : ccaList) {
-            if (cca.getCcaName().equals(ccaName)) {
-                return Optional.of(cca);
-            }
-        }
-        return Optional.empty();
     }
 
     @Override
