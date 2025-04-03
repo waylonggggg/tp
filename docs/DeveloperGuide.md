@@ -596,7 +596,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 1. **Platform Compatibility**: The application should work on any _mainstream OS_ (Windows, Linux, macOS) as long as Java `17` or above is installed. *(Constraint-Platform-Independent, Constraint-Java-Version)*
 
-2. **Performance**: The application should be able to hold up to **1000 persons** without noticeable sluggishness in performance for typical usage. *(Scalability requirement)*
+2. **Performance**: The application should be able to hold up to **1000 students** without noticeable sluggishness in performance for typical usage. *(Scalability requirement)*
 
 3. **Typing Efficiency**: A user with above-average typing speed for regular English text (i.e., not code, not system admin commands) should be able to accomplish most tasks **faster using commands** than using the mouse. *(Constraint-Typing-Preferred, Recommendation-CLI-First)*
 
@@ -757,7 +757,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting CCAs from a student
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA.
+    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first student has at least one CCA.
     2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
     3. Test case: `remove_c 1 c/Basketball`
@@ -841,7 +841,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
     4. Test case: Corrupt the data file with an extra parameter.
        Open the `addressbook.json` file in a text editor and add `    "name" : "Alice Paul",` in the third line.
-       Expected: The app should start with the sample data when launched. However, the first person's name is `Alice Paul` instead of `Alex Yeoh`.
+       Expected: The app should start with the sample data when launched. However, the first student's name is `Alice Paul` instead of `Alex Yeoh`.
     5. Test case: Corrupt the data file with an invalid parameter.
        Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.

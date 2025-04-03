@@ -10,6 +10,7 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.role.Role;
 
 /**
  * Container for user visible messages.
@@ -18,16 +19,17 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_INVALID_CCA_DISPLAYED_INDEX = "The CCA index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list";
+    public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the CCA list";
     public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer.";
-    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
-            + "address book.";
+    public static final String MESSAGE_CCA_NOT_FOUND = "The CCA does not exist in the CCA list.";
     public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA.";
-    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The CCA does not exist in the person.";
+    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The CCA does not exist in the student.";
 
 
     /**
@@ -91,5 +93,9 @@ public class Messages {
      */
     public static String format(Name name) {
         return name.fullName;
+    }
+
+    public static String format(Role role) {
+        return role.roleName;
     }
 }

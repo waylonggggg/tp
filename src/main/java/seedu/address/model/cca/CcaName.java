@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Cca's name in the address book.
+ * Represents a CCA's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCcaName(String)}
  */
 public class CcaName {

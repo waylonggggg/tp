@@ -24,14 +24,14 @@ import seedu.address.model.cca.SessionCount;
 import seedu.address.model.role.Role;
 
 /**
- * Edits the details of an existing cca in the address book.
+ * Edits the details of an existing CCA in the address book.
  */
 public class EditCcaCommand extends Command {
 
     public static final String COMMAND_WORD = "edit_c";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the cca identified "
-            + "by the index number used in the displayed cca list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the CCA identified "
+            + "by the index number used in the displayed CCA list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CCA_NAME + "CCA NAME] "
@@ -42,15 +42,14 @@ public class EditCcaCommand extends Command {
             + PREFIX_ROLE + "Treasurer "
             + PREFIX_TOTAL_SESSIONS + "14 ";
 
-    public static final String MESSAGE_EDIT_CCA_SUCCESS = "Edited cca: %1$s";
+    public static final String MESSAGE_EDIT_CCA_SUCCESS = "Edited CCA: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CCA = "This cca already exists in the address book.";
 
     private final Index index;
     private final EditCcaDescriptor editCcaDescriptor;
 
     /**
-     * @param index of the cca in the cca list to edit
+     * @param index of the CCA in the CCA list to edit
      * @param editCcaDescriptor details to edit the student with
      */
     public EditCcaCommand(Index index, EditCcaDescriptor editCcaDescriptor) {
@@ -73,7 +72,7 @@ public class EditCcaCommand extends Command {
         Cca editedCca = createEditedCca(ccaToEdit, editCcaDescriptor);
 
         if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CCA);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_CCA);
         }
 
         model.setCca(ccaToEdit, editedCca);
@@ -120,8 +119,8 @@ public class EditCcaCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the cca with. Each non-empty field value will replace the
-     * corresponding field value of the cca.
+     * Stores the details to edit the CCA with. Each non-empty field value will replace the
+     * corresponding field value of the CCA.
      */
     public static class EditCcaDescriptor {
         private CcaName ccaName;
@@ -164,7 +163,7 @@ public class EditCcaCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable set of roles in the cca.
+         * Returns an unmodifiable set of roles in the CCA.
          * Returns {@code Optional#empty()} if {@code roles} is null.
          */
         public Optional<Set<Role>> getRoles() {
