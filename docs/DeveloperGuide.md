@@ -398,8 +398,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 * 2b. The parameters to edit does not exist.
 
-  * 2b1. System shows an error message. 
-  
+  * 2b1. System shows an error message.
+
     Use case resumes at step 2.
 
 * 2c. The parameters to edit is invalid.
@@ -410,8 +410,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 * 2d. The student already has the same information.
 
-  * 2d1. System shows an error message. 
-  
+  * 2d1. System shows an error message.
+
     Use case resumes at step 2.
 
 **UC5: Find a student**
@@ -435,7 +435,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * 1b. The keyword is an invalid format or missing keywords.
 
     * 1b1. System shows an error message.
-  
+
         Use case resumes at step 1.
 
 **UC6: Add a CCA**
@@ -460,7 +460,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **MSS**
 
-1. System shows list of CCAs. 
+1. System shows list of CCAs.
 2. User requests to delete a specific CCA.
 3. System deletes the CCA from the list.
 4. System shows the CCA has been deleted.
@@ -479,7 +479,38 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC8: Add a role to a student in a CCA**
+**UC8: Edit a cca**
+
+**MSS**
+
+1. System shows list of CCAs.
+2. User requests to edit a CCA's information from the list.
+3. System edits the CCA from the list.
+4. System shows the CCA has been edited.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The student does not exist in the list.
+
+    * 2a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2b. The parameters to edit does not exist.
+
+    * 2b1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 2c. The parameters to edit is invalid.
+
+    * 2c1. System shows an error message.
+
+      Use case resumes at step 2.
+
+**UC9: Add a role to a student in a CCA**
 
 **MSS**
 
@@ -527,7 +558,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 3.
 
-**UC9: Delete a role from a student in a CCA**
+**UC10: Delete a role from a student in a CCA**
 
 **MSS**
 
@@ -558,14 +589,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC10: Add CCA to a student**
+**UC11: Add CCA to a student**
 
 **MSS**
 
-1.  User <u>requests to list the students (UC1)</u>. 
-2. System shows list of CCAs. 
-3. User requests to add a CCA to a specific student. 
-4. System adds the CCA to the student. 
+1.  User <u>requests to list the students (UC1)</u>.
+2. System shows list of CCAs.
+3. User requests to add a CCA to a specific student.
+4. System adds the CCA to the student.
 5. System shows the CCA has been added.
 
     Use case ends.
@@ -594,13 +625,13 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case ends.
 
-**UC11: Delete a CCA from a student**
+**UC12: Delete a CCA from a student**
 
 **MSS**
 
-1.  User <u>lists the students (UC1)</u>. 
-2. User requests to delete a CCA from a specific student. 
-3. System deletes the CCA from the student. 
+1.  User <u>lists the students (UC1)</u>.
+2. User requests to delete a CCA from a specific student.
+3. System deletes the CCA from the student.
 4. System shows the CCA has been deleted.
 
     Use case ends.
@@ -625,7 +656,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
       Use case resumes at step 2.
 
-**UC11: Clear all the student**
+**UC13: Clear all the student**
 
 **MSS**
 
@@ -635,31 +666,31 @@ _{Explain here how the data archiving feature will be implemented}_
 
     Use case ends.
 
-**UC12: Record a student's attendance**
+**UC14: Record a student's attendance**
 
 **MSS**
 1.  User <u>lists the students (UC1)</u>.
-2. User requests to record a certain attendance amount for a specific student and a given CCA. 
-3. System increments the student’s attendance in that CCA by the requested amount. 
+2. User requests to record a certain attendance amount for a specific student and a given CCA.
+3. System increments the student’s attendance in that CCA by the requested amount.
 4. System shows that the attendance has been updated successfully.
 
 Use case ends.
 
 **Extensions**
 * 2a. The student does not exist in the list.
-    * 2a1. System shows an error message.  
+    * 2a1. System shows an error message.
       Use case resumes at step 2.
 
 * 2b. The specified CCA does not exist in the system.
-    * 2b1. System shows an error message.  
+    * 2b1. System shows an error message.
       Use case resumes at step 2.
 
 * 2c. The student is not in the specified CCA.
-    * 2c1. System shows an error message.  
+    * 2c1. System shows an error message.
       Use case resumes at step 2.
 
 * 2d. The attendance amount is missing or invalid.
-    * 2d1. System shows an error message.  
+    * 2d1. System shows an error message.
       Use case resumes at step 2.
 
 ### Non-Functional Requirements
@@ -705,7 +736,7 @@ Given below are instructions to test the app manually.
 
 <box type="info" seamless>
 
-**Note:** These instructions only provide a starting point for testers to work on;  
+**Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more \*exploratory\* testing.
 
 </box>
@@ -877,13 +908,13 @@ testers are expected to do more \*exploratory\* testing.
 1. Recording attendance for a student already in a CCA
     1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dancing` CCA is not contained in the first student.
     2. Test case: `attend 2 n/Basketball a/1`
-   Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated. 
+   Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
    3. Test case: `attend 2 n/Chess a/1`
    Expected: No attendance is recorded. An error message is displayed indicating that the `Chess` does not exist).
    4. Test case: `attend 2 n/Dancing a/1`
     Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dancing` CCA.
    5. Test case: `attend 0 n/Basketball a/1`
-    Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range. 
+    Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range.
    6. Test case: `attend 2 n/Basketball`
    Expected: No attendance is recorded. An error message is displayed, indicating missing or invalid parameters (e.g., `a/AMOUNT`).
    7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 n/Basketball a/abc` (where x is larger than the list size).
