@@ -245,17 +245,17 @@ public class Person {
     }
 
     /**
-     * Deletes the role of the person for the specified CCA.
+     * Removes the role of the person for the specified CCA.
      * The current {@code role} of the person in the CCA must not be the default role.
      * {@code cca} must exist in the person's CCA information.
      *
-     * @param cca The CCA to delete role for.
+     * @param cca The CCA to remove role for.
      * @return A new Person object with the role deleted.
      */
-    public Person deleteRole(Cca cca) {
+    public Person removeRole(Cca cca) {
         CcaInformation oldCcaInformation = getCcaInformation(cca);
 
-        CcaInformation newCcaInformation = oldCcaInformation.deleteRole();
+        CcaInformation newCcaInformation = oldCcaInformation.removeRole();
 
         // Replace old ccaInformation with new ccaInformation.
         Set<CcaInformation> newCcaInformations = ccaInformations;
