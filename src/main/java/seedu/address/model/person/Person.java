@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -146,14 +147,21 @@ public class Person {
     }
 
     /**
-     * Removes the specified CCA from the person's CCA information.
+     * Removes the specified CCA from the person's CCA information based on CCA name identity.
+     * If multiple entries exist for the same CCA name (due to past errors), this will remove all of them.
      *
-     * @param cca The CCA to remove.
-     * @return A new Person object with the specified CCA removed.
+     * @param ccaToRemove The CCA whose name determines which entries to remove.
+     * @return A new Person object with the specified CCA entries removed.
      */
-    public Person removeCca(Cca cca) {
-        Set<CcaInformation> newCcaInformations = new HashSet<>(ccaInformations);
-        newCcaInformations.removeIf(c -> c.getCca().equals(cca));
+    public Person removeCca(Cca ccaToRemove) { // Parameter is the Cca object to identify which name to remove
+        requireNonNull(ccaToRemove);
+        Set<CcaInformation> newCcaInformations = new HashSet<>();
+        for (CcaInformation currentInfo : this.ccaInformations) {
+            // Keep the CcaInformation only if its Cca does NOT have the same name as the one to remove
+            if (!currentInfo.getCca().isSameCca(ccaToRemove)) {
+                newCcaInformations.add(currentInfo);
+            }
+        }
         return new Person(name, phone, email, address, newCcaInformations);
     }
 
@@ -300,14 +308,17 @@ public class Person {
     }
 
     /**
-     * Returns true if the person has the specified CCA.
+     * Returns true if the person has the specified CCA, checking by CCA identity (name only).
+     * This defines a looser check suitable for enrollment status.
      *
      * @param cca The CCA to check for.
-     * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
+     * @return {@code true} if the person is enrolled in a CCA with the same name, otherwise {@code false}.
      */
     public boolean hasCca(Cca cca) {
-        for (Cca c : getCcas()) {
-            if (c.equals(cca)) {
+        requireNonNull(cca);
+        for (Cca c : getCcas()) { // getCcas() extracts Cca from CcaInformation
+            // Use isSameCca (checks name only) instead of equals (checks name, roles, sessions)
+            if (c.isSameCca(cca)) {
                 return true;
             }
         }
@@ -321,12 +332,29 @@ public class Person {
      * @return {@code true} if the person has the specified CCA, otherwise {@code false}.
      */
     public boolean hasCca(CcaName ccaName) {
+        requireNonNull(ccaName);
         for (Cca c : getCcas()) {
             if (c.getCcaName().equals(ccaName)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Creates and returns a new Person object with the given CcaInformation added.
+     * It is the caller's responsibility to ensure the added CCA is not a duplicate
+     * based on the application's definition (e.g., using hasCca before calling this).
+     *
+     * @param newCcaInfo The CcaInformation to add. Cannot be null.
+     * @return A new Person object instance with the added CCA information.
+     */
+    public Person addCca(CcaInformation newCcaInfo) {
+        requireNonNull(newCcaInfo);
+        Set<CcaInformation> updatedCcas = new HashSet<>(this.ccaInformations);
+        boolean added = updatedCcas.add(newCcaInfo);
+
+        return new Person(this.name, this.phone, this.email, this.address, updatedCcas);
     }
 
     /**
