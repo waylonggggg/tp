@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -27,9 +27,9 @@ public class RemoveCcaFromStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a CCA from the student identified "
             + "by the index number used in the displayed student list.\n"
             + "Parameters: STUDENT_INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME\n"
+            + PREFIX_CCA_NAME + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball";
+            + PREFIX_CCA_NAME + "Basketball";
 
     public static final String MESSAGE_REMOVE_CCA_SUCCESS = "Removed CCA %2$s from student: %1$s";
 

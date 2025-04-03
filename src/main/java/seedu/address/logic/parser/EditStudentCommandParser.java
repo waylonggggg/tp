@@ -26,7 +26,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME,
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS); // REMOVED: PREFIX_CCA
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS); // REMOVED: PREFIX_CCA_NAME
 
         Index index;
 
@@ -37,7 +37,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        // REMOVED: PREFIX_CCA from duplicate check
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -54,8 +53,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-
-        // REMOVED: CCA parsing logic entirely
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditStudentCommand.MESSAGE_NOT_EDITED);

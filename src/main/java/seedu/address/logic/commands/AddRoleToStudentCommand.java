@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.model.role.Role.DEFAULT_ROLE_NAME;
 
@@ -28,10 +28,10 @@ public class AddRoleToStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a role to the student identified "
             + "by the index number used in the displayed student list. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME "
+            + PREFIX_CCA_NAME + "CCA_NAME "
             + PREFIX_ROLE + "ROLE\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball "
+            + PREFIX_CCA_NAME + "Basketball "
             + PREFIX_ROLE + "Center";
 
     public static final String MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS = "Added role to student: %1$s";

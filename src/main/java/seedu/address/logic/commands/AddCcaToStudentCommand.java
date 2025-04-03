@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
@@ -36,9 +36,9 @@ public class AddCcaToStudentCommand extends Command {
             + "by the index number used in the displayed student list.\n"
             + "The CCA must already exist in the CCA list.\n"
             + "Parameters: STUDENT_INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME\n"
+            + PREFIX_CCA_NAME + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball";
+            + PREFIX_CCA_NAME + "Basketball";
 
     /** Success message displayed upon successful execution. */
     public static final String MESSAGE_ADD_CCA_SUCCESS = "Added CCA %2$s to student: %1$s";

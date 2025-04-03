@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -39,7 +39,7 @@ public class PersonUtil {
 
         // Include CCA/Role information - assuming CreateStudent handles this format
         person.getCcaInformations().forEach(ccaInfo -> {
-            sb.append(PREFIX_CCA).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
+            sb.append(PREFIX_CCA_NAME).append(ccaInfo.getCca().getCcaName().fullCcaName).append(" ");
             sb.append(PREFIX_ROLE).append(ccaInfo.getRole().roleName).append(" ");
         });
         // Trim trailing space if any prefixes were added

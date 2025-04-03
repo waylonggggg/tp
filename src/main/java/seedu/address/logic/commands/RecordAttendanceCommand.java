@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ public class RecordAttendanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records the attendance of a member in a CCA. "
             + "Parameters: "
             + "STUDENT_INDEX "
-            + PREFIX_CCA + "CCA_NAME "
+            + PREFIX_CCA_NAME + "CCA_NAME "
             + PREFIX_AMOUNT + "AMOUNT\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CCA + "Basketball " + PREFIX_AMOUNT + "1";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CCA_NAME + "Basketball " + PREFIX_AMOUNT + "1";
 
     public static final String MESSAGE_SUCCESS = "Recorded attendance for: %1$s in %2$s for %3$s sessions.";
     public static final String MESSAGE_EXCEEDING_AMOUNT = "The amount of attendance recorded exceeds the total "

@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.stream.Stream;
@@ -26,9 +26,9 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
     public AddRoleToStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA, PREFIX_ROLE);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_ROLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA, PREFIX_ROLE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_ROLE)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, AddRoleToStudentCommand.MESSAGE_USAGE));
@@ -43,8 +43,8 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRoleToStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA, PREFIX_ROLE);
-        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME, PREFIX_ROLE);
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
         return new AddRoleToStudentCommand(index, ccaName, role);
