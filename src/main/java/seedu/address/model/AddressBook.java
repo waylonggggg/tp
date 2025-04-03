@@ -48,13 +48,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
      *
+     * @param person the person to validate
+     * @return true if all CCAs in the person exist in the UniqueCcaList, false otherwise
+     */
+    public boolean isValidPersonCcas(Person person) {
+        requireNonNull(person);
+        for (Cca cca : person.getCcas()) {
+            if (!ccas.contains(cca)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates that all CCAs in the given {@code person} exist in the UniqueCcaList.
+     *
      * @throws IllegalArgumentException if any CCA in the person does not exist in the UniqueCcaList.
      */
     private void validatePersonCcas(Person person) throws IllegalArgumentException {
-        for (Cca cca : person.getCcas()) {
-            if (!hasCca(cca)) {
-                throw new IllegalArgumentException(MESSAGE_CCA_NOT_FOUND);
-            }
+        if (!isValidPersonCcas(person)) {
+            throw new IllegalArgumentException(MESSAGE_CCA_NOT_FOUND);
         }
     }
 
