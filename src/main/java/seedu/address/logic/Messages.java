@@ -29,7 +29,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer.";
     public static final String MESSAGE_CCA_NOT_FOUND = "The CCA does not exist in the CCA list.";
     public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA.";
-    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The CCA does not exist in the student.";
+    public static final String MESSAGE_CCA_NOT_IN_PERSON = "The student is not in the CCA.";
 
 
     /**
