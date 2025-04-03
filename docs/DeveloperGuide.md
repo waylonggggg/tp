@@ -804,13 +804,13 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Creating a CCA with a CCA name.
     1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
-    2. Test case: `create_c n/Basketball`
+    2. Test case: `create_c c/Basketball`
        Expected: A new CCA is added to the list. The CCA details are shown in the list.
     3. Test case: `create_c`
        Expected: No CCA is added. Error details shown in the status message as the CCA name is not provided.
-    4. Test case: `create_c n/Basketball`
+    4. Test case: `create_c c/Basketball`
        Expected: No CCA is added. Error details shown in the status message as the CCA already exists.
-    5. Other test cases to try: `create_c n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `create_c c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No CCA is added. Error message is shown as parameters with invalid formats were provided.
 
 ### Deleting a CCA
@@ -868,13 +868,13 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Editing an existing CCA's name and total sessions.
     1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and name is not `Basketball`.
-    2. Test case: `edit_c 1 n/Basketball t/15 r/President r/Vice-President r/Treasurer`
+    2. Test case: `edit_c 1 c/Basketball t/15 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
-    3. Test case: `edit_c 1 n/Basketball`
+    3. Test case: `edit_c 1 c/Basketball`
        Expected: No CCA is edited as the CCA already has the name `Basketball`. Other details are reserved. Error details shown in the status message as the edit did not change the CCA.
-    4. Test case: `edit_c 0 n/Chess`
+    4. Test case: `edit_c 0 c/Chess`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
-    5. Other test cases to try: `edit_c 1 n/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
+    5. Other test cases to try: `edit_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Editing a role of a CCA is handled in separate test cases below.
@@ -907,17 +907,17 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Recording attendance for a student already in a CCA
     1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dancing` CCA is not contained in the first student.
-    2. Test case: `attend 2 n/Basketball a/1`
+    2. Test case: `attend 2 c/Basketball a/1`
    Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
-   3. Test case: `attend 2 n/Chess a/1`
+   3. Test case: `attend 2 c/Chess a/1`
    Expected: No attendance is recorded. An error message is displayed indicating that the `Chess` does not exist).
-   4. Test case: `attend 2 n/Dancing a/1`
+   4. Test case: `attend 2 c/Dancing a/1`
     Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dancing` CCA.
-   5. Test case: `attend 0 n/Basketball a/1`
+   5. Test case: `attend 0 c/Basketball a/1`
     Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range.
-   6. Test case: `attend 2 n/Basketball`
+   6. Test case: `attend 2 c/Basketball`
    Expected: No attendance is recorded. An error message is displayed, indicating missing or invalid parameters (e.g., `a/AMOUNT`).
-   7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 n/Basketball a/abc` (where x is larger than the list size).
+   7. Other incorrect attendance commands to try: `attend`, `attend x`, `attend 2`, `attend 2 c/Basketball a/abc` (where x is larger than the list size).
     Expected: Similar to previous.
 
 ### Adding a role to a student

@@ -1,5 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_FOUR;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_ONE;
+import static seedu.address.logic.commands.CommandTestUtil.CCA_NAME_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -22,31 +26,34 @@ public class RecordAttendanceCommandParserTest {
         // no leading and trailing whitespaces
         RecordAttendanceCommand expectedRecordAttendanceCommand =
                 new RecordAttendanceCommand(INDEX_FIRST_PERSON, new CcaName(VALID_CCA_NAME_BASKETBALL), new Amount(1));
-        assertParseSuccess(parser, "1 n/Basketball a/1", expectedRecordAttendanceCommand);
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + AMOUNT_DESC_ONE,
+                        expectedRecordAttendanceCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "1 n/ Basketball a/ 1", expectedRecordAttendanceCommand);
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + " " + AMOUNT_DESC_ONE,
+                        expectedRecordAttendanceCommand);
 
         // higher amount
         RecordAttendanceCommand expectedRecordAttendanceCommandHigherAmount =
                 new RecordAttendanceCommand(INDEX_FIRST_PERSON, new CcaName(VALID_CCA_NAME_BASKETBALL), new Amount(4));
-        assertParseSuccess(parser, "1 n/Basketball a/4", expectedRecordAttendanceCommandHigherAmount);
+        assertParseSuccess(parser, INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + AMOUNT_DESC_FOUR,
+                        expectedRecordAttendanceCommandHigherAmount);
 
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // non integer amount
-        assertParseFailure(parser, "1 n/Basketball a/a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                RecordAttendanceCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + INVALID_AMOUNT_DESC,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RecordAttendanceCommand.MESSAGE_USAGE));
 
         // missing amount prefix
-        assertParseFailure(parser, "1 n/Basketball 1", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                RecordAttendanceCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + "1",
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RecordAttendanceCommand.MESSAGE_USAGE));
 
         // missing cca name prefix
-        assertParseFailure(parser, "1 Basketball a/1", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                RecordAttendanceCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, INDEX_FIRST_PERSON.getOneBased() + " Basketball" + AMOUNT_DESC_ONE,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RecordAttendanceCommand.MESSAGE_USAGE));
     }
 
 }
