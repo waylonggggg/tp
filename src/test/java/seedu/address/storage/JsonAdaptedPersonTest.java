@@ -111,8 +111,7 @@ public class JsonAdaptedPersonTest {
         invalidCcaInformation.add(new JsonAdaptedCcaInformation(
                 new JsonAdaptedCca(INVALID_CCA_NAME, new ArrayList<>(), INVALID_TOTAL_SESSIONS),
                 new JsonAdaptedRole(INVALID_ROLE),
-                INVALID_ATTENDED_SESSIONS,
-                INVALID_TOTAL_SESSIONS)
+                INVALID_ATTENDED_SESSIONS)
         );
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidCcaInformation);

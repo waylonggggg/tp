@@ -64,28 +64,9 @@ public class AddRoleToStudentCommand extends Command {
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         Person personToAddRole = lastShownPersonList.get(studentIndex.getZeroBased());
-
-        if (!model.hasCca(ccaName)) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
-        Cca targetCca = model.getCca(ccaName);
-
-        if (!personToAddRole.hasCca(targetCca)) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
-        }
-
-        if (!personToAddRole.isDefaultRoleInCca(targetCca)) {
-            throw new CommandException(MESSAGE_ROLE_ALREADY_ASSIGNED);
-        }
-
-        if (role.isDefaultRole()) {
-            throw new CommandException(MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE);
-        }
-
-        if (!targetCca.hasRole(role)) {
-            throw new CommandException(Messages.MESSAGE_ROLE_NOT_FOUND);
-        }
+        Cca targetCca = validateInputs(model, personToAddRole);
 
         Person personWithAddedRole = personToAddRole.addRole(targetCca, role);
         model.setPerson(personToAddRole, personWithAddedRole);
@@ -93,6 +74,29 @@ public class AddRoleToStudentCommand extends Command {
 
         return new CommandResult(String.format(
                 MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole), Messages.format(role)));
+    }
+
+    /**
+     * Validates the inputs for adding a role to a student's CCA.
+     */
+    private Cca validateInputs(Model model, Person personToAddRole) throws CommandException {
+        if (!model.hasCca(ccaName)) {
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
+        }
+        Cca targetCca = model.getCca(ccaName);
+        if (!personToAddRole.hasCca(targetCca)) {
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
+        }
+        if (!personToAddRole.isDefaultRoleInCca(targetCca)) {
+            throw new CommandException(MESSAGE_ROLE_ALREADY_ASSIGNED);
+        }
+        if (role.isDefaultRole()) {
+            throw new CommandException(MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE);
+        }
+        if (!targetCca.hasRole(role)) {
+            throw new CommandException(Messages.MESSAGE_ROLE_NOT_FOUND);
+        }
+        return targetCca;
     }
 
     @Override

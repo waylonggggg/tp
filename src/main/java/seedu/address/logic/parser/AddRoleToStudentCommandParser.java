@@ -25,11 +25,9 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
      */
     public AddRoleToStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_ROLE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_ROLE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_ROLE)
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_ROLE) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, AddRoleToStudentCommand.MESSAGE_USAGE));
         }

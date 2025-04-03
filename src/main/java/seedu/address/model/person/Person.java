@@ -217,7 +217,8 @@ public class Person {
 
         Attendance newAttendance;
 
-        // Ensures sessions attended is less than the new cca total session count
+        // Ensures sessions attended is less than the new cca total session count, if not, manually lower attendance
+        // count to match that of the cca's total sessions
         if (currentAttendanceSessionCount.getSessionCount() > newCcaTotalSessionCount.getSessionCount()) {
             newAttendance = new Attendance(new SessionCount(newCcaTotalSessionCount.getSessionCount()),
                     newCcaTotalSessionCount);

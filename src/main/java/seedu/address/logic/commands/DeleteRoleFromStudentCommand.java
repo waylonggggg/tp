@@ -55,17 +55,16 @@ public class DeleteRoleFromStudentCommand extends Command {
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Person personToDeleteRole = lastShownPersonList.get(studentIndex.getZeroBased());
 
+        Person personToDeleteRole = lastShownPersonList.get(studentIndex.getZeroBased());
         if (!model.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
-        Cca targetCca = model.getCca(ccaName);
 
+        Cca targetCca = model.getCca(ccaName);
         if (!personToDeleteRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         }
-
         if (personToDeleteRole.isDefaultRoleInCca(targetCca)) {
             throw new CommandException(MESSAGE_ROLE_NOT_ASSIGNED);
         }

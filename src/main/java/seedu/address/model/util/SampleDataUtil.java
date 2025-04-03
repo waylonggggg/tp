@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cca.Attendance;
@@ -56,26 +55,26 @@ public class SampleDataUtil {
         };
     }
 
-    public static Person[] getSamplePersons(ObservableList<Cca> uniqueCcaList) {
+    public static Person[] getSamplePersons(AddressBook sampleAb) {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getCcaInformationSet(uniqueCcaList, "Canoe", "Member", "5")),
+                    getCcaInformationSet(sampleAb, "Canoe", "Member", "5")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getCcaInformationSet(uniqueCcaList, "Basketball", "Vice-Captain", "10")),
+                    getCcaInformationSet(sampleAb, "Basketball", "Vice-Captain", "10")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getCcaInformationSet(uniqueCcaList, "Badminton", "Member", "10")),
+                    getCcaInformationSet(sampleAb, "Badminton", "Member", "10")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getCcaInformationSet(uniqueCcaList, "E Sports", "Vice-President", "4")),
+                    getCcaInformationSet(sampleAb, "E Sports", "Vice-President", "4")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                    getCcaInformationSet(uniqueCcaList, "Football", "Captain", "5")),
+                    getCcaInformationSet(sampleAb, "Football", "Captain", "5")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getCcaInformationSet(uniqueCcaList, "Dance", "President", "5"))
+                    getCcaInformationSet(sampleAb, "Dance", "President", "5"))
         };
     }
 
@@ -85,9 +84,7 @@ public class SampleDataUtil {
             sampleAb.addCca(sampleCca);
         }
 
-        ObservableList<Cca> uniqueCcaList = sampleAb.getCcaList();
-
-        for (Person samplePerson : getSamplePersons(uniqueCcaList)) {
+        for (Person samplePerson : getSamplePersons(sampleAb)) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
@@ -95,18 +92,9 @@ public class SampleDataUtil {
 
     /**
      * Returns a set of CCA information objects based on the provided data.
-     *
-     * - **Checks if the CCA exists** in `uniqueCcaList` (compares names).
-     * - **Uses the existing CCA reference** if found.
-     * - **Checks if the role exists** in the CCA's role set.
-     * - **Retrieves total sessions** from the existing CCA instead of user input.
-     *
-     * @param uniqueCcaList The list of existing CCAs.
-     * @param ccaInformationData Alternating parameters: CCA Name, Role, Attended Sessions.
-     * @return A set of {@code CcaInformation} objects.
      */
     public static Set<CcaInformation> getCcaInformationSet(
-            ObservableList<Cca> uniqueCcaList, String... ccaInformationData) {
+            AddressBook sampleAb, String... ccaInformationData) {
 
         Set<CcaInformation> ccaInformationSet = new HashSet<>();
 
@@ -115,47 +103,14 @@ public class SampleDataUtil {
             String roleName = ccaInformationData[i + 1];
             int attendedSessions = Integer.parseInt(ccaInformationData[i + 2]);
 
-            Cca existingCca = getCcaByName(uniqueCcaList, new CcaName(ccaName));
+            Cca existingCca = sampleAb.getCca(new CcaName(ccaName));
             int totalSessions = existingCca.getTotalSessions().getSessionCount();
 
-            // Check if the role exists in the cca
-            Role roleReference = findRoleInCca(existingCca, roleName);
-
-            // Create Attendance object
+            Role role = new Role(roleName);
             Attendance attendance = new Attendance(new SessionCount(attendedSessions), new SessionCount(totalSessions));
-
-            // Create CcaInformation and add to the set
-            ccaInformationSet.add(new CcaInformation(existingCca, roleReference, attendance));
+            ccaInformationSet.add(new CcaInformation(existingCca, role, attendance));
         }
         return ccaInformationSet;
-    }
-
-    /**
-     * Retrieves a CCA by its name from the given list.
-     *
-     * @param ccaList The observable list of CCAs.
-     * @param ccaName The CCA name to search for.
-     * @return The matching {@code Cca} object if found, otherwise {@code null}.
-     */
-    public static Cca getCcaByName(ObservableList<Cca> ccaList, CcaName ccaName) {
-        return ccaList.stream()
-                .filter(cca -> cca.getCcaName().equals(ccaName))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Finds a role in the given CCA.
-     *
-     * @param cca The CCA to search in.
-     * @param roleName The name of the role to find.
-     * @return The matching {@code Role} if found, otherwise {@code null}.
-     */
-    private static Role findRoleInCca(Cca cca, String roleName) {
-        return cca.getRoles().stream()
-                .filter(role -> role.roleName.equals(roleName))
-                .findFirst()
-                .orElse(null);
     }
 
     /**
