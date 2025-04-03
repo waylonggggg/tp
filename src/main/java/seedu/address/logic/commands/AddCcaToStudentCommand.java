@@ -13,10 +13,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
-import seedu.address.model.role.Role;
 
 /**
  * Adds a CCA to a student identified using their displayed index from the address book.
