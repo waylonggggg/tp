@@ -106,6 +106,7 @@ public class Person {
         }
         throw new CcaNotFoundException();
     }
+
     /**
      * Returns an unmodifiable view of the person's CCA information.
      * Prevents external modifications to maintain immutability.
