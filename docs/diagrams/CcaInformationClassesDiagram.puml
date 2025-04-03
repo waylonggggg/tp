@@ -7,7 +7,7 @@ skinparam classBackgroundColor MODEL_COLOR
 Class UniqueCcaList
 Class Person
 
-package "Cca Related Classes" as CcaClasses{
+package "Cca Information Attribute Classes" as CcaInformationClasses{
 Class Cca
 Class Role
 Class CcaInformation
