@@ -106,6 +106,16 @@ public class RecordAttendanceCommandTest {
         }
 
         @Override
+        public Cca getCca(CcaName ccaName) {
+            for (Cca cca : ccasAdded) {
+                if (cca.getCcaName().equals(ccaName)) {
+                    return cca;
+                }
+            }
+            return null;
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             requireAllNonNull(target, editedPerson);
             personsAdded.remove(target);
