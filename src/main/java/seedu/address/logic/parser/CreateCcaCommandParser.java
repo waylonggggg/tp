@@ -21,11 +21,9 @@ public class CreateCcaCommandParser implements Parser<CreateCcaCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateCcaCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCcaCommand.MESSAGE_USAGE));
         }
 

@@ -23,11 +23,9 @@ public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFrom
      */
     public DeleteRoleFromStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME)
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRoleFromStudentCommand.MESSAGE_USAGE));
         }
