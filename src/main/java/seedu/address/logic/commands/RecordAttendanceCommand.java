@@ -16,7 +16,7 @@ import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
- * Records the attendance of a member in a CCA.
+ * Records the attendance of a person in a CCA.
  */
 public class RecordAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attend";

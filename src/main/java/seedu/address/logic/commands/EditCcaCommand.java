@@ -50,8 +50,7 @@ public class EditCcaCommand extends Command {
     private final EditCcaDescriptor editCcaDescriptor;
 
     /**
-     * @param index of the cca in the cca list to edit
-     * @param editCcaDescriptor details to edit the student with
+     * Creates an EditCcaCommand to edit the {@code Cca} specified by the index.
      */
     public EditCcaCommand(Index index, EditCcaDescriptor editCcaDescriptor) {
         requireNonNull(index);

@@ -27,7 +27,6 @@ import seedu.address.model.person.Phone;
 
 /**
  * Edits the details of an existing student in the address book.
- * Does not allow editing of CCAs or Roles. Use add_c/remove_c and add_r/delete_r instead.
  */
 public class EditStudentCommand extends Command {
 
@@ -54,13 +53,11 @@ public class EditStudentCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the student in the filtered student list to edit
-     * @param editPersonDescriptor details to edit the student with
+     * Creates an EditStudentCommand to edit the {@code Person} specified by the index.
      */
     public EditStudentCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
-
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
@@ -82,7 +79,6 @@ public class EditStudentCommand extends Command {
         }
 
         if (!model.isValidPersonCcas(editedPerson)) {
-            // This exception indicates a CCA associated with the person doesn't exist in the AddressBook's CCA list.
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
         model.setPerson(personToEdit, editedPerson);

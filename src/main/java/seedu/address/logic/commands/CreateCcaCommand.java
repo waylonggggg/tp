@@ -26,7 +26,7 @@ public class CreateCcaCommand extends Command {
     private final Cca toCreate;
 
     /**
-     * Creates a CreateCcaCommand to add the specified {@code CCA}
+     * Creates a CreateCcaCommand to add the specified {@code CCA}.
      */
     public CreateCcaCommand(Cca cca) {
         requireNonNull(cca);

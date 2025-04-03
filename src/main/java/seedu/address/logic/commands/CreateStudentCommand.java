@@ -25,15 +25,12 @@ public class CreateStudentCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_ROLE + "TAG]...\n"
+            + PREFIX_ADDRESS + "ADDRESS \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_ROLE + "friends "
-            + PREFIX_ROLE + "owesMoney";
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book";
@@ -41,7 +38,7 @@ public class CreateStudentCommand extends Command {
     private final Person toCreate;
 
     /**
-     * Creates a CreateStudentCommand to add the specified {@code Person}
+     * Creates a CreateStudentCommand to add the specified {@code Person}.
      */
     public CreateStudentCommand(Person person) {
         requireNonNull(person);
