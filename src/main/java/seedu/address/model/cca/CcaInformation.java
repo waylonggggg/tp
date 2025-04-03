@@ -120,13 +120,13 @@ public class CcaInformation {
     }
 
     /**
-     * Returns a new {@code CcaInformation} object with the role deleted.
+     * Returns a new {@code CcaInformation} object with the role removed.
      * The current {@code role} of CCA Information must not be the default role.
      *
-     * @return A new {@code CcaInformation} object with the role deleted.
+     * @return A new {@code CcaInformation} object with the role removed.
      * @throws NoRoleAssignedException If the role is not assigned.
      */
-    public CcaInformation deleteRole() {
+    public CcaInformation removeRole() {
         if (role.isDefaultRole()) {
             throw new NoRoleAssignedException();
         }

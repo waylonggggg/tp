@@ -5,9 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -73,9 +71,7 @@ public class AddCcaToStudentCommand extends Command {
         }
 
         CcaInformation newCcaInfo = new CcaInformation(targetCca, Role.DEFAULT_ROLE, targetCca.createNewAttendance());
-        Set<CcaInformation> updatedCcaInformations = new HashSet<>(personToAddCca.getCcaInformations());
 
-        updatedCcaInformations.add(newCcaInfo);
         Person personWithAddedCca = personToAddCca.addCca(newCcaInfo);
 
         model.setPerson(personToAddCca, personWithAddedCca);
@@ -96,7 +92,7 @@ public class AddCcaToStudentCommand extends Command {
         }
 
         AddCcaToStudentCommand otherCommand = (AddCcaToStudentCommand) other;
-        assert otherCommand != null : "Object should be an instance of AddCcaToStudentCommand.";
+
         return studentIndex.equals(otherCommand.studentIndex)
                 && ccaName.equals(otherCommand.ccaName);
     }
