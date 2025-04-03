@@ -42,7 +42,7 @@ public class CreateCcaCommandIntegrationTest {
     public void execute_duplicateCca_throwsCommandException() {
         Cca ccaInList = model.getAddressBook().getCcaList().get(0);
         assertCommandFailure(new CreateCcaCommand(ccaInList), model,
-                CreateCcaCommand.MESSAGE_DUPLICATE_CCA);
+                Messages.MESSAGE_DUPLICATE_CCA);
     }
 
 }

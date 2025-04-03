@@ -107,6 +107,7 @@ public class Person {
         }
         throw new CcaNotFoundException();
     }
+
     /**
      * Returns an unmodifiable view of the person's CCA information.
      * Prevents external modifications to maintain immutability.
@@ -129,6 +130,17 @@ public class Person {
             ccas.add(ccaInformation.getCca());
         }
         return Collections.unmodifiableList(ccas);
+    }
+
+    /**
+     * Returns the role of the person in the specified CCA.
+     *
+     * @param cca The CCA to retrieve the role for.
+     * @return The {@code Role} object associated with the specified CCA.
+     */
+    public Role getRole(Cca cca) {
+        CcaInformation ccaInformation = getCcaInformation(cca);
+        return ccaInformation.getRole();
     }
 
     /**

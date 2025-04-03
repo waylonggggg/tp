@@ -124,7 +124,7 @@ public class EditStudentCommandTest {
         // Try to edit the second person to have the same identity as the first person
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class EditStudentCommandTest {
         // to have the same identity as the second person
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_PERSON, descriptor);
 
-        assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test

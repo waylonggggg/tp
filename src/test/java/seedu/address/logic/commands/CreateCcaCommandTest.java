@@ -44,7 +44,7 @@ public class CreateCcaCommandTest {
         ModelStub modelStub = new ModelStubWithCca(validCca);
 
         assertThrows(CommandException.class,
-                CreateCcaCommand.MESSAGE_DUPLICATE_CCA, () -> createCcaCommand.execute(modelStub));
+                Messages.MESSAGE_DUPLICATE_CCA, () -> createCcaCommand.execute(modelStub));
     }
 
     @Test

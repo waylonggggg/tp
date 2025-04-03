@@ -18,14 +18,14 @@ import seedu.address.model.person.Person;
 import seedu.address.model.role.Role;
 
 /**
- * Adds a role of a specified cca to a student identified using it's displayed index from the address book.
+ * Adds a role of a specified CCA to a student identified using it's displayed index from the address book.
  */
 public class AddRoleToStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "add_r";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a role to the student identified "
-            + "by the index number used in the displayed student list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a role from the specified CCA to the student "
+            + "identified by the index number used in the displayed student list. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_CCA_NAME + "CCA_NAME "
             + PREFIX_ROLE + "ROLE\n"
@@ -33,7 +33,7 @@ public class AddRoleToStudentCommand extends Command {
             + PREFIX_CCA_NAME + "Basketball "
             + PREFIX_ROLE + "Center";
 
-    public static final String MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS = "Added role to student: %1$s";
+    public static final String MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS = "Added %2$s role to student: %1$s";
     public static final String MESSAGE_ROLE_ALREADY_ASSIGNED = "This student already has a role in this CCA.";
     public static final String MESSAGE_CANNOT_ASSIGN_DEFAULT_ROLE = "Cannot assign a default role "
             + DEFAULT_ROLE_NAME + " to a student.";
@@ -69,15 +69,11 @@ public class AddRoleToStudentCommand extends Command {
         Cca targetCca = validateInputs(model, personToAddRole);
 
         Person personWithAddedRole = personToAddRole.addRole(targetCca, role);
-        try {
-            model.setPerson(personToAddRole, personWithAddedRole);
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
-
+        model.setPerson(personToAddRole, personWithAddedRole);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(String.format(
-                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole)));
+                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole), Messages.format(role)));
     }
 
     /**

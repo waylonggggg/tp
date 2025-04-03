@@ -10,23 +10,22 @@ import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 
 /**
- * Adds a person to the address book.
+ * Adds a CCA to the address book.
  */
 public class CreateCcaCommand extends Command {
 
     public static final String COMMAND_WORD = "create_c";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a CCA to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a CCA to the CCA list. "
             + "Parameters: "
             + PREFIX_CCA_NAME + "NAME ";
 
     public static final String MESSAGE_SUCCESS = "New CCA added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the address book";
 
     private final Cca toCreate;
 
     /**
-     * Creates a CreateCcaCommand to add the specified {@code CCA}.
+     * Creates a CreateCcaCommand to add the specified {@code Cca}
      */
     public CreateCcaCommand(Cca cca) {
         requireNonNull(cca);
@@ -38,7 +37,7 @@ public class CreateCcaCommand extends Command {
         requireNonNull(model);
 
         if (model.hasCca(toCreate)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CCA);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_CCA);
         }
 
         model.addCca(toCreate);

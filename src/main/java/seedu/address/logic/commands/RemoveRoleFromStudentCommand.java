@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
+import seedu.address.model.role.Role;
 
 /**
  * Removes a role and sets to a default role of a specified cca from a student identified
@@ -30,7 +31,7 @@ public class RemoveRoleFromStudentCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CCA_NAME + "Basketball";
 
-    public static final String MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS = "removed role from student: %1$s";
+    public static final String MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS = "Deleted %2$s role from student: %1$s";
     public static final String MESSAGE_ROLE_NOT_ASSIGNED = "This student does not have a role in this CCA.";
 
     private final Index studentIndex;
@@ -68,14 +69,13 @@ public class RemoveRoleFromStudentCommand extends Command {
             throw new CommandException(MESSAGE_ROLE_NOT_ASSIGNED);
         }
 
+        Role role = personToRemoveRole.getRole(targetCca);
         Person personWithRemovedRole = personToRemoveRole.removeRole(targetCca);
-        try {
-            model.setPerson(personToRemoveRole, personWithRemovedRole);
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
+        model.setPerson(personToRemoveRole, personWithRemovedRole);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS, personWithRemovedRole));
+
+        return new CommandResult(String.format(MESSAGE_DELETE_ROLE_FROM_STUDENT_SUCCESS,
+                Messages.format(personToRemoveRole), Messages.format(role)));
     }
 
     @Override
