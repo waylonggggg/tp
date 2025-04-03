@@ -11,7 +11,7 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
 
 /**
- * Parses input arguments and creates a new CreateCcaCommand object
+ * Parses input arguments and creates a new CreateCcaCommand object.
  */
 public class CreateCcaCommandParser implements Parser<CreateCcaCommand> {
 

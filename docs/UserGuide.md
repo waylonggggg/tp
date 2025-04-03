@@ -238,20 +238,20 @@ Format: `delete_c INDEX`
 Examples:
 * `delete_c 2` deletes the 2nd CCA in the CCA list.
 
-### Deleting a role from a student in a CCA : `delete_r`
+### Removing a role from a student in a CCA : `remove_r`
 
-Deletes a role from a student in a CCA.
+Removes a role from a student in a CCA.
 
-Format: `delete_r INDEX c/CCA_NAME`
+Format: `remove_r INDEX c/CCA_NAME`
 
-* Deletes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
+* Removes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
 * The index refers to the index number shown in the displayed student list.
 * The index must be a positive integer (1, 2, 3, …​)
 * The student must be in the CCA.
 * The student must have a role in the CCA.
 
 Examples:
-* `delete_r 2 c/Basketball` Deletes the role of the 2nd student in the student list in the CCA `Basketball`.
+* `remove_r 2 c/Basketball` Removes the role of the 2nd student in the student list in the CCA `Basketball`.
 
 ### Removing a CCA from a student : `remove_c`
 
@@ -321,7 +321,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
-**Delete Role** | `delete_r INDEX c/CCA_NAME`<br> e.g., `delete_r 2 c/Basketball`
+**Remove Role** | `remove_r INDEX c/CCA_NAME`<br> e.g., `remove_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
 **Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
 **Record Attendance**   | `attend INDEX [c/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 c/Basketball a/1`
