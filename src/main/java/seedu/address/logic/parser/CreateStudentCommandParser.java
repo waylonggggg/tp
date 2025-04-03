@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Parses input arguments and creates a new CreateStudentCommand object
+ * Parses input arguments and creates a new CreateStudentCommand object.
  */
 public class CreateStudentCommandParser implements Parser<CreateStudentCommand> {
 

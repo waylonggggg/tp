@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.CcaName;
 
 /**
- * Parses input arguments and creates a new DeleteRoleFromStudentCommand object
+ * Parses input arguments and creates a new DeleteRoleFromStudentCommand object.
  */
 public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFromStudentCommand> {
 

@@ -14,7 +14,7 @@ import seedu.address.model.cca.CcaName;
 
 
 /**
- * Parses input arguments and creates a new RecordAttendanceCommand object
+ * Parses input arguments and creates a new RecordAttendanceCommand object.
  */
 public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCommand> {
     /**
