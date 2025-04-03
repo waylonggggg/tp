@@ -99,7 +99,6 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        // Preserve original CCAs
         Set<CcaInformation> updatedCcaInformation = personToEdit.getCcaInformations();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedCcaInformation);
@@ -146,14 +145,12 @@ public class EditStudentCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            // REMOVED: setCcaInformation(toCopy.ccaInformation);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            // REMOVED: ccaInformation from check
             return CollectionUtil.isAnyNonNull(name, phone, email, address);
         }
 
@@ -189,9 +186,6 @@ public class EditStudentCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        // REMOVED: setCcaInformation method
-        // REMOVED: getCcaInformation method
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -201,7 +195,6 @@ public class EditStudentCommand extends Command {
                 return false;
             }
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            // REMOVED: ccaInformation from comparison
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
@@ -210,7 +203,6 @@ public class EditStudentCommand extends Command {
 
         @Override
         public String toString() {
-            // REMOVED: ccaInformation from toString
             return new ToStringBuilder(this)
                     .add("name", name)
                     .add("phone", phone)
