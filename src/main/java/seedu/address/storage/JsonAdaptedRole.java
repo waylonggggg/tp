@@ -28,11 +28,6 @@ class JsonAdaptedRole {
         roleName = source.roleName;
     }
 
-    @JsonValue
-    public String getRoleName() {
-        return roleName;
-    }
-
     /**
      * Converts this Jackson-friendly adapted role object into the model's {@code Role} object.
      *

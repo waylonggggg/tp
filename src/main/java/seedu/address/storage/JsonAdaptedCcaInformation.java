@@ -20,7 +20,6 @@ class JsonAdaptedCcaInformation {
     private final JsonAdaptedCca cca;
     private final JsonAdaptedRole role;
     private final int attendedSessions;
-    private final int totalSessions;
 
     /**
      * Constructs a {@code JsonAdaptedCcaInformation} with the given details.
@@ -28,12 +27,10 @@ class JsonAdaptedCcaInformation {
     @JsonCreator
     public JsonAdaptedCcaInformation(@JsonProperty("cca") JsonAdaptedCca cca,
                                      @JsonProperty("role") JsonAdaptedRole role,
-                                     @JsonProperty("attendedSessions") int attendedSessions,
-                                     @JsonProperty("totalSessions") int totalSessions) {
+                                     @JsonProperty("attendedSessions") int attendedSessions) {
         this.cca = cca;
         this.role = role;
         this.attendedSessions = attendedSessions;
-        this.totalSessions = totalSessions;
     }
 
     /**
@@ -43,7 +40,6 @@ class JsonAdaptedCcaInformation {
         this.cca = new JsonAdaptedCca(source.getCca());
         this.role = new JsonAdaptedRole(source.getRole());
         this.attendedSessions = source.getAttendance().getSessionsAttended().getSessionCount();
-        this.totalSessions = source.getAttendance().getTotalSessions().getSessionCount();
     }
 
     /**
