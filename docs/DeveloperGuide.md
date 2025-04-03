@@ -703,12 +703,16 @@ testers are expected to do more \*exploratory\* testing.
 
    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+   1. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
+
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
+   
+   1. Refer to the initial launch instructions if double-clicking doesn't work
 
 ### Listing a student
 
@@ -718,10 +722,10 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Clearing all students
 
-1. List all students
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list.
-    2. Test case: `list`
-       Expected: The list should contain all students. The status message should reflect the successful listing of all students.
+1. Clear all students
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list.
+    2. Test case: `clear`
+       Expected: Both the student list and the CCA list should be empty. The status message should reflect the successful clearing of all students.
 
 ### Finding a student
 
@@ -733,7 +737,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Creating a student
 
 1. Creating a student
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. `John Doe` is not in student list.
     2. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: A new student is added to the list. The student details are shown in the list.
     3. Test case: `create_s n/John Doe p/98765432`
@@ -757,12 +761,12 @@ testers are expected to do more \*exploratory\* testing.
 ### Creating a CCA
 
 1. Creating a CCA with a CCA name.
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
-    2. Test case: `create_c c/Basketball`
+    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list. `Handball` is not in CCA list.
+    2. Test case: `create_c c/Handball`
        Expected: A new CCA is added to the list. The CCA details are shown in the list.
     3. Test case: `create_c`
        Expected: No CCA is added. Error details shown in the status message as the CCA name is not provided.
-    4. Test case: `create_c c/Basketball`
+    4. Test case: `create_c c/Handball`
        Expected: No CCA is added. Error details shown in the status message as the CCA already exists.
     5. Other test cases to try: `create_c c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No CCA is added. Error message is shown as parameters with invalid formats were provided.
@@ -783,11 +787,11 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a student
 
 1. Editing an existing student's name, phone, email and address.
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list and name is not `Clark Kent`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list. It is okay for the edited student's original name to be Clark Kent
     2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
-    3. Test case: `edit_s 1 n/Clark Kent`
-       Expected: No student is edited. Error details are shown in the status message as the edit did not change the student.
+    3. Test case: `edit_s 2 n/Clark Kent`
+       Expected: No student is edited. Error details are shown in the status message as Clark Kent already exists in the list.
     4. Test case: `edit_s 0 n/Josh Yoseph`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
     5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
@@ -797,11 +801,11 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a CCA
 
 1. Editing an existing CCA's name and total sessions.
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and name is not `Basketball`.
+    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and there is no `Basketball` CCA. It is okay for the edited CCA's original name to be `Basketball`
     2. Test case: `edit_c 1 c/Basketball t/15 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
-    3. Test case: `edit_c 1 c/Basketball`
-       Expected: No CCA is edited as the CCA already has the name `Basketball`. Other details are reserved. Error details shown in the status message as the edit did not change the CCA.
+    3. Test case: `edit_c 2 c/Basketball`
+       Expected: No CCA is edited as the CCA already has the name `Basketball`. Error details are shown in the status message as the CCA already exists in the list.
     4. Test case: `edit_c 0 c/Chess`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
     5. Other test cases to try: `edit_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
@@ -814,35 +818,31 @@ testers are expected to do more \*exploratory\* testing.
 1. Adding a role to a CCA
     1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
     2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`
-       Expected: The first CCA is added with the `President`, `Vice-President`, and `Treasurer` roles. The updated CCA details are shown in the list.
+       Expected: The first CCA's roles are replaced with `President`, `Vice-President`, `Treasurer`, and default `Member` roles. The updated CCA details are shown in the list.
     3. Test case: `edit_c 1 r/President`
-       Expected: The first CCA is added with the `President` role. Other roles get deleted. The updated CCA details are shown in the list.
-    4. Test case: `edit_c 1 r/President`
-       Expected: The CCA already has the same set of roles. Error details are shown in the status message.
-    5. Test case: `edit_c 0 r/Treasurer`
+       Expected: The first CCA's roles are replaced with the `President` and default `Member` role. Other roles get deleted. The updated CCA details are shown in the list.
+    4. Test case: `edit_c 0 r/Treasurer`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
-    6. Other test cases to try: `edit_c 1 r/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `edit_c 1 r/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting a role from a CCA
     1. Prerequisite: List all CCAs using the `list` command. Multiple CCAs in the list. Multiple roles in the list and the first CCA has at least one role.
     2. Test case: `edit_c 1 r/`
-       Expected: The first CCA is removed from the `President` role. The updated CCA details are shown in the list.
-    3. Test case: `edit_c 1 r/`
-       Expected: The first CCA already does not have any role. Error details shown in the status message.
-    4. Test case: `edit_c 0 r/`
+       Expected: The first CCA's roles are removed and only left with default `Member`. The updated CCA details are shown in the list.
+    3. Test case: `edit_c 0 r/`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list. Status bar remains the same.
 
-### **Record Attendance**
+### Record Attendance
 
 1. Recording attendance for a student already in a CCA
-    1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dancing` CCA is not contained in the first student.
+    1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dance` CCA is not contained in the first student. The second student does not have full attendance in `Basketball` CCA.
     2. Test case: `attend 2 c/Basketball a/1`
    Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
    3. Test case: `attend 2 c/Chess a/1`
    Expected: No attendance is recorded. An error message is displayed indicating that the `Chess` does not exist).
-   4. Test case: `attend 2 c/Dancing a/1`
-    Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dancing` CCA.
+   4. Test case: `attend 2 c/Dance a/1`
+    Expected: No attendance is recorded. An error message is displayed indicating that the student is not in the `Dance` CCA.
    5. Test case: `attend 0 c/Basketball a/1`
     Expected: No attendance is recorded. An error message is shown, since `0` is out of the valid student index range.
    6. Test case: `attend 2 c/Basketball`
@@ -853,7 +853,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Adding a CCA to a student
 
 1. Adding a CCA to a student.
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is not in `Basketball` CCA.
     2. Test case: `add_c 1 c/Basketball`
        Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
     3. Test case: `add_c 1 c/Basketball`
@@ -862,16 +862,14 @@ testers are expected to do more \*exploratory\* testing.
        Expected: The app does not have the `Chess` CCA. Error details shown in the status message.
     5. Test case: `add_c 0 c/Basketball`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
-    6. Test case: `add_c 1 c/Member`
-       Expected: Error details shown in the status message because default role cannot be assigned.
-    7. Other test cases to try: `add_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    6. Other test cases to try: `add_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
        Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
 
 ### Removing a CCA from a student
 
 1. Removing a CCA from a student.
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`.
-     2. Test case: `remove_c 1 c/Basketball`
+    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
+    2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
     3. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is already not in any CCA. Error details shown in the status message.
@@ -881,12 +879,12 @@ testers are expected to do more \*exploratory\* testing.
 ### Adding a role to a student in a CCA
 
 1. Adding a role from a student in a CCA.
-   2. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
-   3. Test case: `add_r 1 c/Basketball r/Member`
+    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
+    2. Test case: `add_r 1 c/Basketball r/Member`
       Expected: The default role `Member` cannot be assigned. Error details are shown in the status message.
-   4. Test case: `add_r c/Basketball r/Captain`
+    3. Test case: `add_r 1 c/Basketball r/Captain`
       Expected: The first person is added with the role. The updated student details are shown in the list.
-   5. Test case: `add_r c/Basketball r/Captain`
+    4. Test case: `add_r 1 c/Basketball r/Captain`
       Expected: The first person is already assigned with a role. Error details are shown in the status message.
 
 ### Removing a role from a student in a CCA
@@ -894,7 +892,7 @@ testers are expected to do more \*exploratory\* testing.
 1. Removing a role from a student in a CCA.
     1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
     2. Test case: `remove_r 1 c/Basketball`
-       Expected: The first student is removed with the role. The updated student details are shown in the list.
+       Expected: The first student's role in `Basketball` CCA is removed, the student is now a `Member`. The updated student details are shown in the list.
     3. Test case: `remove_r 1 c/Basketball`
        Expected: The first student is not assigned with any role. Error details shown in the status message.
     4. Test case: `remove_r 0 c/Basketball`

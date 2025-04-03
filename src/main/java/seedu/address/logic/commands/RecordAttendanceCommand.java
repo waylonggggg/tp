@@ -64,7 +64,7 @@ public class RecordAttendanceCommand extends Command {
 
         Person student = lastShownList.get(studentIndex.getZeroBased());
         if (!student.hasCca(ccaName)) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         } else if (!student.canAttend(cca, amount)) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
         }
