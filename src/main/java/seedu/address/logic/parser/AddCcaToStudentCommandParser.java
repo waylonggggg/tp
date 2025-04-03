@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 
 import java.util.stream.Stream;
 
@@ -24,9 +24,9 @@ public class AddCcaToStudentCommandParser implements Parser<AddCcaToStudentComma
     public AddCcaToStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE));
@@ -40,9 +40,9 @@ public class AddCcaToStudentCommandParser implements Parser<AddCcaToStudentComma
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
 
-        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA).get());
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
 
         return new AddCcaToStudentCommand(index, ccaName);
     }

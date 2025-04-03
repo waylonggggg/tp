@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -27,9 +26,9 @@ public class RemoveCcaFromStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a CCA from the student identified "
             + "by the index number used in the displayed student list.\n"
             + "Parameters: STUDENT_INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME\n"
+            + PREFIX_CCA_NAME + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball";
+            + PREFIX_CCA_NAME + "Basketball";
 
     public static final String MESSAGE_REMOVE_CCA_SUCCESS = "Removed CCA %2$s from student: %1$s";
 
@@ -50,18 +49,17 @@ public class RemoveCcaFromStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Cca> lastCcaList = model.getCcaList();
 
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person personToRemoveCca = lastShownPersonList.get(studentIndex.getZeroBased());
 
-        Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
-        if (searchedCca.isEmpty()) {
+        if (!model.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
-        Cca targetCca = searchedCca.get();
+
+        Cca targetCca = model.getCca(ccaName);
 
         if (!personToRemoveCca.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
@@ -69,33 +67,12 @@ public class RemoveCcaFromStudentCommand extends Command {
 
         Person personWithRemovedCca = personToRemoveCca.removeCca(targetCca);
 
-        try {
-            model.setPerson(personToRemoveCca, personWithRemovedCca);
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
+        model.setPerson(personToRemoveCca, personWithRemovedCca);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS,
                 Messages.format(personWithRemovedCca),
                 Messages.format(ccaName)));
-    }
-
-    /**
-     * Finds a {@code Cca} from a list of {@code Cca} with the given {@code CcaName}.
-     * Iterative approach matching DeleteRoleFromStudentCommand.
-     *
-     * @param ccaList list of {@code Cca} to search from
-     * @param ccaName {@code CcaName} to search for
-     * @return {@code Optional<Cca>} containing the {@code Cca} if found, otherwise {@code Optional.empty()}
-     */
-    private Optional<Cca> findCcaWithCcaName(List<Cca> ccaList, CcaName ccaName) {
-        for (Cca cca : ccaList) {
-            if (cca.getCcaName().equals(ccaName)) {
-                return Optional.of(cca);
-            }
-        }
-        return Optional.empty();
     }
 
     @Override

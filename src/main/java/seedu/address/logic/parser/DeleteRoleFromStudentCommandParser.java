@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 
 import java.util.stream.Stream;
 
@@ -24,9 +24,9 @@ public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFrom
     public DeleteRoleFromStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA);
+                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRoleFromStudentCommand.MESSAGE_USAGE));
@@ -41,8 +41,8 @@ public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFrom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRoleFromStudentCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA);
-        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
 
         return new DeleteRoleFromStudentCommand(index, ccaName);
     }

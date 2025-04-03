@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.model.role.Role.DEFAULT_ROLE_NAME;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -28,10 +27,10 @@ public class AddRoleToStudentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a role to the student identified "
             + "by the index number used in the displayed student list. "
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME "
+            + PREFIX_CCA_NAME + "CCA_NAME "
             + PREFIX_ROLE + "ROLE\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball "
+            + PREFIX_CCA_NAME + "Basketball "
             + PREFIX_ROLE + "Center";
 
     public static final String MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS = "Added role to student: %1$s";
@@ -61,18 +60,16 @@ public class AddRoleToStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Cca> lastCcaList = model.getCcaList();
 
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         Person personToAddRole = lastShownPersonList.get(studentIndex.getZeroBased());
 
-        Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
-        if (searchedCca.isEmpty()) {
+        if (!model.hasCca(ccaName)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
         }
-        Cca targetCca = searchedCca.get();
+        Cca targetCca = model.getCca(ccaName);
 
         if (!personToAddRole.hasCca(targetCca)) {
             throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
@@ -103,22 +100,6 @@ public class AddRoleToStudentCommand extends Command {
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(
                 MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole)));
-    }
-
-    /**
-     * Finds a {@code Cca} from a list of {@code Cca} with the given {@code CcaName}.
-     *
-     * @param ccaList list of {@code Cca} to search from
-     * @param ccaName {@code CcaName} to search for
-     * @return {@code Optional<Cca>} containing the {@code Cca} if found, otherwise {@code Optional.empty()}
-     */
-    public Optional<Cca> findCcaWithCcaName(List<Cca> ccaList, CcaName ccaName) {
-        for (Cca cca : ccaList) {
-            if (cca.getCcaName().equals(ccaName)) {
-                return Optional.of(cca);
-            }
-        }
-        return Optional.empty();
     }
 
     @Override

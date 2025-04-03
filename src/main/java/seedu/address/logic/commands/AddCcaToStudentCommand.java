@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -36,9 +35,9 @@ public class AddCcaToStudentCommand extends Command {
             + "by the index number used in the displayed student list.\n"
             + "The CCA must already exist in the CCA list.\n"
             + "Parameters: STUDENT_INDEX (must be a positive integer) "
-            + PREFIX_CCA + "CCA_NAME\n"
+            + PREFIX_CCA_NAME + "CCA_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CCA + "Basketball";
+            + PREFIX_CCA_NAME + "Basketball";
 
     /** Success message displayed upon successful execution. */
     public static final String MESSAGE_ADD_CCA_SUCCESS = "Added CCA %2$s to student: %1$s";
@@ -75,22 +74,22 @@ public class AddCcaToStudentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownPersonList = model.getFilteredPersonList();
-        List<Cca> lastCcaList = model.getCcaList();
 
         // Check 1: Validate Student Index
         if (studentIndex.getZeroBased() >= lastShownPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
+        if (!model.hasCca(ccaName)) {
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
+        }
+
         Person personToAddCca = lastShownPersonList.get(studentIndex.getZeroBased());
         assert personToAddCca != null : "Person object should exist at the validated index.";
 
         // Check 2: Find the target CCA in the model's CCA list
-        Optional<Cca> searchedCca = findCcaWithCcaName(lastCcaList, ccaName);
-        if (searchedCca.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
-        }
-        Cca targetCca = searchedCca.get();
-        assert targetCca != null : "Target Cca object should exist if Optional is not empty.";
+        Cca targetCca = model.getCca(ccaName);
+        assert targetCca != null : "Target Cca object should exist in the model.";
 
         if (personToAddCca.hasCca(targetCca)) {
             throw new CommandException(MESSAGE_CCA_ALREADY_PRESENT);
@@ -114,23 +113,6 @@ public class AddCcaToStudentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ADD_CCA_SUCCESS,
                 Messages.format(personWithAddedCca),
                 Messages.format(ccaName)));
-    }
-
-    /**
-     * Finds a {@code Cca} from a list of {@code Cca} with the given {@code CcaName}.
-     * Uses a stream to filter the list based on CCA name equality.
-     *
-     * @param ccaList list of {@code Cca} to search from. Cannot be null.
-     * @param ccaName {@code CcaName} to search for. Cannot be null.
-     * @return {@code Optional<Cca>} containing the {@code Cca} if found, otherwise {@code Optional.empty()}.
-     */
-    private Optional<Cca> findCcaWithCcaName(List<Cca> ccaList, CcaName ccaName) {
-        // Although parameters are checked by callers, adding internal checks can be useful
-        requireNonNull(ccaList);
-        requireNonNull(ccaName);
-        return ccaList.stream()
-                .filter(cca -> cca.getCcaName().equals(ccaName))
-                .findFirst();
     }
 
     /**
