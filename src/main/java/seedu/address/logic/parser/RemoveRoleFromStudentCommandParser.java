@@ -7,29 +7,27 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteRoleFromStudentCommand;
+import seedu.address.logic.commands.RemoveRoleFromStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.CcaName;
 
 /**
- * Parses input arguments and creates a new DeleteRoleFromStudentCommand object
+ * Parses input arguments and creates a new RemoveRoleFromStudentCommand object.
  */
-public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFromStudentCommand> {
+public class RemoveRoleFromStudentCommandParser implements Parser<RemoveRoleFromStudentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteRoleFromStudentCommand
-     * and returns a DeleteRoleFromStudentCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RemoveRoleFromStudentCommand
+     * and returns a RemoveRoleFromStudentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteRoleFromStudentCommand parse(String args) throws ParseException {
+    public RemoveRoleFromStudentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME)
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRoleFromStudentCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoleFromStudentCommand.MESSAGE_USAGE));
         }
 
         Index index;
@@ -38,13 +36,13 @@ public class DeleteRoleFromStudentCommandParser implements Parser<DeleteRoleFrom
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRoleFromStudentCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoleFromStudentCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
         CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
 
-        return new DeleteRoleFromStudentCommand(index, ccaName);
+        return new RemoveRoleFromStudentCommand(index, ccaName);
     }
 
     /**

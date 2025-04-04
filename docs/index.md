@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "CCAttendance"
+layout: default.md
+title: "CCAttendance"
 ---
 
 [![CI Status](https://github.com/AY2425S2-CS2103T-T09-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S2-CS2103T-T09-4/tp/actions)

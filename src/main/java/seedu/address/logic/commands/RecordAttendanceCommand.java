@@ -16,12 +16,12 @@ import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Person;
 
 /**
- * Records the attendance of a member in a CCA.
+ * Records the attendance of a student in a CCA.
  */
 public class RecordAttendanceCommand extends Command {
     public static final String COMMAND_WORD = "attend";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records the attendance of a member in a CCA. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Records the attendance of a student in a CCA. "
             + "Parameters: "
             + "STUDENT_INDEX "
             + PREFIX_CCA_NAME + "CCA_NAME "
@@ -64,7 +64,7 @@ public class RecordAttendanceCommand extends Command {
 
         Person student = lastShownList.get(studentIndex.getZeroBased());
         if (!student.hasCca(ccaName)) {
-            throw new CommandException(Messages.MESSAGE_CCA_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_CCA_NOT_IN_PERSON);
         } else if (!student.canAttend(cca, amount)) {
             throw new CommandException(MESSAGE_EXCEEDING_AMOUNT);
         }

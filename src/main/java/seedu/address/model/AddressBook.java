@@ -18,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the person does not exist in the "
+    public static final String MESSAGE_CCA_NOT_FOUND = "At least one CCA in the student does not exist in the "
             + "address book.";
     private final UniquePersonList persons;
     private final UniqueCcaList ccas;

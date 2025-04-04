@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a student identified using it's displayed index from the address book.
  */
 public class DeleteStudentCommand extends Command {
 
@@ -27,6 +27,9 @@ public class DeleteStudentCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a DeleteStudentCommand to delete the {@code Person} specified by the index.
+     */
     public DeleteStudentCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }

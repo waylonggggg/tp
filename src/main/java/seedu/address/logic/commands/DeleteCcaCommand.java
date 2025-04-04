@@ -27,6 +27,9 @@ public class DeleteCcaCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a DeleteCcaCommand to delete the {@code Cca} specified by the index.
+     */
     public DeleteCcaCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }

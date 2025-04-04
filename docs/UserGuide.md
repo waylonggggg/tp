@@ -130,15 +130,15 @@ Format: `add_c INDEX c/CCA_NAME`
 Examples:
 * `add_c 2 c/Tennis` Assigns the existing "Tennis" CCA to the student at index 2 in the current student list. The student gets the default role for Tennis.
 
-### Listing all persons : `list`
+### Listing all students : `list`
 
-Shows a list of all students in the address book.
+Shows a list of all students in the student list.
 
 Format: `list`
 
 ### Editing a student's basic details : `edit_s`
 
-Edits the name, phone, email, or address of an existing student in the address book.
+Edits the name, phone, email, or address of an existing student in the student list.
 
 Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 
@@ -152,7 +152,7 @@ Examples:
 
 ### Editing a cca : `edit_c`
 
-Edits an existing cca in the address book.
+Edits an existing cca in the CCA list.
 
 Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
 
@@ -188,8 +188,8 @@ Format: `attend INDEX [c/CCA_NAME] [a/AMOUNT]`
 * The resulting total sessions attended by the student must not exceed the total sessions of the CCA.
 
 Examples:
-* `attend 2 c/Basketball a/1` Records the attendance of the 2nd person in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
-* `attend 3 c/Basketball a/2` Records the attendance of the 3rd person in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
+* `attend 2 c/Basketball a/1` Records the attendance of the 2nd student in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
+* `attend 3 c/Basketball a/2` Records the attendance of the 3rd student in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
 
 ### Locating students by name: `find`
 
@@ -220,8 +220,8 @@ Format: `delete_s INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete_s 2` deletes the 2nd person in the student list.
-* `find Betsy` followed by `delete_s 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete_s 2` deletes the 2nd student in the student list.
+* `find Betsy` followed by `delete_s 1` deletes the 1st student in the results of the `find` command.
 
 ### Deleting a CCA : `delete_c`
 
@@ -238,20 +238,20 @@ Format: `delete_c INDEX`
 Examples:
 * `delete_c 2` deletes the 2nd CCA in the CCA list.
 
-### Deleting a role from a student in a CCA : `delete_r`
+### Removing a role from a student in a CCA : `remove_r`
 
-Deletes a role from a student in a CCA.
+Removes a role from a student in a CCA.
 
-Format: `delete_r INDEX c/CCA_NAME`
+Format: `remove_r INDEX c/CCA_NAME`
 
-* Deletes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
+* Removes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
 * The index refers to the index number shown in the displayed student list.
 * The index must be a positive integer (1, 2, 3, …​)
 * The student must be in the CCA.
 * The student must have a role in the CCA.
 
 Examples:
-* `delete_r 2 c/Basketball` Deletes the role of the 2nd student in the student list in the CCA `Basketball`.
+* `remove_r 2 c/Basketball` Removes the role of the 2nd student in the student list in the CCA `Basketball`.
 
 ### Removing a CCA from a student : `remove_c`
 
@@ -269,7 +269,7 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries in both student and CCA list.
 
 Format: `clear`
 
@@ -321,7 +321,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
-**Delete Role** | `delete_r INDEX c/CCA_NAME`<br> e.g., `delete_r 2 c/Basketball`
+**Remove Role** | `remove_r INDEX c/CCA_NAME`<br> e.g., `remove_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
 **Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
 **Record Attendance**   | `attend INDEX [c/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 c/Basketball a/1`

@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Parses input arguments and creates a new CreateStudentCommand object
+ * Parses input arguments and creates a new CreateStudentCommand object.
  */
 public class CreateStudentCommandParser implements Parser<CreateStudentCommand> {
 
@@ -35,7 +35,8 @@ public class CreateStudentCommandParser implements Parser<CreateStudentCommand> 
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateStudentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, CreateStudentCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
@@ -44,7 +45,7 @@ public class CreateStudentCommandParser implements Parser<CreateStudentCommand> 
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
-        // it is an empty set as any cca list is always initialised without ccas
+        // It is an empty set as the cca list of a student is initialised without ccas
         Set<CcaInformation> ccaInformation = new HashSet<>();
 
         Person person = new Person(name, phone, email, address, ccaInformation);

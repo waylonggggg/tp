@@ -7,7 +7,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <StackPane styleClass="title-container">
-    <Label text="CCA" styleClass="title-label"/>
+    <Label text="CCAs" styleClass="title-label"/>
   </StackPane>
   <ListView fx:id="ccaListView" VBox.vgrow="ALWAYS"/>
 </VBox>

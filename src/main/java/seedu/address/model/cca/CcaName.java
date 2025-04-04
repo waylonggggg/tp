@@ -4,22 +4,16 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Cca's name in the address book.
+ * Represents a CCA's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCcaName(String)}
  */
 public class CcaName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Cca names must start with a letter, must not be empty or purely numeric, "
-                    + "and can contain alphanumeric characters, whitespace and hyphens only."
-                    + "Multiple words are allowed, but only one whitespace or hyphen is allowed between words.";
-
-    /*
-     * The string must start with a letter.
-     * After the first character, alphanumeric characters are allowed, including whitespace and hyphens.
-     * Multiple words are allowed, but only one whitespace or hyphen is allowed between words.
-     */
-    public static final String VALIDATION_REGEX = "^[A-Za-z]+(?:[ -][A-Za-z0-9]+)*$";
+        "Cca names must start and end with an alphanumeric character, must not be empty, "
+        + "and can only include spaces or hyphens between words."
+        + " For example, R0ck-n-R0ll is a valid CCA name, but -Basketball- is not.";
+    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+(?:[ -][A-Za-z0-9]+)*$";
 
     public final String fullCcaName;
 
