@@ -6,7 +6,7 @@ pageNav: 3
 
 # CCAttendance User Guide
 
-CCAttendance is a **desktop app for recording attendance of students in CCAs** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance can get your contact management tasks done faster than traditional GUI apps.
+CCAttendance is a **desktop app for recording attendance and managing students in CCAs** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance is the app for you!
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -20,9 +20,9 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T09-4/tp/releases/tag/v1.3).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for CCAttendance.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar CCAttendance.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -56,7 +56,7 @@ CCAttendance is a **desktop app for recording attendance of students in CCAs** (
   e.g `n/NAME [c/CCA_NAME]` can be used as `n/John Doe c/Basketball` or as `n/John Doe`.
 
 * Items with ... after them can be used multiple times including zero times.
-e.g. `[r/ROLE]`... can be used as `  `(i.e. 0 times), `r/President`, `r/Vice-President` `r/Treasurer` etc.
+e.g. `[r/ROLE_NAME]...` can be used as `r/Captain r/Vice-Captain` or as `r/Captain` or as nothing at all.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -75,6 +75,29 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+### Listing all students : `list`
+
+Shows a list of all students in the student list.
+
+Format: `list`
+
+### Locating students by name: `find`
+
+Finds students whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Adding a student: `create_s`
 
@@ -115,7 +138,7 @@ Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
 Examples:
 * `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.
 
-### Adding a CCA to a student : `add_c`
+### Adding a CCA to a student: `add_c`
 
 Assigns an existing CCA from the CCA list to a specific student. The student will be assigned a default role (e.g., "Member") for the added CCA.
 
@@ -129,12 +152,6 @@ Format: `add_c INDEX c/CCA_NAME`
 
 Examples:
 * `add_c 2 c/Tennis` Assigns the existing "Tennis" CCA to the student at index 2 in the current student list. The student gets the default role for Tennis.
-
-### Listing all students : `list`
-
-Shows a list of all students in the student list.
-
-Format: `list`
 
 ### Editing a student's basic details : `edit_s`
 
@@ -165,7 +182,7 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * Edits the cca at the specified `INDEX`. The index refers to the index number shown in the displayed cca list. The index **must be a positive integer** (1, 2, 3, …).
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The new name must not match any existing any cca names in the cca list.
+* The new name must not match any existing cca names in the cca list.
 * The amount of total sessions must be a non-negative integer.
 * Regardless of the input for the role field, a "Member" role will automatically be created.
 * If an existing student have their role removed from the cca, the student's role will be set to "Member".
@@ -190,24 +207,6 @@ Format: `attend INDEX [c/CCA_NAME] [a/AMOUNT]`
 Examples:
 * `attend 2 c/Basketball a/1` Records the attendance of the 2nd student in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
 * `attend 3 c/Basketball a/2` Records the attendance of the 3rd student in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
-
-### Locating students by name: `find`
-
-Finds students whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a student : `delete_s`
 
@@ -290,8 +289,8 @@ CCAttendance data are saved automatically as a JSON file `[JAR file location]/da
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, CCAttendance will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause CCAttendance to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -299,7 +298,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CCAttendance home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -323,8 +322,8 @@ Action     | Format, Examples
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
 **Remove Role** | `remove_r INDEX c/CCA_NAME`<br> e.g., `remove_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
-**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/CCA_NAME] [r/ROLE_NAME]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com c/Basketball r/Captain`
-**Record Attendance**   | `attend INDEX [c/CCA_NAME] [a/AMOUNT]`<br> e.g., `attend 2 c/Basketball a/1`
+**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com`
+**Record Attendance**   | `attend INDEX c/CCA_NAME a/AMOUNT`<br> e.g., `attend 2 c/Basketball a/1`
 **Edit CCA**   | `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 c/Basketball r/Captain r/Vice-Captain t/40`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`

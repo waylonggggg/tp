@@ -11,12 +11,6 @@ pageNav: 3
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
-
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
@@ -126,7 +120,7 @@ The sequence diagram below illustrates the simplified interactions within the `L
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects and `Cca` objects (which are contained in a `UniquePersonList` object and a `UniqueCcaList` respectively).
+* stores CCAttendance's data i.e., all `Person` objects and `Cca` objects (which are contained in a `UniquePersonList` object and a `UniqueCcaList` respectively).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the current `Cca` separately in as an unmodifiable `ObservableList<Cca>` just like `Person` objects, however, there is no 'selected' objects.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
@@ -136,7 +130,7 @@ The `Model` component,
 
 <puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />    
 
-The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the AddressBook and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
+The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the `AddressBook` and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
 
 For example, the following object diagrams can be formed:
 
@@ -149,7 +143,7 @@ For example, the following object diagrams can be formed:
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both CCAttendance data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -179,7 +173,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 ### **Create Student Feature**
 
-The Add Student feature allows users to add a new student in the address book given a student's `name`, `email`, `phone`, and `address`.
+The Add Student feature allows users to add a new student to the student list given a student's `name`, `email`, `phone`, and `address`.
 
 The following shows the activity diagram when the user executes the `create_s` command:
 
@@ -187,7 +181,7 @@ The following shows the activity diagram when the user executes the `create_s` c
 
 ### **Edit CCA Feature**
 
-The Edit CCA feature allows users to edit an existing CCA in the address book with optional parameters (but at least one parameter should be present) for the CCA's `CCA name`, `total Sessions` and set of `Role` objects.
+The Edit CCA feature allows users to edit an existing CCA in the CCA list with optional parameters (but at least one parameter should be present) for the CCA's `CCA name`, `total Sessions` and set of `Role` objects.
 
 The following shows the activity diagram when the user executes the `edit_c` command:
 
@@ -195,7 +189,7 @@ The following shows the activity diagram when the user executes the `edit_c` com
 
 ### **Add Role to Student Feature**
 
-The Add role to student feature allows users to add a role to a student in a CCA in the address book.
+The Add role to student feature allows users to add a role to a student in a CCA
 
 The following shows the activity diagram when the user executes the `add_r` command:
 
@@ -203,7 +197,7 @@ The following shows the activity diagram when the user executes the `add_r` comm
 
 ### **Record Attendance to Student Feature**
 
-The record attendance feature allows users to add increment the attendance of a student in a CCA in the address book.
+The record attendance feature allows users to add increment the attendance of a student in a CCA
 
 The following shows the activity diagram when the user executes the `attend` command:
 
@@ -720,12 +714,12 @@ testers are expected to do more \*exploratory\* testing.
     1. Test case: `list`
        Expected: The list should contain all students. The status message should reflect the successful listing of all students.
 
-### Clearing all students
+### Clearing all students and CCAs
 
-1. Clear all students
+1. Clears all students and CCAs
     1. Prerequisites: List all students using the `list` command. Multiple students in the list.
     2. Test case: `clear`
-       Expected: Both the student list and the CCA list should be empty. The status message should reflect the successful clearing of all students.
+       Expected: Both the student list and the CCA list should be empty. The status message should reflect the successful clearing of all students and CCAs.
 
 ### Finding a student
 
