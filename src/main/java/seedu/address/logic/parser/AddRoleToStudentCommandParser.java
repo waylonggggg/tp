@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_MISSING_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
@@ -30,28 +29,23 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_ROLE) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_MISSING_FIELD,
-                    AddRoleToStudentCommand.MESSAGE_USAGE));
-        }
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage(),
-                            AddRoleToStudentCommand.MESSAGE_USAGE),
-                    pe);
+                    MESSAGE_INVALID_COMMAND_FORMAT, AddRoleToStudentCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME, PREFIX_ROLE);
-        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
-        Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
-        return new AddRoleToStudentCommand(index, ccaName, role);
+        try {
+            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
+            Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
+            return new AddRoleToStudentCommand(index, ccaName, role);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + System.lineSeparator() + AddRoleToStudentCommand.MESSAGE_USAGE),
+                    pe);
+        }
+
     }
 
     /**

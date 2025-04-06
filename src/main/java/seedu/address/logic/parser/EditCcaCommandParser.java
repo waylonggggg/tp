@@ -32,29 +32,31 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CCA_NAME, PREFIX_ROLE, PREFIX_TOTAL_SESSIONS);
 
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCcaCommand.MESSAGE_USAGE));
+        }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME, PREFIX_TOTAL_SESSIONS);
+        EditCcaDescriptor editCcaDescriptor = new EditCcaDescriptor();
+
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            if (argMultimap.getValue(PREFIX_CCA_NAME).isPresent()) {
+                editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
+            }
+            if (argMultimap.getValue(PREFIX_TOTAL_SESSIONS).isPresent()) {
+                editCcaDescriptor.setTotalSessions(
+                        ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
+            }
+            parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editCcaDescriptor::setRoles);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage(),
-                            EditCcaCommand.MESSAGE_USAGE), pe);
+                            pe.getMessage() + System.lineSeparator() + EditCcaCommand.MESSAGE_USAGE), pe);
         }
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME, PREFIX_TOTAL_SESSIONS);
-
-        EditCcaDescriptor editCcaDescriptor = new EditCcaDescriptor();
-
-        if (argMultimap.getValue(PREFIX_CCA_NAME).isPresent()) {
-            editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_TOTAL_SESSIONS).isPresent()) {
-            editCcaDescriptor.setTotalSessions(
-                    ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
-        }
-        parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editCcaDescriptor::setRoles);
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCcaCommand.MESSAGE_NOT_EDITED);
