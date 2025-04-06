@@ -24,8 +24,9 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the student list";
-    public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the CCA list";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+                "A student with the same name/phone number/email already exists in the student list";
+    public static final String MESSAGE_DUPLICATE_CCA = "A CCA with the same name already exists in the CCA list";
     public static final String MESSAGE_INVALID_AMOUNT = "Amount should be a non-zero unsigned integer";
     public static final String MESSAGE_CCA_NOT_FOUND = "The CCA does not exist in the CCA list";
     public static final String MESSAGE_ROLE_NOT_FOUND = "The role does not exist in the CCA";
