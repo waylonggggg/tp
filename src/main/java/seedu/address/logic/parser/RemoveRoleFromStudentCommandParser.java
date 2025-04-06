@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 
 import java.util.stream.Stream;
@@ -27,7 +28,9 @@ public class RemoveRoleFromStudentCommandParser implements Parser<RemoveRoleFrom
 
         if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoleFromStudentCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_MISSING_FIELD,
+                            RemoveRoleFromStudentCommand.MESSAGE_USAGE));
         }
 
         Index index;
@@ -36,7 +39,9 @@ public class RemoveRoleFromStudentCommandParser implements Parser<RemoveRoleFrom
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoleFromStudentCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage(),
+                            RemoveRoleFromStudentCommand.MESSAGE_USAGE), pe);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);

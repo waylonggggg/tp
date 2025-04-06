@@ -22,7 +22,9 @@ public class DeleteStudentCommandParser implements Parser<DeleteStudentCommand> 
             return new DeleteStudentCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudentCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage(),
+                            DeleteStudentCommand.MESSAGE_USAGE), pe);
         }
     }
 

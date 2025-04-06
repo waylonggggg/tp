@@ -13,7 +13,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-* Codebase adapted from AddressBook3 
+* Codebase adapted from AddressBook3
 * Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ The `Model` component,
 #### CcaInformation Attribute Classes
 
 <box type="info" seamless>
-<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />    
+<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />
 
 **Note:** The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the AddressBook and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
 
@@ -701,18 +701,18 @@ testers are expected to do more \*exploratory\* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
+   3. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-   
-   1. Refer to the initial launch instructions if double-clicking doesn't work
+
+   3. Refer to the initial launch instructions if double-clicking doesn't work
 
 ### Listing a student
 

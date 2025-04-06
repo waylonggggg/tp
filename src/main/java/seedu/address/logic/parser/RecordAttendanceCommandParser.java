@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_FIELD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 
@@ -29,6 +30,7 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
         if (!arePrefixesPresent(argMultimap, PREFIX_CCA_NAME, PREFIX_AMOUNT)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_MISSING_FIELD,
                     RecordAttendanceCommand.MESSAGE_USAGE));
         }
 
@@ -41,7 +43,9 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
             return new RecordAttendanceCommand(studentIndex, ccaName, amount);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecordAttendanceCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage(),
+                            RecordAttendanceCommand.MESSAGE_USAGE), pe);
         }
     }
 

@@ -22,7 +22,9 @@ public class DeleteCcaCommandParser implements Parser<DeleteCcaCommand> {
             return new DeleteCcaCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCcaCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage(),
+                            DeleteCcaCommand.MESSAGE_USAGE), pe);
         }
     }
 
