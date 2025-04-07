@@ -10,20 +10,18 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages; // Required for getErrorMessageForDuplicatePrefixes
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.RemoveCcaFromStudentCommand;
 import seedu.address.model.cca.CcaName;
 import seedu.address.testutil.TypicalCcas;
 
 public class RemoveCcaFromStudentCommandParserTest {
 
-    // Use constants defined in TypicalCcas for consistency
     private static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA_NAME
             + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName;
     private static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA_NAME
             + TypicalCcas.CCA_NAME_TENNIS.fullCcaName;
 
-    // Example of an invalid CCA name description based on CcaName constraints
     private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basket*ball";
 
     private static final String MESSAGE_INVALID_FORMAT =
@@ -76,7 +74,7 @@ public class RemoveCcaFromStudentCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + CCA_NAME_DESC_BASKETBALL;
-        CcaName expectedCcaName = TypicalCcas.CCA_NAME_BASKETBALL; // Use constant from TypicalCcas
+        CcaName expectedCcaName = TypicalCcas.CCA_NAME_BASKETBALL;
 
         RemoveCcaFromStudentCommand expectedCommand = new RemoveCcaFromStudentCommand(targetIndex, expectedCcaName);
 
@@ -85,10 +83,9 @@ public class RemoveCcaFromStudentCommandParserTest {
 
     @Test
     public void parse_fieldsWithWhitespace_success() {
-        // Test robustness with extra whitespace
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = "  " + targetIndex.getOneBased() + "   " + CCA_NAME_DESC_BASKETBALL + "   ";
-        CcaName expectedCcaName = TypicalCcas.CCA_NAME_BASKETBALL; // Use CcaName constant
+        CcaName expectedCcaName = TypicalCcas.CCA_NAME_BASKETBALL;
 
         RemoveCcaFromStudentCommand expectedCommand = new RemoveCcaFromStudentCommand(targetIndex, expectedCcaName);
 
@@ -98,7 +95,6 @@ public class RemoveCcaFromStudentCommandParserTest {
 
     @Test
     public void parse_duplicateFields_failure() {
-        // Duplicate CCA prefixes
         String userInput = INDEX_FIRST_PERSON.getOneBased() + CCA_NAME_DESC_BASKETBALL + CCA_NAME_DESC_TENNIS;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CCA_NAME));
     }

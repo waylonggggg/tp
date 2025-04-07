@@ -19,7 +19,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.cca.Amount;
@@ -27,6 +26,7 @@ import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.role.Role;
+import seedu.address.testutil.CcaBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -74,7 +74,7 @@ public class PersonTest {
     @Test
     public void hasCca() {
         // null cca -> throws NullPointerException
-        assertThrows(NullPointerException.class, () -> ALICE.hasCca((Cca) null)); // Fixed: Expect exception
+        assertThrows(NullPointerException.class, () -> ALICE.hasCca((Cca) null));
 
         // cca not in list -> returns false
         assertFalse(ALICE.hasCca(TENNIS));
@@ -87,7 +87,6 @@ public class PersonTest {
             // Handle case where ALICE might have no CCAs in test setup
             // Or ensure ALICE always has CCAs in TypicalPersons
         }
-
 
         // Test the hasCca(CcaName name) overload
         // null ccaName -> throws NullPointerException (Assuming similar requireNonNull exists)
@@ -103,19 +102,19 @@ public class PersonTest {
         }
     }
 
-    @Disabled
     @Test
     public void attend() {
-        // amount too large -> throws IllegalArgumentException
-        assertThrows(IllegalArgumentException.class, () -> ALICE.attend(
-            ALICE.getCcas().get(0), new Amount(100)));
-
         // valid attendance -> returns true
-        Person aliceWithAttendance = ALICE.attend(BASKETBALL, new Amount(1));
-        Set<CcaInformation> expectedCcaInformations = new HashSet<>();
-        expectedCcaInformations.add(new CcaInformation(BASKETBALL, new Role("Captain"),
-                BASKETBALL.createNewAttendance().attend(new Amount(1))));
-        Person expectedAlice = new PersonBuilder(ALICE).withCcaInformations(expectedCcaInformations).build();
+        Cca basketball = new CcaBuilder(BASKETBALL).build();
+        Person alice = new PersonBuilder(ALICE).build();
+
+        Person aliceWithAttendance = alice.attend(basketball, new Amount(1));
+        Set<CcaInformation> expectedCcaInformations = new HashSet<>(alice.getCcaInformations());
+        expectedCcaInformations.remove(new CcaInformation(basketball, new Role("Member"),
+                basketball.createNewAttendance().attend(new Amount(10))));
+        expectedCcaInformations.add(new CcaInformation(basketball, new Role("Member"),
+                basketball.createNewAttendance().attend(new Amount(11))));
+        Person expectedAlice = new PersonBuilder(alice).withCcaInformations(expectedCcaInformations).build();
         assertEquals(expectedAlice, aliceWithAttendance);
     }
 

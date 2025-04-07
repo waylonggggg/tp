@@ -73,6 +73,7 @@ public class AddCcaToStudentCommandTest {
     public void execute_validInputFilteredList_success() {
         // personToEdit is correctly identified based on INDEX_SECOND_PERSON in the original list (in setUp)
         showPersonAtIndex(model, INDEX_SECOND_PERSON); // Filter list to show only this person
+        showPersonAtIndex(expectedModel, INDEX_SECOND_PERSON); // Filter list to show only this person
 
         // Build the expected person and model as before
         Set<CcaInformation> expectedCcas = new HashSet<>(personToEdit.getCcaInformations());
