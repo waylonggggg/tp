@@ -26,7 +26,8 @@ public class AddCcaToStudentCommandParserTest {
     private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basket*ball";
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE);
+            String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE);
 
     private AddCcaToStudentCommandParser parser = new AddCcaToStudentCommandParser();
 
@@ -43,7 +44,6 @@ public class AddCcaToStudentCommandParserTest {
         // Test also with space after prefix
         assertParseFailure(parser, "1 " + PREFIX_CCA_NAME + " ", CcaName.MESSAGE_CONSTRAINTS);
 
-
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
@@ -51,16 +51,20 @@ public class AddCcaToStudentCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid prefix in preamble
-        assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test

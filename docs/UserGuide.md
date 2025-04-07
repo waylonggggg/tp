@@ -6,7 +6,7 @@ pageNav: 3
 
 # CCAttendance User Guide
 
-CCAttendance is a **desktop app for recording attendance and managing students in CCAs** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CCAttendance is the app for you!
+Welcome to CCAttendance! We've created this friendly desktop app for **recording and tracking attendance of students in CCAs**. It’s built specially for hall attendance managers who want a simpler, faster way to track who’s showing up for which CCAs. If the current system feels messy and tiring to use, CCAttendance is here to make your life easier! CCAttendance is your helpful assistant that makes it easy to organise students and coordinating hall activities all in one place.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -24,7 +24,7 @@ CCAttendance is a **desktop app for recording attendance and managing students i
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar CCAttendance.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   <img src="images/Ui.png" alt="Ui" width="500" height="500"/>
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -40,6 +40,24 @@ CCAttendance is a **desktop app for recording attendance and managing students i
    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
+
+## Important Details
+
+### Student
+<img src="images/student.png" alt="Student" width="500" height="260"/>
+
+* Each student is represented by a student card. Other than the name, phone number, address, and email, the student card also shows their attendance and role in each CCA.
+
+* The role is represented by the element labeled `A` which shows the CCA on the left and the role inside the square brackets. E.g. the student above is a `Member` of `Boxing` CCA.
+
+* The attendance is represented by the element labeled `B` which shows the CCA on the left and the number of sessions attended out of the total sessions in the brackets. E.g. the student above has attended 6 out of 20 sessions in `Boxing` CCA.
+
+### CCA
+<img src="images/cca.png" alt="CCA" width="500" height="260"/>
+
+* Each CCA is represented by a CCA card. The card shows the name of the CCA, the roles available in the CCA, and the total sessions.
+
+* The name of each role are the texts in the square brackets. E.g. the CCA above has 3 roles: `President`, `Vice-President`, and `Member`. `Member` is the default role and will thus appear in every CCA.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -71,7 +89,7 @@ e.g. `[r/ROLE_NAME]...` can be used as `r/Captain r/Vice-Captain` or as `r/Capta
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+<img src="images/helpMessage.png" alt="Help" width="500" height="57"/>
 
 Format: `help`
 
@@ -97,23 +115,27 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+<img src="images/findAlexDavidResult.png" alt="Find" width="500" height="400"/>
 
-### Adding a student: `create_s`
+### Creating a student: `create_s`
 
-Adds a student to the list of students.
+Creates and adds a student to the list of students.
 
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
+
+* Names should only contain alphabetic characters and a single space between words, and it should not be blank. Unfortunately, we do not allow `/` in names, making names like `David s/o Daniel` invalid.
 
 Examples:
 * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` creates a student named `John Doe`, with phone number `98765432`, email of `johnd@example.com`, and address of `John street, block 123, #01-01`.
 
-### Adding a CCA: `create_c`
+### Creating a CCA: `create_c`
 
-Adds a CCA to the list of CCAs.
+Creates and adds a CCA to the list of CCAs.
 
 Format: `create_c c/CCA_NAME`
-
+* Creates and adds a CCA with a name.
+* The new CCA will have a default role `Member` and total sessions set to 0 by default.
+* Cca names must consist of alphanumeric characters and can only include spaces or hyphens between words. For example, R0ck-n-R0ll is a valid CCA name, but -Basketball- is not. It is up to the user to make meaningful CCA names.
 <box type="warning" seamless>
 
 **Caution:**
@@ -121,7 +143,7 @@ CCA names are case-sensitive. For example, `Basketball` and `basketball` are con
 </box>
 
 Examples:
-* `create_c c/Basketball` creates a CCA named `Basketball`.
+* `create_c c/Basketball` creates a CCA named `Basketball`, with a role `Member` and a `total sessions` set to 0.
 
 ### Editing a student's basic details : `edit_s`
 
@@ -155,8 +177,9 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * The new name must not match any existing CCA names in the CCA list.
 * The amount of total sessions must be a non-negative integer.
 * Regardless of the input for the role field, a `Member` role will automatically be created.
+* Typing `r/` without specifying any roles after it remove all the CCA’s roles except for `Member`.
 * If an existing student have their role removed from the CCA, the student's role will be set to `Member`.
-* If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
+* If an existing student's attended sessions is above the new total sessions, the student's attended sessions will be set to the new total sessions.
 
 Examples:
 *  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the CCA with the first index in the CCA list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
@@ -169,7 +192,6 @@ Format: `add_c INDEX c/CCA_NAME`
 
 * Assigns the CCA specified by `CCA_NAME` to the student at the specified `INDEX`.
 * The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
-* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
 * The `CCA_NAME` provided must exactly match the name of a CCA already present in the main CCA list (use `list` or view the CCA panel to see available CCAs).
 * The student must **not** already be assigned to the specified CCA.
 
@@ -194,14 +216,12 @@ Examples:
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
 
-Format: `attend INDEX [c/CCA_NAME] [a/AMOUNT]`
+Format: `attend INDEX c/CCA_NAME a/AMOUNT`
 
 * Records the attendance of the student at the specified `INDEX` in the specified CCA.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** (1, 2, 3, …).​
-* The CCA name must be provided.
-* The amount of attendance must be provided.
-* The amount of attendance must be a positive integer.
+* The index **must be a positive integer** (1, 2, 3, …)​
+* The amount of attendance **must be a positive integer**.
 * The resulting total sessions attended by the student must not exceed the total sessions of the CCA.
 
 Examples:
@@ -245,7 +265,7 @@ Format: `remove_r INDEX c/CCA_NAME`
 
 * Removes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a `Member`).
 * The index refers to the index number shown in the displayed student list.
-* The index must be a positive integer (1, 2, 3, …​).
+* The index **must be a positive integer** (1, 2, 3, …​).
 * The student must be in the CCA.
 * The student must have a role in the CCA.
 
@@ -260,8 +280,7 @@ Format: `remove_c INDEX c/CCA_NAME`
 
 * Removes the CCA specified by `CCA_NAME` from the student at the specified `INDEX`.
 * The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
-* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
-* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful. 
+* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful.
 
 Examples:
 * `remove_c 1 c/Basketball` Removes the `Basketball` CCA assignment from the student at index 1 in the current student list.
@@ -328,3 +347,5 @@ Action     | Format, Examples
 **Remove Role** | `remove_r INDEX c/CCA_NAME`<br> e.g., `remove_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
 **Clear**  | `clear`
+**Exit**   | `exit`
+
