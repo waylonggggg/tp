@@ -137,9 +137,9 @@ Examples:
 * `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
 * `edit_s 3 n/Peter Tan a/Blk 123, Clementi Ave 4, #05-06` Edits the name and address of the student at index 3. Their phone, email, CCAs, and roles remain unchanged.
 
-### Editing a cca : `edit_c`
+### Editing a CCA : `edit_c`
 
-Edits an existing cca in the CCA list.
+Edits an existing CCA in the CCA list.
 
 Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
 
@@ -149,17 +149,17 @@ Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
 Role names are case-sensitive. For example, `Captain` and `captain` are considered different.
 </box>
 
-* Edits the cca at the specified `INDEX`. The index refers to the index number shown in the displayed cca list. The index **must be a positive integer** (1, 2, 3, …).
+* Edits the CCA at the specified `INDEX`. The index refers to the index number shown in the displayed CCA list. The index **must be a positive integer** (1, 2, 3, …).
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The new name must not match any existing cca names in the cca list.
+* The new name must not match any existing CCA names in the CCA list.
 * The amount of total sessions must be a non-negative integer.
 * Regardless of the input for the role field, a `Member` role will automatically be created.
-* If an existing student have their role removed from the cca, the student's role will be set to `Member`.
+* If an existing student have their role removed from the CCA, the student's role will be set to `Member`.
 * If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
 
 Examples:
-*  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
+*  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the CCA with the first index in the CCA list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
 
 ### Adding a CCA to a student: `add_c`
 
@@ -186,7 +186,7 @@ Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
 * The index **must be a positive integer** (1, 2, 3, …​).
 * The role must exist in the CCA.
 * The student must be in the CCA.
-* The student must not have an existing role in the CCA.
+* The student must not have an existing role in the CCA (other than `Member`).
 
 Examples:
 * `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.

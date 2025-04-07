@@ -408,7 +408,7 @@ The following shows the activity diagram when the user executes the `attend` com
 
       Use case resumes at step 2.
 
-**UC8: Edit a cca**
+**UC8: Edit a CCA**
 
 **MSS**
 
@@ -755,7 +755,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Creating a CCA
 
 1. Creating a CCA with a CCA name
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list. `Handball` is not in CCA list.
+    1. Prerequisites: Multiple CCAs in the list. `Handball` is not in CCA list.
     2. Test case: `create_c c/Handball`
        Expected: A new CCA is added to the list. The CCA details are shown in the list.
     3. Test case: `create_c`
@@ -768,7 +768,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Deleting a CCA
 
 1. Deleting a CCA while all CCAs are being shown
-    1. Prerequisites: List all CCAs using the `list` command. One CCA in the list.
+    1. Prerequisites: One CCA in the CCA list.
     2. Test case: `delete_c 1`
        Expected: The first CCA is deleted from the list. Details of the deleted CCA shown in the status message.
     3. Test case: `delete_c 1`
@@ -794,8 +794,8 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Editing a CCA
 
-1. Editing an existing CCA's name and total sessions
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and there is no `Basketball` CCA. It is okay for the edited CCA's original name to be `Basketball`.
+1. Editing an existing CCA's name, roles, and total sessions
+    1. Prerequisites: Multiple CCAs in the CCA list and there is no `Basketball` CCA. It is okay for the edited CCA's original name to be `Basketball`.
     2. Test case: `edit_c 1 c/Basketball t/15 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
     3. Test case: `edit_c 2 c/Basketball`
@@ -810,7 +810,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a role of a CCA
 
 1. Adding a role to a CCA
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
+    1. Prerequisites: Multiple CCAs in the CCA list.
     2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's roles are replaced with `President`, `Vice-President`, `Treasurer`, and default `Member` roles. The updated CCA details are shown in the list.
     3. Test case: `edit_c 1 r/President`
@@ -821,7 +821,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting a role from a CCA
-    1. Prerequisite: List all CCAs using the `list` command. Multiple CCAs in the list. Multiple roles in the list and the first CCA has at least one role.
+    1. Prerequisite: Multiple CCAs in the CCA list. The first CCA has at least one role.
     2. Test case: `edit_c 1 r/`
        Expected: The first CCA's roles are removed and only left with default `Member`. The updated CCA details are shown in the list.
     3. Test case: `edit_c 0 r/`
