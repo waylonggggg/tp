@@ -169,7 +169,7 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * The amount of total sessions must be a non-negative integer.
 * Regardless of the input for the role field, a "Member" role will automatically be created.
 * If an existing student have their role removed from the cca, the student's role will be set to "Member".
-* If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
+* If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions.
 
 Examples:
 *  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
@@ -262,7 +262,7 @@ Format: `remove_c INDEX c/CCA_NAME`
 * Removes the CCA specified by `CCA_NAME` from the student at the specified `INDEX`.
 * The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
 * The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
-* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful. 
+* The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful.
 
 Examples:
 * `remove_c 1 c/Basketball` Removes the "Basketball" CCA assignment from the student at index 1 in the current student list.

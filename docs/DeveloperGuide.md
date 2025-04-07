@@ -134,7 +134,7 @@ The `Model` component,
 
 #### Cca Related Classes
 
-<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />    
+<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />
 
 The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the AddressBook and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
 
@@ -711,7 +711,7 @@ testers are expected to do more \*exploratory\* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-   
+
    1. Refer to the initial launch instructions if double-clicking doesn't work
 
 ### Listing all students
