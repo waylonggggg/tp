@@ -41,6 +41,7 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddRoleToStudentCommand.MESSAGE_USAGE), pe);
         }
+
         CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
         return new AddRoleToStudentCommand(index, ccaName, role);
