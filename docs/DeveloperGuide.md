@@ -193,22 +193,6 @@ The following shows the activity diagram when the user executes the `edit_c` com
 
 <puml src="diagrams/EditCcaActivityDiagram.puml" width="600" />
 
-### **Add Role to Student Feature**
-
-The Add role to student feature allows users to add a role to a student in a CCA in the address book.
-
-The following shows the activity diagram when the user executes the `add_r` command:
-
-<puml src="diagrams/AddRoleActivityDiagram.puml" width="600" />
-
-### **Record Attendance to Student Feature**
-
-The record attendance feature allows users to add increment the attendance of a student in a CCA in the address book.
-
-The following shows the activity diagram when the user executes the `attend` command:
-
-<puml src="diagrams/RecordAttendanceActivityDiagram.puml" width="600" />
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
@@ -914,3 +898,8 @@ testers are expected to do more \*exploratory\* testing.
     5. Test case: Corrupt the data file with an invalid parameter.
        Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
+
+## **Appendix: Planned Enhancements**
+**Team Size**: 4 People
+
+1. Some of the current error messages (e.g., indicating that an index must be a positive integer) are not specific enough to help the user understand what went wrong. Specifically, when the user enters an invalid index, the error message should clearly state that the index must be a positive integer and must not exceed `Integer.MAX_VALUE`. However, the current error message simply indicates an invalid command format, which is too generic and not very helpful. Later, we can enhance these error messages to be more detailed and user-friendly.

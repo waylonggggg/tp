@@ -15,7 +15,6 @@ public class AddRoleToStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    // TODO: Add tests for AddRoleToStudentCommand after improving code quality for test utils.
     @Test
     public void constructor_nullStudentIndex_throwsNullPointerException() {
     }

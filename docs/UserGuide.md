@@ -85,7 +85,7 @@ Format: `list`
 
 ### Creating a student: `create_s`
 
-Creates a student to the list of students.
+Creates and adds a student to the list of students.
 
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
@@ -94,10 +94,10 @@ Examples:
 
 ### Creating a CCA: `create_c`
 
-Creates a CCA to the list of CCAs.
+Creates and adds a CCA to the list of CCAs.
 
 Format: `create_c c/CCA_NAME`
-* Creates a CCA with a name.
+* Creates and adds a CCA with a name.
 * The new CCA will have a default role `Member` and total sessions set to 0 by default.
 
 <box type="warning" seamless>
@@ -147,7 +147,7 @@ Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
 * At least one of the optional fields (`n/`, `p/`, `e/`, `a/`) must be provided.
 * Existing values for the specified fields will be overwritten by the new input values.
-* The new name must not match any existing cca names in the student list.
+* The new name must not match any existing names in the student list.
 
 Examples:
 * `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
@@ -191,7 +191,7 @@ Format: `attend INDEX c/CCA_NAME a/AMOUNT`
 
 Examples:
 * `attend 2 c/Basketball a/1` Records the attendance of the 2nd student in the student list in the CCA `Basketball` one time (i.e. increase attendance by 1).
-* `attend 2 c/Basketball a/2` Records the attendance of the 3rd student in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
+* `attend 3 c/Basketball a/2` Records the attendance of the 3rd student in the student list in the CCA `Basketball` two times (i.e. increase attendance by 2).
 
 ### Locating students by name: `find`
 
