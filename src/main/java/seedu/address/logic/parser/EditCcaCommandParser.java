@@ -41,22 +41,21 @@ public class EditCcaCommandParser implements Parser<EditCcaCommand> {
         EditCcaDescriptor editCcaDescriptor = new EditCcaDescriptor();
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            if (argMultimap.getValue(PREFIX_CCA_NAME).isPresent()) {
-                editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
-            }
-            if (argMultimap.getValue(PREFIX_TOTAL_SESSIONS).isPresent()) {
-                editCcaDescriptor.setTotalSessions(
-                        ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
-            }
-            parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editCcaDescriptor::setRoles);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage() + System.lineSeparator() + EditCcaCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCcaCommand.MESSAGE_USAGE), pe);
         }
+
+        if (argMultimap.getValue(PREFIX_CCA_NAME).isPresent()) {
+            editCcaDescriptor.setCcaName(ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TOTAL_SESSIONS).isPresent()) {
+            editCcaDescriptor.setTotalSessions(
+                    ParserUtil.parseTotalSessions(argMultimap.getValue(PREFIX_TOTAL_SESSIONS).get()));
+        }
+        parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editCcaDescriptor::setRoles);
 
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCcaCommand.MESSAGE_NOT_EDITED);

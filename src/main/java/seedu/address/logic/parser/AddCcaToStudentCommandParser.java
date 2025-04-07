@@ -32,7 +32,14 @@ public class AddCcaToStudentCommandParser implements Parser<AddCcaToStudentComma
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
 
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCcaToStudentCommand.MESSAGE_USAGE), pe);
+        }
+
         CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
         return new AddCcaToStudentCommand(index, ccaName);
     }

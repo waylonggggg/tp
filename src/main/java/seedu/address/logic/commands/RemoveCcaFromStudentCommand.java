@@ -66,7 +66,6 @@ public class RemoveCcaFromStudentCommand extends Command {
         }
 
         Person personWithRemovedCca = personToRemoveCca.removeCca(targetCca);
-
         model.setPerson(personToRemoveCca, personWithRemovedCca);
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

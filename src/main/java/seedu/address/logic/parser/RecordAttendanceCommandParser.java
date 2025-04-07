@@ -33,16 +33,17 @@ public class RecordAttendanceCommandParser implements Parser<RecordAttendanceCom
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
+        Index studentIndex;
         try {
-            Index studentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
-            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
-            Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-            return new RecordAttendanceCommand(studentIndex, ccaName, amount);
+            studentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage() + System.lineSeparator() + RecordAttendanceCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecordAttendanceCommand.MESSAGE_USAGE), pe);
         }
+
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        return new RecordAttendanceCommand(studentIndex, ccaName, amount);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

@@ -34,17 +34,16 @@ public class AddRoleToStudentCommandParser implements Parser<AddRoleToStudentCom
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME, PREFIX_ROLE);
 
+        Index index;
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
-            Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
-            return new AddRoleToStudentCommand(index, ccaName, role);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage() + System.lineSeparator() + AddRoleToStudentCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddRoleToStudentCommand.MESSAGE_USAGE), pe);
         }
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
+        Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
+        return new AddRoleToStudentCommand(index, ccaName, role);
 
     }
 

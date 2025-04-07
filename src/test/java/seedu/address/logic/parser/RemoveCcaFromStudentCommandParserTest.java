@@ -27,13 +27,8 @@ public class RemoveCcaFromStudentCommandParserTest {
     // Example of an invalid CCA name description based on CcaName constraints
     private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basket*ball";
 
-    private static final String MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS =
+    private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemoveCcaFromStudentCommand.MESSAGE_USAGE);
-
-    private static final String MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "%s",
                     RemoveCcaFromStudentCommand.MESSAGE_USAGE);
 
     private RemoveCcaFromStudentCommandParser parser = new RemoveCcaFromStudentCommandParser();
@@ -41,50 +36,47 @@ public class RemoveCcaFromStudentCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS);
+        assertParseFailure(parser, CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
 
         // no cca prefix specified
-        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no cca name specified
-        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, CcaName.MESSAGE_CONSTRAINTS));
-        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME + " ",
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, CcaName.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME, CcaName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + PREFIX_CCA_NAME + " ", CcaName.MESSAGE_CONSTRAINTS);
 
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS);
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                String.format(MESSAGE_INVALID_FORMAT, MESSAGE_INVALID_INDEX));
 
         // zero index
         assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                String.format(MESSAGE_INVALID_FORMAT, MESSAGE_INVALID_INDEX));
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                String.format(MESSAGE_INVALID_FORMAT, MESSAGE_INVALID_INDEX));
 
         // invalid prefix in preamble
         assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                String.format(MESSAGE_INVALID_FORMAT, MESSAGE_INVALID_INDEX));
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid cca name (e.g., contains '*')
-        assertParseFailure(parser, "1" + INVALID_CCA_NAME_DESC,
-                        String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, CcaName.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, "1" + INVALID_CCA_NAME_DESC, CcaName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble before index - should fail index parsing
         assertParseFailure(parser, " abc 1" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -121,10 +113,10 @@ public class RemoveCcaFromStudentCommandParserTest {
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         // missing cca prefix
-        assertParseFailure(parser, String.valueOf(INDEX_FIRST_PERSON.getOneBased()), MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS);
+        assertParseFailure(parser, String.valueOf(INDEX_FIRST_PERSON.getOneBased()), MESSAGE_INVALID_FORMAT);
 
         // missing index
-        assertParseFailure(parser, CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT_MISSING_OR_UNEXPECTED_FIELDS);
+        assertParseFailure(parser, CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
     }
 
 }

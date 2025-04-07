@@ -34,15 +34,17 @@ public class RemoveCcaFromStudentCommandParser implements Parser<RemoveCcaFromSt
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CCA_NAME);
 
+        Index index;
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
-            return new RemoveCcaFromStudentCommand(index, ccaName);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            pe.getMessage() + System.lineSeparator() + RemoveCcaFromStudentCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCcaFromStudentCommand.MESSAGE_USAGE), pe);
         }
+
+        CcaName ccaName = ParserUtil.parseCcaName(argMultimap.getValue(PREFIX_CCA_NAME).get());
+        return new RemoveCcaFromStudentCommand(index, ccaName);
+
     }
 
     /**

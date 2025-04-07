@@ -24,7 +24,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -46,10 +45,6 @@ public class EditStudentCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE);
 
-    private static final String MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "%s" + System.lineSeparator() + EditStudentCommand.MESSAGE_USAGE);
-
     private EditStudentCommandParser parser = new EditStudentCommandParser();
 
 
@@ -68,40 +63,34 @@ public class EditStudentCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // zero index
         assertParseFailure(parser, "0" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string",
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string",
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Name.MESSAGE_CONSTRAINTS)); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Phone.MESSAGE_CONSTRAINTS)); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Email.MESSAGE_CONSTRAINTS)); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Address.MESSAGE_CONSTRAINTS)); // invalid address
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Phone.MESSAGE_CONSTRAINTS)); // invalid phone
+                Phone.MESSAGE_CONSTRAINTS); // invalid phone
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, Name.MESSAGE_CONSTRAINTS)); // invalid name
+        assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+                Name.MESSAGE_CONSTRAINTS); // invalid name
     }
 
     @Test

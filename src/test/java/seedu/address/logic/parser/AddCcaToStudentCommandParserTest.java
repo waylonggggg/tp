@@ -4,7 +4,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CCA_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -21,9 +20,9 @@ public class AddCcaToStudentCommandParserTest {
 
     // Use the CcaName constants from TypicalCcas and get their string value
     private static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA_NAME
-            + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName; // Fixed
+            + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName;
     private static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA_NAME
-            + TypicalCcas.CCA_NAME_TENNIS.fullCcaName; // Fixed
+            + TypicalCcas.CCA_NAME_TENNIS.fullCcaName;
 
     // Example of an invalid CCA name description based on CcaName constraints
     // Keep this definition or use one from CommandTestUtil if available
@@ -32,12 +31,6 @@ public class AddCcaToStudentCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE);
-
-    private static final String  MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION =
-            String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT,
-                    "%s",
-                    AddCcaToStudentCommand.MESSAGE_USAGE);
 
     private AddCcaToStudentCommandParser parser = new AddCcaToStudentCommandParser();
 
@@ -62,19 +55,19 @@ public class AddCcaToStudentCommandParserTest {
     public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
         assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
 
         // invalid prefix in preamble
         assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL,
-                String.format(MESSAGE_INVALID_FORMAT_PARSE_EXCEPTION, MESSAGE_INVALID_INDEX));
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test
