@@ -70,7 +70,7 @@ public class RemoveCcaFromStudentCommand extends Command {
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS, Messages.format(personWithRemovedCca),
-                        Messages.format(ccaName)));
+                Messages.format(ccaName)));
     }
 
     @Override
