@@ -714,13 +714,13 @@ testers are expected to do more \*exploratory\* testing.
    
    1. Refer to the initial launch instructions if double-clicking doesn't work
 
-### Listing a student
+### Listing all students
 
 1. List all students
     1. Test case: `list`
        Expected: The list should contain all students. The status message should reflect the successful listing of all students.
 
-### Clearing all students
+### Clearing all students and CCAs
 
 1. Clear all students
     1. Prerequisites: List all students using the `list` command. Multiple students in the list.
@@ -914,3 +914,27 @@ testers are expected to do more \*exploratory\* testing.
     5. Test case: Corrupt the data file with an invalid parameter.
        Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
+
+## **Appendix: Effort**
+**Difficulty Level**: The project was slightly challenging as it entailed the restructuring of a few classes to follow our implementation, and further considerations had to be made with the implementation of features with regard to the new structure.
+
+**Challenges Faced**:
+- **Expansion of AddressBook**: In line with our application's intent of keeping track of each student's CCA attendance, we introduced a new *UniqueCcaList*, which was used to keep track of *Cca*s that were present in the *AddressBook*. This entailed the linking of each *Person* to an existing *Cca* in the *UniqueCcaList*. This additional feature required implementing a sophisticated relationship model that could logically manage each *Person*, and their respective *Cca*s and *Attendance*.
+- **Restructuring of Person class**: To account for the *Cca*s of each student, we introduced a new set of *CcaInformation*s attribute to each *Person*, with each *CcaInformation* class keeping track of each student's *Cca*, *Role* and *Attendance*. The restructuring required a great deal of work as there were a multitude of dependencies linked to the *Person* class.
+- **Data Storage**: The introduction of the set of *CcaInformation*s in the *Person* class required an update to the JSON storage architecture. Multiple new JsonAdapted classes were created to account for the changes.
+- **User Interface Upgrade**: To make the user interface more friendly to the user for tracking *Cca*s and *Person*s, we split the interface into two, allowing the user to view the *Cca* list and *Person* list for a more intuitive experience.
+
+**Effort required**: With the restructuring of classes and the enhancement to the UI, we felt that we had put in adequate, if not more than the expected effort in ensuring that our application could cater well to the user, both functionally and visually. On top of that, we also prioritised code quality and testing to ensure that our application was robustly written and tested. Every member had put in their 110% effort for the sole fact of wanting to try our best for this project!
+
+**Achievements of the Project**: CCAttendance is a fully functioning app that can keep track of and record the attendance of students in various CCAs, with easy-to-use CLI commands that are intuitive for Hall Attendance Managers to use!
+
+## **Appendix: Planned Enhancements**
+**Team Size**: 4 People
+
+1. **Importing/Exporting of student profiles**: Currently, the application does not support the seamless exporting or importing of student profiles from/to the system. Future updates would allow users to export the student data for use in other systems, or import student data for use in the current system.
+2. **Find CCA**: The existing *find* command allows users to filter out students by the inputted names, but right now there is not a command that allows users to filter out students by the inputted CCAs. This future enhancement would then allow users to list students that have the corresponding CCAs, where the UI would then display the filtered CCA list on the left, and the students who are in the CCAs on the right. This would also entail enhancing the *list* command to not only display all persons, but also all CCAs especially after the find cca command is called where the CCA list is filtered. An alternative would be implementing another *list_c* command dedicated for CCAs, but these are design considerations to be gone through again in the future.
+3. **Clear CCAs**: The existing *clear* command clears both the cca and person list completely, but there might be use cases where a user would want to either just clear the cca list or person list. A new *clear_c*  and *clear_s* command could be implemented in the future to clear the cca list and person list respectively, allowing for more flexible usage of clearing data from the app.
+4. **Record attendance of multiple students at a time**: The current *attend* command only allows the user to record the attendance of one student for a specified CCA at a time. Seeing as the application revolves around recording the attendance of students, future enhancements would allow users to record the attendance of multiple users at a time for a specified cca, making the recording of attendance more efficient. e.g., The current *attend* command format allows for only one index (index of student) to be inputted, but future enhancements would allow multiple indexes to be inputted.
+5. **Adding multiple CCAs to a student at a time**: The current *add_c* command which adds a CCA to a student only allows for the addition of one cca at a time to a student. Seeing as to how it is plausible that students can hold multiple CCAs, the *add_c* command can be enhanced in the future to allow the addition of multiple of CCAs to a student at one go to make the command more efficient.
+6. **Removing multiple CCAs from a student at a time**: Same as the feature above, the current *remove_c* command only removes one cca from a student at a time. Future enhancements are to allow users to remove multiple CCAs from a user at once.
+7. **Combining add cca and add role to student into one command**: Currently, the only way to assign a CCA and a role that exists in the CCA to a student is by adding the cca to the student with the *add_c* command first, and then adding the role to the student using the *add_r* command. This might be inefficient especially if we were to add a cca and a role to many students at once. Future enhancements would entail combining these 2 commands into one, perhaps denoting the cca and the associated role to be added to a student by adjoining the cca and the role with an "underscore" e.g., Volleyball_Captain.
