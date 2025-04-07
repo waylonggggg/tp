@@ -114,6 +114,7 @@ The sequence diagram below illustrates the simplified interactions within the `L
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 ### Model component
@@ -139,7 +140,6 @@ The `AddressBook` contains a list of `Cca` objects, and each `Student` reference
 For example, the following object diagrams can be formed:
 
 <puml src="diagrams/CcaInformationObjectDiagram.puml" width="650" />
-<box/>
 
 ### Storage component
 
