@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -56,7 +57,11 @@ public class Messages {
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; CcaInformation: ");
-        person.getCcaInformations().forEach(builder::append);
+        for (CcaInformation ccaInformation : person.getCcaInformations()) {
+            builder.append(ccaInformation)
+                    .append(", ");
+        }
+        builder.delete(builder.length() - 2, builder.length());
         return builder.toString();
     }
 

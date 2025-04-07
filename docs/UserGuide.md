@@ -24,7 +24,7 @@ Welcome to CCAttendance! We've created this friendly desktop app for **recording
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar CCAttendance.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   <img src="images/Ui.png" alt="Ui" width="500" height="500"/>
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -40,6 +40,24 @@ Welcome to CCAttendance! We've created this friendly desktop app for **recording
    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
+
+## Important Details
+
+### Student
+<img src="images/student.png" alt="Student" width="500" height="260"/>
+
+* Each student is represented by a student card. Other than the name, phone number, address, and email, the student card also shows their attendance and role in each CCA.
+
+* The role is represented by the element labeled `A` which shows the CCA on the left and the role inside the square brackets. E.g. the student above is a `Member` of `Boxing` CCA.
+
+* The attendance is represented by the element labeled `B` which shows the CCA on the left and the number of sessions attended out of the total sessions in the brackets. E.g. the student above has attended 6 out of 20 sessions in `Boxing` CCA.
+
+### CCA
+<img src="images/cca.png" alt="CCA" width="500" height="260"/>
+
+* Each CCA is represented by a CCA card. The card shows the name of the CCA, the roles available in the CCA, and the total sessions.
+
+* The name of each role are the texts in the square brackets. E.g. the CCA above has 3 roles: `President`, `Vice-President`, and `Member`. `Member` is the default role and will thus appear in every CCA.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -71,7 +89,7 @@ e.g. `[r/ROLE_NAME]...` can be used as `r/Captain r/Vice-Captain` or as `r/Capta
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
+<img src="images/helpMessage.png" alt="Help" width="500" height="57"/>
 
 Format: `help`
 
@@ -97,13 +115,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+<img src="images/findAlexDavidResult.png" alt="Find" width="500" height="400"/>
 
 ### Creating a student: `create_s`
 
 Creates and adds a student to the list of students.
 
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
+
+* Names should only contain alphabetic characters and a single space between words, and it should not be blank. Unfortunately, we do not allow `/` in names, making names like `David s/o Daniel` invalid.
 
 Examples:
 * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` creates a student named `John Doe`, with phone number `98765432`, email of `johnd@example.com`, and address of `John street, block 123, #01-01`.
@@ -115,7 +135,7 @@ Creates and adds a CCA to the list of CCAs.
 Format: `create_c c/CCA_NAME`
 * Creates and adds a CCA with a name.
 * The new CCA will have a default role `Member` and total sessions set to 0 by default.
-
+* Cca names must consist of alphanumeric characters and can only include spaces or hyphens between words. For example, R0ck-n-R0ll is a valid CCA name, but -Basketball- is not. It is up to the user to make meaningful CCA names.
 <box type="warning" seamless>
 
 **Caution:**
