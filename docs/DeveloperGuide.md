@@ -11,6 +11,13 @@ pageNav: 3
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Acknowledgements**
+
+* Codebase adapted from AddressBook3
+* Libraries used: JavaFX, Jackson, JUnit5
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
@@ -18,9 +25,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
-
-<puml src="diagrams/EditActivityDiagram.puml" width="450" />
-
 
 ### Architecture
 
@@ -47,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact  with each other for the scenario where the user issues the command `delete_s 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete_s 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -110,12 +114,13 @@ The sequence diagram below illustrates the simplified interactions within the `L
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="650" />
 
 
 The `Model` component,
@@ -126,21 +131,21 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
 
-#### Cca Related Classes
+#### CcaInformation Attribute Classes
 
-<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />    
+<puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />
 
-The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the `AddressBook` and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
+The `AddressBook` contains a list of `Cca` objects, and each `Student` references a `CcaInformation` object that contains a unique `Cca`. By storing each CCA only once in the AddressBook and having each Student reference it through a CcaInformation object, it avoids duplicating CCA data across students. The `Addressbook` also ensures that each `CcaInformation` can have a unique `Cca`, preventing duplicate CCAs in the system.
 
 For example, the following object diagrams can be formed:
 
-<puml src="diagrams/CcaInformationObjectDiagram.puml" width="450" />
+<puml src="diagrams/CcaInformationObjectDiagram.puml" width="650" />
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="650" />
 
 The `Storage` component,
 * can save both CCAttendance data and user preference data in JSON format, and read them back into corresponding objects.
@@ -160,48 +165,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Implementation**
-
-<box type="info" seamless>
-
-**Note:** : For simplicity, some details such as conditional checks, parsing and detailed implementation on model changes may have been omitted.
-
-</box>
-
-### **Create Student Feature**
-
-The Add Student feature allows users to add a new student to the student list given a student's `name`, `email`, `phone`, and `address`.
-
-The following shows the activity diagram when the user executes the `create_s` command:
-
-<puml src="diagrams/CreateStudentActivityDiagram.puml" width="450" />
-
-### **Edit CCA Feature**
-
-The Edit CCA feature allows users to edit an existing CCA in the CCA list with optional parameters (but at least one parameter should be present) for the CCA's `CCA name`, `total Sessions` and set of `Role` objects.
-
-The following shows the activity diagram when the user executes the `edit_c` command:
-
-<puml src="diagrams/EditCcaActivityDiagram.puml" width="450" />
-
-### **Add Role to Student Feature**
-
-The Add role to student feature allows users to add a role to a student in a CCA.
-
-The following shows the activity diagram when the user executes the `add_r` command:
-
-<puml src="diagrams/AddRoleActivityDiagram.puml" width="450" />
-
-### **Record Attendance to Student Feature**
-
-The record attendance feature allows users to add increment the attendance of a student in a CCA.
-
-The following shows the activity diagram when the user executes the `attend` command:
-
-<puml src="diagrams/RecordAttendanceActivityDiagram.puml" width="450" />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -695,18 +658,18 @@ testers are expected to do more \*exploratory\* testing.
 
    1. Download the jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
+   3. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-   
-   1. Refer to the initial launch instructions if double-clicking doesn't work.
+
+   3. Refer to the initial launch instructions if double-clicking doesn't work.
 
 ### Listing a student
 
@@ -908,3 +871,8 @@ testers are expected to do more \*exploratory\* testing.
     5. Test case: Corrupt the data file with an invalid parameter.
        Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
+
+## **Appendix: Planned Enhancements**
+**Team Size**: 4 People
+
+1. Some of the current error messages (e.g., indicating that an index must be a positive integer) are not specific enough to help the user understand what went wrong. Specifically, when the user enters an invalid index, the error message should clearly state that the index must be a positive integer and must not exceed `Integer.MAX_VALUE`. However, the current error message simply indicates an invalid command format, which is too generic and not very helpful. Later, we can enhance these error messages to be more detailed and user-friendly.

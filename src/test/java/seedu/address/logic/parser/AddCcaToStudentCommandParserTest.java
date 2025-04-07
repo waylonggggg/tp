@@ -6,14 +6,11 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-// Remove import if CcaNameTest is not used
-// import static seedu.address.model.cca.CcaNameTest;
-// Import TypicalCcas to access its constants
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages; // Required for getErrorMessageForDuplicatePrefixes
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCcaToStudentCommand;
 import seedu.address.model.cca.CcaName;
 import seedu.address.testutil.TypicalCcas;
@@ -23,16 +20,17 @@ public class AddCcaToStudentCommandParserTest {
 
     // Use the CcaName constants from TypicalCcas and get their string value
     private static final String CCA_NAME_DESC_BASKETBALL = " " + PREFIX_CCA_NAME
-            + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName; // Fixed
+            + TypicalCcas.CCA_NAME_BASKETBALL.fullCcaName;
     private static final String CCA_NAME_DESC_TENNIS = " " + PREFIX_CCA_NAME
-            + TypicalCcas.CCA_NAME_TENNIS.fullCcaName; // Fixed
+            + TypicalCcas.CCA_NAME_TENNIS.fullCcaName;
 
     // Example of an invalid CCA name description based on CcaName constraints
     // Keep this definition or use one from CommandTestUtil if available
     private static final String INVALID_CCA_NAME_DESC = " " + PREFIX_CCA_NAME + "Basket*ball";
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE);
+            String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, AddCcaToStudentCommand.MESSAGE_USAGE);
 
     private AddCcaToStudentCommandParser parser = new AddCcaToStudentCommandParser();
 
@@ -49,7 +47,6 @@ public class AddCcaToStudentCommandParserTest {
         // Test also with space after prefix
         assertParseFailure(parser, "1 " + PREFIX_CCA_NAME + " ", CcaName.MESSAGE_CONSTRAINTS);
 
-
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
@@ -57,16 +54,20 @@ public class AddCcaToStudentCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
 
         // invalid prefix in preamble
-        assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string" + CCA_NAME_DESC_BASKETBALL,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test
