@@ -87,12 +87,12 @@ Finds students whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -106,7 +106,7 @@ Adds a student to the list of students.
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
 Examples:
-* `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` creates a student named `John Doe`, with phone number `98765432`, email of `johnd@example.com`, and address of `John street, block 123, #01-01`.
 
 ### Adding a CCA: `create_c`
 
@@ -121,37 +121,7 @@ CCA names are case-sensitive. For example, `Basketball` and `basketball` are con
 </box>
 
 Examples:
-* `create_c c/Basketball`
-
-### Adding a role to a student in a CCA: `add_r`
-
-Adds a role to a student in a CCA.
-
-Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
-* Adds a role to the student at the specified `INDEX` in the CCA.
-* The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** (1, 2, 3, …​)
-* The role must exist in the CCA.
-* The student must be in the CCA.
-* The student must not have an existing role in the CCA.
-
-Examples:
-* `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.
-
-### Adding a CCA to a student: `add_c`
-
-Assigns an existing CCA from the CCA list to a specific student. The student will be assigned a default role (e.g., "Member") for the added CCA.
-
-Format: `add_c INDEX c/CCA_NAME`
-
-* Assigns the CCA specified by `CCA_NAME` to the student at the specified `INDEX`.
-* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
-* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
-* The `CCA_NAME` provided must exactly match the name of a CCA already present in the main CCA list (use `list` or view the CCA panel to see available CCAs).
-* The student must **not** already be assigned to the specified CCA.
-
-Examples:
-* `add_c 2 c/Tennis` Assigns the existing "Tennis" CCA to the student at index 2 in the current student list. The student gets the default role for Tennis.
+* `create_c c/Basketball` creates a CCA named `Basketball`.
 
 ### Editing a student's basic details : `edit_s`
 
@@ -184,12 +154,42 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * Existing values will be updated to the input values.
 * The new name must not match any existing cca names in the cca list.
 * The amount of total sessions must be a non-negative integer.
-* Regardless of the input for the role field, a "Member" role will automatically be created.
-* If an existing student have their role removed from the cca, the student's role will be set to "Member".
+* Regardless of the input for the role field, a `Member` role will automatically be created.
+* If an existing student have their role removed from the cca, the student's role will be set to `Member`.
 * If an existing student's total sessions is above the new total sessions, the student's total sessions will be set to the new total sessions. 
 
 Examples:
-*  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to "Volleyball", updates the available roles to Captain, Vice-Captain and Member, and updates the total sessions to 40.
+*  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the cca with the first index in the cca list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
+
+### Adding a CCA to a student: `add_c`
+
+Assigns an existing CCA from the CCA list to a specific student. The student will be assigned a default role (e.g., `Member`) for the added CCA.
+
+Format: `add_c INDEX c/CCA_NAME`
+
+* Assigns the CCA specified by `CCA_NAME` to the student at the specified `INDEX`.
+* The index `INDEX` refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
+* The CCA name prefix `c/` and the `CCA_NAME` are **mandatory**.
+* The `CCA_NAME` provided must exactly match the name of a CCA already present in the main CCA list (use `list` or view the CCA panel to see available CCAs).
+* The student must **not** already be assigned to the specified CCA.
+
+Examples:
+* `add_c 2 c/Tennis` Assigns the existing `Tennis` CCA to the student at index 2 in the current student list. The student gets the default role for `Tennis`.
+
+### Adding a role to a student in a CCA: `add_r`
+
+Adds a role to a student in a CCA.
+
+Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
+* Adds a role to the student at the specified `INDEX` in the CCA.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** (1, 2, 3, …​).
+* The role must exist in the CCA.
+* The student must be in the CCA.
+* The student must not have an existing role in the CCA.
+
+Examples:
+* `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.
 
 ### Recording attendance : `attend`
 Records the attendance of a student in a CCA.
@@ -198,7 +198,7 @@ Format: `attend INDEX [c/CCA_NAME] [a/AMOUNT]`
 
 * Records the attendance of the student at the specified `INDEX` in the specified CCA.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** (1, 2, 3, …).​
 * The CCA name must be provided.
 * The amount of attendance must be provided.
 * The amount of attendance must be a positive integer.
@@ -216,7 +216,7 @@ Format: `delete_s INDEX`
 
 * Deletes the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** (1, 2, 3, …).​
 
 Examples:
 * `list` followed by `delete_s 2` deletes the 2nd student in the student list.
@@ -230,7 +230,7 @@ Format: `delete_c INDEX`
 
 * Deletes the CCA at the specified `INDEX`.
 * The index refers to the index number shown in the displayed CCA list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** (1, 2, 3, …).​
 * Unlike student list, the CCA list will always show all CCAs.
 * Deleting a CCA will also delete the CCA from each student that is in the CCA.
 
@@ -243,9 +243,9 @@ Removes a role from a student in a CCA.
 
 Format: `remove_r INDEX c/CCA_NAME`
 
-* Removes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a "Member").
+* Removes the role from the student at the specified `INDEX` in the CCA (i.e. turns the student into a `Member`).
 * The index refers to the index number shown in the displayed student list.
-* The index must be a positive integer (1, 2, 3, …​)
+* The index must be a positive integer (1, 2, 3, …​).
 * The student must be in the CCA.
 * The student must have a role in the CCA.
 
@@ -264,7 +264,7 @@ Format: `remove_c INDEX c/CCA_NAME`
 * The student must currently be assigned to the specified `CCA_NAME` for the removal to be successful. 
 
 Examples:
-* `remove_c 1 c/Basketball` Removes the "Basketball" CCA assignment from the student at index 1 in the current student list.
+* `remove_c 1 c/Basketball` Removes the `Basketball` CCA assignment from the student at index 1 in the current student list.
 
 ### Clearing all entries : `clear`
 
@@ -313,18 +313,18 @@ Furthermore, certain edits can cause CCAttendance to behave in unexpected ways (
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Help**   | `help`
+**List**   | `list`
+**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Student**    | `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​` <br> e.g., `create_s n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
 **Create CCA**    | `create_c c/CCA_NAME` <br> e.g., `create_c c/Basketball`
-**Add Role**    | `add_r INDEX c/CCA_NAME r/ROLE_NAME` <br> e.g., `add_r 2 c/Basketball r/Captain`
+**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com`
+**Edit CCA**   | `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 c/Basketball r/Captain r/Vice-Captain t/40`
 **Add CCA**    | `add_c INDEX c/CCA_NAME` <br> e.g., `add_c 2 c/Basketball`
-**Clear**  | `clear`
+**Add Role**    | `add_r INDEX c/CCA_NAME r/ROLE_NAME` <br> e.g., `add_r 2 c/Basketball r/Captain`
+**Record Attendance**   | `attend INDEX c/CCA_NAME a/AMOUNT`<br> e.g., `attend 2 c/Basketball a/1`
 **Delete Student** | `delete_s INDEX`<br> e.g., `delete_s 3`
 **Delete CCA** | `delete_c INDEX`<br> e.g., `delete_c 2`
 **Remove Role** | `remove_r INDEX c/CCA_NAME`<br> e.g., `remove_r 2 c/Basketball`
 **Remove CCA** | `remove_c INDEX c/CCA_NAME`<br> e.g., `remove_c 2 c/Basketball`
-**Edit Student**   | `edit_s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]​`<br> e.g.,`edit_s 2 n/James Lee e/jameslee@example.com`
-**Record Attendance**   | `attend INDEX c/CCA_NAME a/AMOUNT`<br> e.g., `attend 2 c/Basketball a/1`
-**Edit CCA**   | `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`<br> e.g., `edit_c 2 c/Basketball r/Captain r/Vice-Captain t/40`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+**Clear**  | `clear`
