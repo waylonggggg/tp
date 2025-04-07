@@ -27,7 +27,7 @@ public class SessionCount {
      * Returns true if the given integer is a valid session count.
      */
     public static boolean isValidSessions(int test) {
-        return (test >= 0) && (test <=999);
+        return (test >= 0) && (test <= 999);
     }
 
     /**

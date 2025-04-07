@@ -11,7 +11,7 @@ public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Role names should be alphanumeric, allowing the use of hyphens, "
             + "and must be at most 50 characters long (including spaces and hyphens)";
-    public static final String VALIDATION_REGEX =  "^(?=.{1,50}$)[A-Za-z0-9]+(?:[ -][A-Za-z0-9]+)*$";
+    public static final String VALIDATION_REGEX = "^(?=.{1,50}$)[A-Za-z0-9]+(?:[ -][A-Za-z0-9]+)*$";
     public static final String DEFAULT_ROLE_NAME = "Member";
 
     public static final Role DEFAULT_ROLE = new Role(DEFAULT_ROLE_NAME);
