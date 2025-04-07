@@ -13,7 +13,8 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* Codebase adapted from AddressBook3
+* Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -24,9 +25,6 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
-
-<puml src="diagrams/EditActivityDiagram.puml" width="450" />
-
 
 ### Architecture
 
@@ -53,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact  with each other for the scenario where the user issues the command `delete_s 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete_s 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -116,23 +114,24 @@ The sequence diagram below illustrates the simplified interactions within the `L
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml" width="650" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects and `Cca` objects (which are contained in a `UniquePersonList` object and a `UniqueCcaList` respectively).
+* stores CCAttendance's data i.e., all `Person` objects and `Cca` objects (which are contained in a `UniquePersonList` object and a `UniqueCcaList` respectively).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores the current `Cca` separately in as an unmodifiable `ObservableList<Cca>` just like `Person` objects, however, there is no 'selected' objects.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
 
-#### Cca Related Classes
+#### CcaInformation Attribute Classes
 
 <puml src="diagrams/CcaInformationClassesDiagram.puml" width="450" />
 
@@ -140,18 +139,18 @@ The `AddressBook` contains a list of `Cca` objects, and each `Student` reference
 
 For example, the following object diagrams can be formed:
 
-<puml src="diagrams/CcaInformationObjectDiagram.puml" width="450" />
+<puml src="diagrams/CcaInformationObjectDiagram.puml" width="650" />
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml" width="650" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both CCAttendance data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`).
 
 ### Common classes
 
@@ -166,48 +165,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Implementation**
-
-<box type="info" seamless>
-
-**Note:** : For simplicity, some details such as conditional checks, parsing and detailed implementation on model changes may have been omitted.
-
-</box>
-
-### **Create Student Feature**
-
-The Add Student feature allows users to add a new student in the address book given a student's `name`, `email`, `phone`, and `address`.
-
-The following shows the activity diagram when the user executes the `create_s` command:
-
-<puml src="diagrams/CreateStudentActivityDiagram.puml" width="450" />
-
-### **Edit CCA Feature**
-
-The Edit CCA feature allows users to edit an existing CCA in the address book with optional parameters (but at least one parameter should be present) for the CCA's `CCA name`, `total Sessions` and set of `Role` objects.
-
-The following shows the activity diagram when the user executes the `edit_c` command:
-
-<puml src="diagrams/EditCcaActivityDiagram.puml" width="450" />
-
-### **Add Role to Student Feature**
-
-The Add role to student feature allows users to add a role to a student in a CCA in the address book.
-
-The following shows the activity diagram when the user executes the `add_r` command:
-
-<puml src="diagrams/AddRoleActivityDiagram.puml" width="450" />
-
-### **Record Attendance to Student Feature**
-
-The record attendance feature allows users to add increment the attendance of a student in a CCA in the address book.
-
-The following shows the activity diagram when the user executes the `attend` command:
-
-<puml src="diagrams/RecordAttendanceActivityDiagram.puml" width="450" />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -414,7 +371,7 @@ The following shows the activity diagram when the user executes the `attend` com
 
       Use case resumes at step 2.
 
-**UC8: Edit a cca**
+**UC8: Edit a CCA**
 
 **MSS**
 
@@ -673,12 +630,12 @@ The following shows the activity diagram when the user executes the `attend` com
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **CLI**: Command Line Interface, a text-based interface that allows users to interact with the system by typing commands
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **CLI**: Command Line Interface, a text-based interface that allows users to interact with the system by typing commands.
 * **GUI**: Graphical User Interface, a visual interface that allows users to interact with the system using graphical elements such as CLI, buttons, etc.
-* **Index**: A number that represents the position of student or CCA. It is shown in the UI on the left side of the student or CCA details
-* **HAM**: Hall attendance manager, i.e. the one in charge of taking attendance of the students
-* **Role**: The position the student has in the CCA, e.g. Captain, President
+* **Index**: A number that represents the position of student or CCA. It is shown in the UI on the left side of the student or CCA details.
+* **HAM**: Hall attendance manager, i.e. the one in charge of taking attendance of the students.
+* **Role**: The position the student has in the CCA, e.g. Captain, President.
 
 *{More to be added}*
 
@@ -699,20 +656,20 @@ testers are expected to do more \*exploratory\* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
+   3. If this doesn't work, open a terminal in the folder and run the command `java -jar CCAttendance.jar`.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-   1. Refer to the initial launch instructions if double-clicking doesn't work
+   3. Refer to the initial launch instructions if double-clicking doesn't work.
 
 ### Listing all students
 
@@ -722,10 +679,10 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Clearing all students and CCAs
 
-1. Clear all students
+1. Clears all students and CCAs
     1. Prerequisites: List all students using the `list` command. Multiple students in the list.
     2. Test case: `clear`
-       Expected: Both the student list and the CCA list should be empty. The status message should reflect the successful clearing of all students.
+       Expected: Both the student list and the CCA list should be empty. The status message should reflect the successful clearing of all students and CCAs.
 
 ### Finding a student
 
@@ -744,7 +701,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: Error message is shown as insufficient parameters are provided. The student is not added to the list.
     4. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: Error message is shown as the student already exists in the list. The student is not added to the list.
-    5. Other incorrect create student commands to try: `create_s n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other incorrect create student commands to try: `create_s n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used).
        Expected: Error message is shown as parameters with invalid formats were provided. The student is not added to the list.
 
 ### Deleting a student
@@ -755,60 +712,60 @@ testers are expected to do more \*exploratory\* testing.
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
     3. Test case: `delete_s 0`
        Expected: No student is deleted. Error details shown in the status message.
-    4. Other incorrect delete commands to try: `delete_s`, `delete_s x`, `...` (where x is larger than the list size)
+    4. Other incorrect delete commands to try: `delete_s`, `delete_s x`, `...` (where x is larger than the list size).
        Expected: Similar to previous.
 
 ### Creating a CCA
 
-1. Creating a CCA with a CCA name.
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list. `Handball` is not in CCA list.
+1. Creating a CCA with a CCA name
+    1. Prerequisites: Multiple CCAs in the list. `Handball` is not in CCA list.
     2. Test case: `create_c c/Handball`
        Expected: A new CCA is added to the list. The CCA details are shown in the list.
     3. Test case: `create_c`
        Expected: No CCA is added. Error details shown in the status message as the CCA name is not provided.
     4. Test case: `create_c c/Handball`
        Expected: No CCA is added. Error details shown in the status message as the CCA already exists.
-    5. Other test cases to try: `create_c c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `create_c c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used).
        Expected: No CCA is added. Error message is shown as parameters with invalid formats were provided.
 
 ### Deleting a CCA
 
 1. Deleting a CCA while all CCAs are being shown
-    1. Prerequisites: List all CCAs using the `list` command. One CCA in the list.
+    1. Prerequisites: One CCA in the CCA list.
     2. Test case: `delete_c 1`
        Expected: The first CCA is deleted from the list. Details of the deleted CCA shown in the status message.
     3. Test case: `delete_c 1`
        Expected: There are no more CCAs in the list. Error details are shown in the status message.
     4. Test case: `delete_c 0`
        Expected: No CCA is deleted. Error details shown in the status message.
-    5. Other incorrect delete commands to try: `delete_c`, `delete_c x`, `...` (where x is larger than the list size)
+    5. Other incorrect delete commands to try: `delete_c`, `delete_c x`, `...` (where x is larger than the list size).
        Expected: Similar to previous.
 
 ### Editing a student
 
-1. Editing an existing student's name, phone, email and address.
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list. It is okay for the edited student's original name to be Clark Kent
+1. Editing an existing student's name, phone, email and address
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list. It is okay for the edited student's original name to be Clark Kent.
     2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
     3. Test case: `edit_s 2 n/Clark Kent`
        Expected: No student is edited. Error details are shown in the status message as Clark Kent already exists in the list.
     4. Test case: `edit_s 0 n/Josh Yoseph`
        Expected: No student is edited. Error details shown in the status message as the index is out of the student list.
-    5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `edit_s 1 n/helloworld* p/helloworld* e/helloworld* a/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used).
        Expected: No student is edited. Error message is shown as parameters with invalid formats were provided.
 2. Editing CCA of a student will be handled in separate test cases below.
 
 ### Editing a CCA
 
-1. Editing an existing CCA's name and total sessions.
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list and there is no `Basketball` CCA. It is okay for the edited CCA's original name to be `Basketball`
+1. Editing an existing CCA's name, roles, and total sessions
+    1. Prerequisites: Multiple CCAs in the CCA list and there is no `Basketball` CCA. It is okay for the edited CCA's original name to be `Basketball`.
     2. Test case: `edit_c 1 c/Basketball t/15 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's name is changed to `Basketball`. The respective details are changed as specified. The updated CCA details are shown in the list.
     3. Test case: `edit_c 2 c/Basketball`
        Expected: No CCA is edited as the CCA already has the name `Basketball`. Error details are shown in the status message as the CCA already exists in the list.
     4. Test case: `edit_c 0 c/Chess`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
-    5. Other test cases to try: `edit_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used)
+    5. Other test cases to try: `edit_c 1 c/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used, wrong index used).
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Editing a role of a CCA is handled in separate test cases below.
@@ -816,18 +773,18 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a role of a CCA
 
 1. Adding a role to a CCA
-    1. Prerequisites: List all CCAs using the `list` command. Multiple CCAs in the list.
+    1. Prerequisites: Multiple CCAs in the CCA list.
     2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's roles are replaced with `President`, `Vice-President`, `Treasurer`, and default `Member` roles. The updated CCA details are shown in the list.
     3. Test case: `edit_c 1 r/President`
        Expected: The first CCA's roles are replaced with the `President` and default `Member` role. Other roles get deleted. The updated CCA details are shown in the list.
     4. Test case: `edit_c 0 r/Treasurer`
        Expected: No CCA is edited. Error details shown in the status message as the index is out of the CCA list.
-    5. Other test cases to try: `edit_c 1 r/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used)
+    5. Other test cases to try: `edit_c 1 r/helloworld*` (incorrect inputs, missing inputs, or incorrect prefixes used).
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting a role from a CCA
-    1. Prerequisite: List all CCAs using the `list` command. Multiple CCAs in the list. Multiple roles in the list and the first CCA has at least one role.
+    1. Prerequisite: Multiple CCAs in the CCA list. The first CCA has at least one role.
     2. Test case: `edit_c 1 r/`
        Expected: The first CCA's roles are removed and only left with default `Member`. The updated CCA details are shown in the list.
     3. Test case: `edit_c 0 r/`
@@ -852,7 +809,7 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Adding a CCA to a student
 
-1. Adding a CCA to a student.
+1. Adding a CCA to a student
     1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is not in `Basketball` CCA.
     2. Test case: `add_c 1 c/Basketball`
        Expected: The first student is added to the `Basketball` CCA. The updated student details are shown in the list.
@@ -867,7 +824,7 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Removing a CCA from a student
 
-1. Removing a CCA from a student.
+1. Removing a CCA from a student
     1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
     2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
@@ -878,7 +835,7 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Adding a role to a student in a CCA
 
-1. Adding a role from a student in a CCA.
+1. Adding a role from a student in a CCA
     1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
     2. Test case: `add_r 1 c/Basketball r/Member`
       Expected: The default role `Member` cannot be assigned. Error details are shown in the status message.
@@ -889,7 +846,7 @@ testers are expected to do more \*exploratory\* testing.
 
 ### Removing a role from a student in a CCA
 
-1. Removing a role from a student in a CCA.
+1. Removing a role from a student in a CCA
     1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
     2. Test case: `remove_r 1 c/Basketball`
        Expected: The first student's role in `Basketball` CCA is removed, the student is now a `Member`. The updated student details are shown in the list.
@@ -938,3 +895,4 @@ testers are expected to do more \*exploratory\* testing.
 5. **Adding multiple CCAs to a student at a time**: The current *add_c* command which adds a CCA to a student only allows for the addition of one cca at a time to a student. Seeing as to how it is plausible that students can hold multiple CCAs, the *add_c* command can be enhanced in the future to allow the addition of multiple of CCAs to a student at one go to make the command more efficient.
 6. **Removing multiple CCAs from a student at a time**: Same as the feature above, the current *remove_c* command only removes one cca from a student at a time. Future enhancements are to allow users to remove multiple CCAs from a user at once.
 7. **Combining add cca and add role to student into one command**: Currently, the only way to assign a CCA and a role that exists in the CCA to a student is by adding the cca to the student with the *add_c* command first, and then adding the role to the student using the *add_r* command. This might be inefficient especially if we were to add a cca and a role to many students at once. Future enhancements would entail combining these 2 commands into one, perhaps denoting the cca and the associated role to be added to a student by adjoining the cca and the role with an "underscore" e.g., Volleyball_Captain.
+8. **Improving error messages**: Some of the current error messages (e.g., indicating that an index must be a positive integer) are not specific enough to help the user understand what went wrong. Specifically, when the user enters an invalid index, the error message should clearly state that the index must be a positive integer and must not exceed `Integer.MAX_VALUE`. However, the current error message simply indicates an invalid command format, which is too generic and not very helpful. Later, we can enhance these error messages to be more detailed and user-friendly.

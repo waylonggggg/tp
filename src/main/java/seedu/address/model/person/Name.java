@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, it should not be blank and "
-                    + "must not exceed 100 characters (including spaces).";
+            "Names should only contain alphabetic characters and a single space between words, it should not be blank "
+                    + "and must not exceed 100 characters (including spaces).";
 
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,99}";
 
