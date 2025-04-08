@@ -66,8 +66,8 @@ public class RemoveCcaFromStudentCommand extends Command {
 
         Person personWithRemovedCca = personToRemoveCca.removeCca(targetCca);
         model.setPerson(personToRemoveCca, personWithRemovedCca);
-        return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS, Messages.format(personWithRemovedCca),
-                Messages.format(ccaName)));
+        return new CommandResult(String.format(MESSAGE_REMOVE_CCA_SUCCESS,
+                Messages.format(personWithRemovedCca.getName()), Messages.format(ccaName)));
     }
 
     @Override

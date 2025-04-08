@@ -71,7 +71,7 @@ public class AddCcaToStudentCommand extends Command {
 
         model.setPerson(personToAddCca, personWithAddedCca);
         return new CommandResult(String.format(MESSAGE_ADD_CCA_SUCCESS,
-                Messages.format(personWithAddedCca), Messages.format(ccaName)));
+                Messages.format(personWithAddedCca.getName()), Messages.format(ccaName)));
     }
 
     @Override

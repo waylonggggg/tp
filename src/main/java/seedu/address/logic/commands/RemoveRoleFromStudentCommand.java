@@ -75,7 +75,8 @@ public class RemoveRoleFromStudentCommand extends Command {
         model.setPerson(personToRemoveRole, personWithRemovedRole);
 
         return new CommandResult(String.format(MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS,
-                Messages.format(personToRemoveRole), Messages.format(role), Messages.format(targetCca)));
+                Messages.format(personToRemoveRole.getName()), Messages.format(role),
+                Messages.format(targetCca.getCcaName())));
     }
 
     @Override

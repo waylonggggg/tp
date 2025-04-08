@@ -72,8 +72,8 @@ public class AddRoleToStudentCommand extends Command {
         model.setPerson(personToAddRole, personWithAddedRole);
 
         return new CommandResult(String.format(
-                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole), Messages.format(role),
-                Messages.format(targetCca)));
+                MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS, Messages.format(personWithAddedRole.getName()),
+                Messages.format(role), Messages.format(targetCca.getCcaName())));
     }
 
     /**
