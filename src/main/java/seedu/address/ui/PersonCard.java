@@ -49,6 +49,9 @@ public class PersonCard extends UiPart<Region> {
      */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
+
+        final float MAX_WIDTH_PERCENTAGE = 0.9f;
+
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
@@ -56,12 +59,20 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
 
-        ccas.setWrapText(true);
+        personCardPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double maxWidth = newValue.doubleValue() * MAX_WIDTH_PERCENTAGE;
+            ccas.setMaxWidth(maxWidth);
+        });
+
         person.getCcaInformations().stream()
                 .map(ccaInfo -> ccaInfo.getCca().getCcaName().fullCcaName + " "
                         + ccaInfo.getRole())
                 .sorted()
-                .forEach(role -> roles.getChildren().add(new Label(role)));
+                .forEach(role -> {
+                    Label roleLabel = new Label(role);
+                    roleLabel.setWrapText(true);
+                    roles.getChildren().add(roleLabel);
+                });
 
         // Display CCA info or "No CCA" if none
         if (person.getCcaInformations().isEmpty()) {
@@ -74,7 +85,7 @@ public class PersonCard extends UiPart<Region> {
                             ccaInfo.getAttendance().getSessionsAttended().getSessionCount(),
                             ccaInfo.getAttendance().getTotalSessions().getSessionCount()))
                     .collect(Collectors.joining(", "));
-
+            ccas.setWrapText(true);
             ccas.setText("CCAs: " + ccaText);
         }
     }
