@@ -699,7 +699,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Creating a student
 
 1. Creating a student
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list. `John Doe` is not in student list.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. `John Doe` is not in student list, there are no students with email of `e0000000@u.nus.edu` or phone number of `98765432`.
     2. Test case: `create_s n/John Doe p/98765432 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: A new student is added to the list. The student details are shown in the list.
     3. Test case: `create_s n/John Doe p/98765432`
