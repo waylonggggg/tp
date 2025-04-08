@@ -882,11 +882,7 @@ testers are expected to do more \*exploratory\* testing.
 
 **Challenges Faced**:
 - **Expansion of AddressBook**: In line with our application's intent of keeping track of each student's CCA attendance, we introduced a new `UniqueCcaList`, which was used to keep track of `Cca`s that were present in the `AddressBook`. This entailed the linking of each `Person` to an existing `Cca` in the `UniqueCcaList`. This additional feature required implementing a sophisticated relationship model that could logically manage each `Person`, and their respective `Cca`s and `Attendance`.
-<<<<<<< HEAD
-- **Restructuring of Person class**: To account for the `Cca`s of each student, we introduced a new set of `CcaInformation`s attribute to each `Person`, with each `CcaInformation` class keeping track of each student's `Cca`, `Role` and `Attendance`. The restructuring required a great deal of work as there were a multitude of dependencies linked to the `Person` class.
-=======
 - **Restructuring of Person class**: To account for the `Cca`s of each student, we introduced a new set of `CcaInformation`s attribute to each `Person`, with each `CcaInformation` class keeping track of each student's `Cca`, `Role` and `Attendance`. The restructuring required a great deal of work as there was a multitude of dependencies linked to the `Person` class.
->>>>>>> 9dabc7028e0ece8fe731a217855570179524dbde
 - **Data Storage**: The introduction of the set of `CcaInformation`s in the `Person` class required an update to the JSON storage architecture. Multiple new JsonAdapted classes were created to account for the changes.
 - **User Interface Upgrade**: To make the user interface more friendly to the user for tracking `Cca`s and `Person`s, we split the interface into two, allowing the user to view the `Cca` list and `Person` list for a more intuitive experience.
 
