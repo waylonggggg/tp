@@ -157,6 +157,7 @@ Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
 * At least one of the optional fields (`n/`, `p/`, `e/`, `a/`) must be provided.
 * Existing values for the specified fields will be overwritten by the new input values.
+* The edited student cannot have the same name, phone numer, or email as another student in the student list.
 
 Examples:
 * `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
@@ -167,6 +168,8 @@ Examples:
 Edits an existing CCA in the CCA list.
 
 Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
+
+* The edited CCA cannot have the same name as another CCA in the CCA list.
 
 <box type="warning" seamless>
 
@@ -184,7 +187,7 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * If an existing student have their role removed from the CCA, the student's role will be set to `Member`.
 * If an existing student's attended sessions is above the new total sessions, the student's attended sessions will be set to the new total sessions.
 * CCA names must consist of alphanumeric characters, can only include spaces or hyphens between words and must be at most 100 characters long.
-* Role names should be alphanumeric, allowing the use of hyphens, and must be at most 50 characters long (including spaces and hyphens)";
+* Role names should be alphanumeric, allowing the use of hyphens, and must be at most 50 characters long (including spaces and hyphens).
 
 Examples:
 *  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the CCA with the first index in the CCA list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.

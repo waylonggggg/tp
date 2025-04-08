@@ -611,7 +611,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 <box type="info" seamless>
 
-**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Contraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
+**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Constraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
 
 </box>
 
@@ -736,7 +736,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Deleting a CCA
 
 1. Deleting a CCA while all CCAs are being shown
-    1. Prerequisites: One CCA in the CCA list.
+    1. Prerequisite: One CCA in the CCA list.
     2. Test case: `delete_c 1`
        Expected: The first CCA is deleted from the list. Details of the deleted CCA shown in the status message.
     3. Test case: `delete_c 1`
@@ -749,7 +749,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a student
 
 1. Editing an existing student's name, phone, email and address
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list. It is okay for the edited student's original name to be Clark Kent.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list, there are no students with phone number of `99999999` or email of `e0000000@u.nus.edu`. It is okay for the edited student's original name to be Clark Kent.
     2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
     3. Test case: `edit_s 2 n/Clark Kent`
@@ -778,7 +778,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a role of a CCA
 
 1. Adding a role to a CCA
-    1. Prerequisites: Multiple CCAs in the CCA list.
+    1. Prerequisite: Multiple CCAs in the CCA list.
     2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's roles are replaced with `President`, `Vice-President`, `Treasurer`, and default `Member` roles. The updated CCA details are shown in the list.
     3. Test case: `edit_c 1 r/President`
@@ -789,7 +789,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting a role from a CCA
-    1. Prerequisite: Multiple CCAs in the CCA list. The first CCA has at least one role.
+    1. Prerequisites: Multiple CCAs in the CCA list. The first CCA has at least one role.
     2. Test case: `edit_c 1 r/`
        Expected: The first CCA's roles are removed and only left with default `Member`. The updated CCA details are shown in the list.
     3. Test case: `edit_c 0 r/`
@@ -798,7 +798,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Record Attendance
 
 1. Recording attendance for a student already in a CCA
-    1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dance` CCA is not contained in the first student. The second student does not have full attendance in `Basketball` CCA.
+    1. Prerequisites: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dance` CCA is not contained in the first student. The second student does not have full attendance in `Basketball` CCA.
     2. Test case: `attend 2 c/Basketball a/1`
    Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
    3. Test case: `attend 2 c/Chess a/1`
@@ -830,7 +830,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Removing a CCA from a student
 
 1. Removing a CCA from a student
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
     2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
     3. Test case: `remove_c 1 c/Basketball`
@@ -841,7 +841,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Adding a role to a student in a CCA
 
 1. Adding a role from a student in a CCA
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
     2. Test case: `add_r 1 c/Basketball r/Member`
       Expected: The default role `Member` cannot be assigned. Error details are shown in the status message.
     3. Test case: `add_r 1 c/Basketball r/Captain`
@@ -852,7 +852,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Removing a role from a student in a CCA
 
 1. Removing a role from a student in a CCA
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
     2. Test case: `remove_r 1 c/Basketball`
        Expected: The first student's role in `Basketball` CCA is removed, the student is now a `Member`. The updated student details are shown in the list.
     3. Test case: `remove_r 1 c/Basketball`
@@ -863,7 +863,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
-    1. Prerequisite: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
+    1. Prerequisites: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
     2. Test case: Delete the data file.
        Under the app folder, go to the data folder, and delete the `addressbook.json` file.
        Expected: The app should start with the sample data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
