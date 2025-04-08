@@ -11,22 +11,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.TENNIS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.cca.Amount;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaInformation;
 import seedu.address.model.cca.CcaName;
-import seedu.address.model.role.Role;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -101,22 +93,6 @@ public class PersonTest {
         if (!ALICE.getCcas().isEmpty()) {
             assertTrue(ALICE.hasCca(ALICE.getCcas().get(0).getCcaName()));
         }
-    }
-
-    @Disabled
-    @Test
-    public void attend() {
-        // amount too large -> throws IllegalArgumentException
-        assertThrows(IllegalArgumentException.class, () -> ALICE.attend(
-            ALICE.getCcas().get(0), new Amount(100)));
-
-        // valid attendance -> returns true
-        Person aliceWithAttendance = ALICE.attend(BASKETBALL, new Amount(1));
-        Set<CcaInformation> expectedCcaInformations = new HashSet<>();
-        expectedCcaInformations.add(new CcaInformation(BASKETBALL, new Role("Captain"),
-                BASKETBALL.createNewAttendance().attend(new Amount(1))));
-        Person expectedAlice = new PersonBuilder(ALICE).withCcaInformations(expectedCcaInformations).build();
-        assertEquals(expectedAlice, aliceWithAttendance);
     }
 
     @Test
