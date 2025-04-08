@@ -20,7 +20,7 @@ public class CreateCcaCommand extends Command {
             + "Parameters: "
             + PREFIX_CCA_NAME + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CCA_NAME + "Basketball";
+            + PREFIX_CCA_NAME + "Handball";
 
     public static final String MESSAGE_SUCCESS = "New CCA added: %1$s";
 
