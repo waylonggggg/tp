@@ -122,7 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(otherPerson);
         return persons.containsExcept(person, otherPerson);
     }
-    
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
