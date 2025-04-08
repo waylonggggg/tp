@@ -13,7 +13,7 @@ public class Name {
             "Names should only contain alphabetic characters and a single space between words, it should not be blank "
                     + "and must not exceed 100 characters (including spaces).";
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,99}";
+    public static final String VALIDATION_REGEX = "^(?=.{1,100}$)[A-Za-z]+( [A-Za-z]+)*$";
 
     public final String fullName;
 
