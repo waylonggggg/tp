@@ -60,7 +60,8 @@ public class StringUtil {
 
         try {
             int value = Integer.parseInt(s, 10);
-            return value > 0 && value < 1000 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            // "+1" is successfully parsed by Integer#parseInt(String)
+            return value > 0 && value < 1000 && !s.startsWith("+");
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -78,7 +79,8 @@ public class StringUtil {
 
         try {
             int value = Integer.parseInt(s, 10);
-            return value >= 0 && value < 1000 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            // "+1" is successfully parsed by Integer#parseInt(String)
+            return value >= 0 && value < 1000 && !s.startsWith("+");
         } catch (NumberFormatException nfe) {
             return false;
         }

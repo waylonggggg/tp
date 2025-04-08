@@ -74,7 +74,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/resources/view/MainWindow.fxml).
 
 The `UI` component,
 
@@ -99,6 +99,10 @@ How the `Logic` component works:
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
+Here is the simplified workflow on how the `Logic` component interacts when a user executes a command, , taking `EditCCACommand` as an example.
+
+<puml src="diagrams/EditCcaActivityDiagram.puml" width="600" alt="Interactions with Other Components When Logic is Called to Execute a EditCcaCommand" />
+
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
@@ -121,7 +125,6 @@ The sequence diagram below illustrates the simplified interactions within the `L
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="650" />
-
 
 The `Model` component,
 
@@ -176,7 +179,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 **Target user profile**:
 
-* Resolve the distress of the Hall attendance manager caused by the current complex and unorganized CCA attendance system.
+* Resolve the distress of the hall attendance manager caused by the current complex and unorganized CCA attendance system.
 * Provide a simple and easy-to-use software that effectively tracks all CCA attendances for hall students.
 * Accommodate the manager’s “lazy” nature by streamlining workflows and reducing complexity.
 * Prioritize typing over mouse usage to align with the manager’s preferences.
@@ -596,7 +599,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
       Use case resumes at step 2.
 
-### UC15: Exit the application
+**UC15: Exit the application**
 
 **MSS**
 1. User requests to exit the application.
@@ -605,6 +608,12 @@ Classes used by multiple components are in the `seedu.address.commons` package.
     Use case ends.
 
 ### Non-Functional Requirements
+
+<box type="info" seamless>
+
+**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Contraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
+
+</box>
 
 1. **Platform Compatibility**: The application should work on any _mainstream OS_ (Windows, Linux, macOS) as long as Java `17` or above is installed. *(Constraint-Platform-Independent, Constraint-Java-Version)*
 
@@ -626,8 +635,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 10. **Extensibility & Maintainability**: The application should follow **Object-Oriented Programming (OOP) principles**, making it **easy to extend and modify**. *(Constraint-OO)*
 
-*{More to be added as needed}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
@@ -636,8 +643,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 * **Index**: A number that represents the position of student or CCA. It is shown in the UI on the left side of the student or CCA details.
 * **HAM**: Hall attendance manager, i.e. the one in charge of taking attendance of the students.
 * **Role**: The position the student has in the CCA, e.g. Captain, President.
-
-*{More to be added}*
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -671,7 +676,7 @@ testers are expected to do more \*exploratory\* testing.
 
    3. Refer to the initial launch instructions if double-clicking doesn't work.
 
-### Listing a student
+### Listing all students
 
 1. List all students
     1. Test case: `list`
@@ -872,7 +877,27 @@ testers are expected to do more \*exploratory\* testing.
        Open the `addressbook.json` file in a text editor and edit `    "name" : "Alex Yeoh",` to `    "name" : "Alex !!!",` in the third line.
        Expected: The app should start with an empty data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
 
+## **Appendix: Effort**
+**Difficulty Level**: The project was slightly challenging as it entailed the restructuring of a few classes to follow our implementation, and further considerations had to be made with the implementation of features with regard to the new structure.
+
+**Challenges Faced**:
+- **Expansion of AddressBook**: In line with our application's intent of keeping track of each student's CCA attendance, we introduced a new `UniqueCcaList`, which was used to keep track of `Cca`s that were present in the `AddressBook`. This entailed the linking of each `Person` to an existing `Cca` in the `UniqueCcaList`. This additional feature required implementing a sophisticated relationship model that could logically manage each `Person`, and their respective `Cca`s and `Attendance`.
+- **Restructuring of Person class**: To account for the `Cca`s of each student, we introduced a new set of `CcaInformation`s attribute to each `Person`, with each `CcaInformation` class keeping track of each student's `Cca`, `Role` and `Attendance`. The restructuring required a great deal of work as there was a multitude of dependencies linked to the `Person` class.
+- **Data Storage**: The introduction of the set of `CcaInformation`s in the `Person` class required an update to the JSON storage architecture. Multiple new JsonAdapted classes were created to account for the changes.
+- **User Interface Upgrade**: To make the user interface more friendly to the user for tracking `Cca`s and `Person`s, we split the interface into two, allowing the user to view the `Cca` list and `Person` list for a more intuitive experience.
+
+**Effort Required**: With the restructuring of classes and the enhancement to the UI, we felt that we had put in adequate, if not more than the expected effort in ensuring that our application could cater well to the user, both functionally and visually. On top of that, we also prioritised code quality and testing to ensure that our application was robustly written and tested. Every member had put in their 110% effort for the sole fact of wanting to try our best for this project!
+
+**Achievements of the Project**: CCAttendance is a fully functioning app that can keep track of and record the attendance of students in various CCAs, with easy-to-use CLI commands that are intuitive for Hall Attendance Managers to use!
+
 ## **Appendix: Planned Enhancements**
 **Team Size**: 4 People
 
-1. Some of the current error messages (e.g., indicating that an index must be a positive integer) are not specific enough to help the user understand what went wrong. Specifically, when the user enters an invalid index, the error message should clearly state that the index must be a positive integer and must not exceed `Integer.MAX_VALUE`. However, the current error message simply indicates an invalid command format, which is too generic and not very helpful. Later, we can enhance these error messages to be more detailed and user-friendly.
+1. **Improved Find Command for Person List** As of now, the `find` command only allows you to find students by their name. Future enhancements plan to allow users to filter students by the rest of their particulars e.g. CCA, role, phone number, address, email.
+2. **Dedicated Find Command for CCA list**: To add on, there also is not a `find` command for the CCA list. Future enhancements would include the addition of a `find` command dedicated for the CCA list, where CCAs can be filtered by their particulars e.g. CCA name, roles in the CCA, total sessions.
+3. **Clear CCAs**: The existing `clear` command clears both the cca and person list completely, but there might be use cases where a user would want to either just clear the cca list or person list. A new `clear_c`  and `clear_s` command could be implemented in the future to clear the cca list and person list respectively, allowing for more flexible usage of clearing data from the app.
+4. **Record Attendance of Multiple Students at a Time**: The current `attend` command only allows the user to record the attendance of one student for a specified CCA at a time. Seeing as the application revolves around recording the attendance of students, future enhancements would allow users to record the attendance of multiple users at a time for a specified cca, making the recording of attendance more efficient. e.g., The current `attend` command format allows for only one index (index of student) to be inputted, but future enhancements would allow multiple indexes to be inputted.
+5. **Enhanced Adding/Removing of CCAs and Roles to Students**: In the current implementation, to add a CCA and a role to a student, the CCA has to be first added to the student using the `add_c` command, and then the role has to be added to the student using the `add_r` command. What's more, both of these commands also only allow the adding of one CCA or role at a time. The removal of CCA and role from a student is also the same using the `remove_c` and `remove_r` command respectively, where only one CCA or role can be removed from a student at a time. This could be inefficient when dealing with the adding/removal of CCAs and roles from multiple students at a time, which is compounded when students can also have multiple CCAs. Thus, future enhancements aim to combine all these commands into the edit student command, `edit_s`. We plan to use a new prefix to be used in the `edit_s` command, where it can be used multiple times, and denotes the CCA and corresponding role to be added to a student. If the prefix is typed out but left empty, the student is removed from all CCAs, and thus loses all his roles in those CCAs. To denote the CCA and the corresponding role to be added to the student, we could adjoin the CCA and the role with an "underscore" e.g. Volleyball_Captain. When editing the CCA and role, the existing CCAs and roles of the student will be removed (adding of CCAs and roles is not cumulative).
+6. **Fix Line Wrapping**: As of now, several line wrapping issues may occur in the event that details in the CCA or Person on the UI might be too long, causing the details to overflow the UI. We plan to fix these line wrapping issues in future enhancements.
+7. **Importing/Exporting of Student Profiles**: Currently, the application does not support the seamless exporting or importing of student profiles from/to the system. Future updates would allow users to export the student data for use in other systems, or import student data for use in the current system.
+8. **Improving Error Messages**: Some of the current error messages (e.g., indicating that an index must be a positive integer) are not specific enough to help the user understand what went wrong. Specifically, when the user enters an invalid index, the error message should clearly state that the index must be a positive integer and must not exceed `Integer.MAX_VALUE`. However, the current error message simply indicates an invalid command format, which is too generic and not very helpful. Later, we can enhance these error messages to be more detailed and user-friendly.

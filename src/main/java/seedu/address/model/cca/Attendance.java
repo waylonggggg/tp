@@ -2,7 +2,6 @@ package seedu.address.model.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.model.cca.Amount.isValidAmount;
 
 /**
  * Represents a person's attendance in a specific CCA.
@@ -20,7 +19,7 @@ public class Attendance {
      * Constructs an Attendance object.
      *
      * @param sessionsAttended Number of attended sessions (must be non-negative).
-     * @param totalSessions The total number of sessions in the CCA.
+     * @param tota  lSessions The total number of sessions in the CCA.
      */
     public Attendance(SessionCount sessionsAttended, SessionCount totalSessions) {
         requireNonNull(sessionsAttended);
