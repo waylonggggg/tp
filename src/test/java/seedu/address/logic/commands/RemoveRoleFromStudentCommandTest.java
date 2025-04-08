@@ -54,8 +54,8 @@ public class RemoveRoleFromStudentCommandTest {
         CommandResult commandResult = command.execute(modelStub);
 
         assertEquals(String.format(RemoveRoleFromStudentCommand.MESSAGE_REMOVE_ROLE_FROM_STUDENT_SUCCESS,
-                Messages.format(validPerson), Messages.format(validRole),
-                Messages.format(validCca)), commandResult.getFeedbackToUser());
+                Messages.format(validPerson.getName()), Messages.format(validRole),
+                Messages.format(validCca.getCcaName())), commandResult.getFeedbackToUser());
     }
 
     @Test

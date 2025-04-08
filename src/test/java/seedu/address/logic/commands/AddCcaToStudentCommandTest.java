@@ -64,7 +64,7 @@ public class AddCcaToStudentCommandTest {
         // Create and execute the command
         AddCcaToStudentCommand command = new AddCcaToStudentCommand(INDEX_SECOND_PERSON, CCA_NAME_TENNIS);
         String expectedMessage = String.format(AddCcaToStudentCommand.MESSAGE_ADD_CCA_SUCCESS,
-                Messages.format(expectedPerson), Messages.format(CCA_NAME_TENNIS));
+                Messages.format(expectedPerson.getName()), Messages.format(CCA_NAME_TENNIS));
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -86,7 +86,7 @@ public class AddCcaToStudentCommandTest {
         // Create and execute the command targeting INDEX_FIRST_PERSON within the *filtered* list
         AddCcaToStudentCommand command = new AddCcaToStudentCommand(INDEX_FIRST_PERSON, CCA_NAME_TENNIS);
         String expectedMessage = String.format(AddCcaToStudentCommand.MESSAGE_ADD_CCA_SUCCESS,
-                Messages.format(expectedPerson), Messages.format(CCA_NAME_TENNIS));
+                Messages.format(expectedPerson.getName()), Messages.format(CCA_NAME_TENNIS));
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }

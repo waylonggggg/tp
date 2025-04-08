@@ -61,7 +61,7 @@ public class RemoveCcaFromStudentCommandTest {
         // Create and execute the command
         RemoveCcaFromStudentCommand command = new RemoveCcaFromStudentCommand(INDEX_FIRST_PERSON, CCA_NAME_BASKETBALL);
         String expectedMessage = String.format(RemoveCcaFromStudentCommand.MESSAGE_REMOVE_CCA_SUCCESS,
-                Messages.format(expectedPerson), Messages.format(CCA_NAME_BASKETBALL));
+                Messages.format(expectedPerson.getName()), Messages.format(CCA_NAME_BASKETBALL));
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -82,7 +82,7 @@ public class RemoveCcaFromStudentCommandTest {
         // Create and execute the command
         RemoveCcaFromStudentCommand command = new RemoveCcaFromStudentCommand(INDEX_FIRST_PERSON, CCA_NAME_BASKETBALL);
         String expectedMessage = String.format(RemoveCcaFromStudentCommand.MESSAGE_REMOVE_CCA_SUCCESS,
-                Messages.format(expectedPerson), Messages.format(CCA_NAME_BASKETBALL));
+                Messages.format(expectedPerson.getName()), Messages.format(CCA_NAME_BASKETBALL));
 
         // model will have filter reset, expectedModel does not need filter reset for comparison
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
