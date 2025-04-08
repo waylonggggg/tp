@@ -123,7 +123,10 @@ Creates and adds a student to the list of students.
 
 Format: `create_s n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS​`
 
-* Names should only contain alphabetic characters and a single space between words, and it should not be blank. Unfortunately, we do not allow `/` in names, making names like `David s/o Daniel` invalid.
+* Names should only contain alphabetic characters and a single space between words, it should not be blank and must be at most 100 characters (including spaces). Unfortunately, we do not allow `/` in names, making names like `David s/o Daniel` invalid.
+* Phone numbers should only contain numbers. It should be at least 3 digits long, and at most 10 digits long.
+* Emails should be of the format local-part@domain and must not exceed 150 characters.
+* Addresses can take any values, it should not be blank and must be at most 150 characters long (including spaces).
 
 Examples:
 * `create_s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` creates a student named `John Doe`, with phone number `98765432`, email of `johnd@example.com`, and address of `John street, block 123, #01-01`.
@@ -135,7 +138,7 @@ Creates and adds a CCA to the list of CCAs.
 Format: `create_c c/CCA_NAME`
 * Creates and adds a CCA with a name.
 * The new CCA will have a default role `Member` and total sessions set to 0 by default.
-* Cca names must consist of alphanumeric characters and can only include spaces or hyphens between words. For example, R0ck-n-R0ll is a valid CCA name, but -Basketball- is not. It is up to the user to make meaningful CCA names.
+* Cca names must consist of alphanumeric characters, can only include spaces or hyphens between words and must be at most 100 characters long. For example, R0ck-n-R0ll is a valid CCA name, but -Basketball- is not. It is up to the user to make meaningful CCA names.
 <box type="warning" seamless>
 
 **Caution:**
@@ -180,6 +183,8 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * Typing `r/` without specifying any roles after it remove all the CCA’s roles except for `Member`.
 * If an existing student have their role removed from the CCA, the student's role will be set to `Member`.
 * If an existing student's attended sessions is above the new total sessions, the student's attended sessions will be set to the new total sessions.
+* Cca names must consist of alphanumeric characters, can only include spaces or hyphens between words and must be at most 100 characters long.
+* Role names should be alphanumeric, allowing the use of hyphens, and must be at most 50 characters long (including spaces and hyphens)";
 
 Examples:
 *  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the CCA with the first index in the CCA list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
