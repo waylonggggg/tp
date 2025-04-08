@@ -99,6 +99,10 @@ How the `Logic` component works:
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
+Here is the simplified workflow on how the `Logic` component interacts when a user executes a command, , taking `EditCCACommand` as an example.
+
+<puml src="diagrams/EditCcaActivityDiagram.puml" width="600" alt="Interactions with Other Components When Logic is Called to Execute a EditCcaCommand" />
+
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
@@ -121,7 +125,6 @@ The sequence diagram below illustrates the simplified interactions within the `L
 **API** : [`Model.java`](https://github.com/AY2425S2-CS2103T-T09-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="650" />
-
 
 The `Model` component,
 
@@ -596,7 +599,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
       Use case resumes at step 2.
 
-### UC15: Exit the application
+**UC15: Exit the application**
 
 **MSS**
 1. User requests to exit the application.
@@ -605,6 +608,12 @@ Classes used by multiple components are in the `seedu.address.commons` package.
     Use case ends.
 
 ### Non-Functional Requirements
+
+<box type="info" seamless>
+
+**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Contraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
+
+</box>
 
 1. **Platform Compatibility**: The application should work on any _mainstream OS_ (Windows, Linux, macOS) as long as Java `17` or above is installed. *(Constraint-Platform-Independent, Constraint-Java-Version)*
 
@@ -626,8 +635,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 10. **Extensibility & Maintainability**: The application should follow **Object-Oriented Programming (OOP) principles**, making it **easy to extend and modify**. *(Constraint-OO)*
 
-*{More to be added as needed}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
@@ -636,8 +643,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 * **Index**: A number that represents the position of student or CCA. It is shown in the UI on the left side of the student or CCA details.
 * **HAM**: Hall attendance manager, i.e. the one in charge of taking attendance of the students.
 * **Role**: The position the student has in the CCA, e.g. Captain, President.
-
-*{More to be added}*
 
 --------------------------------------------------------------------------------------------------------------------
 
