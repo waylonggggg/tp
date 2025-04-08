@@ -54,7 +54,8 @@ public class AddRoleToStudentCommandTest {
         CommandResult commandResult = command.execute(modelStub);
 
         assertEquals(String.format(AddRoleToStudentCommand.MESSAGE_ADD_ROLE_TO_STUDENT_SUCCESS,
-                        Messages.format(validPerson.getName()), Messages.format(role), Messages.format(validCca.getCcaName())),
+                        Messages.format(validPerson.getName()),
+                        Messages.format(role), Messages.format(validCca.getCcaName())),
                 commandResult.getFeedbackToUser());
     }
 
