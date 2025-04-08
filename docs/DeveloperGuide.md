@@ -606,6 +606,8 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 ### Non-Functional Requirements
 
+To know more about constraints, refer to [this site](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
+
 1. **Platform Compatibility**: The application should work on any _mainstream OS_ (Windows, Linux, macOS) as long as Java `17` or above is installed. *(Constraint-Platform-Independent, Constraint-Java-Version)*
 
 2. **Performance**: The application should be able to hold up to **1000 students** without noticeable sluggishness in performance for typical usage. *(Scalability requirement)*

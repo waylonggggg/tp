@@ -215,6 +215,12 @@ Format: `add_r INDEX c/CCA_NAME r/ROLE_NAME`
 * The student must be in the CCA.
 * The student must not have an existing role in the CCA (other than `Member`).
 
+<box type="tip" seamless>
+
+**Tip:**
+If you want to edit the role of a student in a CCA, you can use `remove_r` to remove the existing role and then use `add_r` to add the new role.
+</box>
+
 Examples:
 * `add_r 2 c/Basketball r/Captain` Adds the role `Captain` to the 2nd student in the student list in the CCA `Basketball`.
 
