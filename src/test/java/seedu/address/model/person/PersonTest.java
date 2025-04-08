@@ -34,7 +34,6 @@ public class PersonTest {
 
 
     @Test
-    @Disabled
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
@@ -56,11 +55,6 @@ public class PersonTest {
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).build();
         assertFalse(BOB.isSamePerson(editedBob));
-
-        // name has trailing spaces, all other attributes diff except address -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).withPhone(VALID_PHONE_AMY)
-                .withEmail(VALID_EMAIL_AMY).build();
 
         // same phone number, all other attributes diff except address -> returns false
         editedBob = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
