@@ -187,7 +187,7 @@ Role names are case-sensitive. For example, `Captain` and `captain` are consider
 * If an existing student have their role removed from the CCA, the student's role will be set to `Member`.
 * If an existing student's attended sessions is above the new total sessions, the student's attended sessions will be set to the new total sessions.
 * Cca names must consist of alphanumeric characters, can only include spaces or hyphens between words and must be at most 100 characters long.
-* Role names should be alphanumeric, allowing the use of hyphens, and must be at most 50 characters long (including spaces and hyphens)".
+* Role names should be alphanumeric, allowing the use of hyphens, and must be at most 50 characters long (including spaces and hyphens).
 
 Examples:
 *  `edit_c 1 c/Volleyball r/Captain r/Vice-Captain t/40` Edits the CCA with the first index in the CCA list. Renames it to `Volleyball`, updates the available roles to `Captain`, `Vice-Captain` and `Member`, and updates the total sessions to 40.
