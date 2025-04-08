@@ -749,7 +749,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a student
 
 1. Editing an existing student's name, phone, email and address
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list. It is okay for the edited student's original name to be Clark Kent.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list and `Clark Kent` is not in the list, there are no students with phone number of `99999999` or email of `e0000000@u.nus.edu`. It is okay for the edited student's original name to be Clark Kent.
     2. Test case: `edit_s 1 n/Clark Kent p/99999999 e/e0000000@u.nus.edu a/Raffles Hall 22/B/2`
        Expected: The first student's name is changed to `Clark Kent`. The updated student details are shown in the list.
     3. Test case: `edit_s 2 n/Clark Kent`
