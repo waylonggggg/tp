@@ -59,7 +59,11 @@ public class PersonCard extends UiPart<Region> {
 
         personCardPane.widthProperty().addListener((observable, oldValue, newValue) -> {
             double maxWidth = newValue.doubleValue() * 0.9;
-            ccas.setMaxWidth(maxWidth);
+            if (ccas.widthProperty().get() > maxWidth) {
+                ccas.setMaxWidth(maxWidth);
+            } else {
+                ccas.setMaxWidth(Region.USE_PREF_SIZE);
+            }
         });
 
         person.getCcaInformations().stream()
