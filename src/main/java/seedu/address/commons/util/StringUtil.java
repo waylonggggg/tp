@@ -59,8 +59,8 @@ public class StringUtil {
         requireNonNull(s);
 
         try {
-            int value = Integer.parseInt(s);
-            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            int value = Integer.parseInt(s, 10);
+            return value > 0 && value < 1000 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -77,8 +77,8 @@ public class StringUtil {
         requireNonNull(s);
 
         try {
-            int value = Integer.parseInt(s);
-            return value >= 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            int value = Integer.parseInt(s, 10);
+            return value >= 0 && value < 1000 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
         }

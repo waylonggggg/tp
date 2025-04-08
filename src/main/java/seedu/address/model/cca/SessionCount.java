@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class SessionCount {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "The number of sessions must be a non-negative integer.";
+            "The number of sessions must be a non-negative integer and should not exceed 999.";
 
     private final int sessionCount;
 

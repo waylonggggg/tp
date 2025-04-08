@@ -2,6 +2,7 @@ package seedu.address.model.cca;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.cca.Amount.isValidAmount;
 
 /**
  * Represents a person's attendance in a specific CCA.
