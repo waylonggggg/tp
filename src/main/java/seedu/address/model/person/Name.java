@@ -13,7 +13,11 @@ public class Name {
             "Names should only contain alphabetic characters and a single space between words, it should not be blank "
                     + "and must not exceed 100 characters (including spaces).";
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,99}";
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "^[A-Za-z]+( [A-Za-z]+)*$";
 
     public final String fullName;
 
