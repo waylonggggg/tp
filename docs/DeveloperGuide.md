@@ -736,7 +736,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Deleting a CCA
 
 1. Deleting a CCA while all CCAs are being shown
-    1. Prerequisites: One CCA in the CCA list.
+    1. Prerequisite: One CCA in the CCA list.
     2. Test case: `delete_c 1`
        Expected: The first CCA is deleted from the list. Details of the deleted CCA shown in the status message.
     3. Test case: `delete_c 1`
@@ -778,7 +778,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Editing a role of a CCA
 
 1. Adding a role to a CCA
-    1. Prerequisites: Multiple CCAs in the CCA list.
+    1. Prerequisite: Multiple CCAs in the CCA list.
     2. Test case: `edit_c 1 r/President r/Vice-President r/Treasurer`
        Expected: The first CCA's roles are replaced with `President`, `Vice-President`, `Treasurer`, and default `Member` roles. The updated CCA details are shown in the list.
     3. Test case: `edit_c 1 r/President`
@@ -830,7 +830,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Removing a CCA from a student
 
 1. Removing a CCA from a student
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and it has `Basketball` and `Acting`. It does not contain `Chess`. The first student is in `Basketball` CCA.
     2. Test case: `remove_c 1 c/Basketball`
        Expected: The first student is removed from the `Basketball` CCA. The updated student details are shown in the list.
     3. Test case: `remove_c 1 c/Basketball`
@@ -841,7 +841,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Adding a role to a student in a CCA
 
 1. Adding a role from a student in a CCA
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person is in a CCA `Basketball`. The `Basketball` CCA has `Captain` role defined. The first person in `Basketball` and assigned with a default role `Member`.
     2. Test case: `add_r 1 c/Basketball r/Member`
       Expected: The default role `Member` cannot be assigned. Error details are shown in the status message.
     3. Test case: `add_r 1 c/Basketball r/Captain`
@@ -852,7 +852,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Removing a role from a student in a CCA
 
 1. Removing a role from a student in a CCA
-    1. Prerequisite: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. Multiple CCAs in the list and the first person has at least one CCA. The person must be assigned with a role other than `Member`.
     2. Test case: `remove_r 1 c/Basketball`
        Expected: The first student's role in `Basketball` CCA is removed, the student is now a `Member`. The updated student details are shown in the list.
     3. Test case: `remove_r 1 c/Basketball`
@@ -863,7 +863,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
-    1. Prerequisite: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
+    1. Prerequisites: For this test, you will use the sample data provided when the app is launched the first time. Make sure the data file is not corrupted.
     2. Test case: Delete the data file.
        Under the app folder, go to the data folder, and delete the `addressbook.json` file.
        Expected: The app should start with the sample data when launched. Upon any action with storage (e.g. adding a student), a new data file should be created.
