@@ -157,6 +157,7 @@ Format: `edit_s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]​`
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** (1, 2, 3, …).
 * At least one of the optional fields (`n/`, `p/`, `e/`, `a/`) must be provided.
 * Existing values for the specified fields will be overwritten by the new input values.
+* The edited student cannot have the same name, phone numer, or email as another student in the student list.
 
 Examples:
 * `edit_s 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the student at index 1 to be `91234567` and `johndoe@example.com` respectively. Their name, address, CCAs, and roles remain unchanged.
@@ -167,6 +168,8 @@ Examples:
 Edits an existing CCA in the CCA list.
 
 Format: `edit_c INDEX [c/CCA_NAME] [r/ROLE_NAME]... [t/TOTAL_SESSIONS]`
+
+* The edited CCA cannot have the same name as another CCA in the CCA list.
 
 <box type="warning" seamless>
 

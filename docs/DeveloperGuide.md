@@ -789,7 +789,7 @@ testers are expected to do more \*exploratory\* testing.
        Expected: No CCA is edited. Error message is shown as parameters with invalid formats were provided.
 
 2. Deleting a role from a CCA
-    1. Prerequisite: Multiple CCAs in the CCA list. The first CCA has at least one role.
+    1. Prerequisites: Multiple CCAs in the CCA list. The first CCA has at least one role.
     2. Test case: `edit_c 1 r/`
        Expected: The first CCA's roles are removed and only left with default `Member`. The updated CCA details are shown in the list.
     3. Test case: `edit_c 0 r/`
@@ -798,7 +798,7 @@ testers are expected to do more \*exploratory\* testing.
 ### Record Attendance
 
 1. Recording attendance for a student already in a CCA
-    1. Prerequisite: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dance` CCA is not contained in the first student. The second student does not have full attendance in `Basketball` CCA.
+    1. Prerequisites: Multiple students in the list (e.g., from previous sample data). The second student (index `2`) is already in the `Basketball` CCA. The `Chess` CCA does not exist and `Dance` CCA is not contained in the first student. The second student does not have full attendance in `Basketball` CCA.
     2. Test case: `attend 2 c/Basketball a/1`
    Expected: The second student’s attendance for the `Basketball` CCA is incremented by 1.  A success message is displayed, indicating that attendance has been updated.
    3. Test case: `attend 2 c/Chess a/1`
