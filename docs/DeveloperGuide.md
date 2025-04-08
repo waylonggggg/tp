@@ -611,7 +611,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 <box type="info" seamless>
 
-**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Contraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
+**Note**: Several non-functional requirements listed above are derived from the project constraints specified in the course documentation. These requirements explicitly state the relevant constraints for better validation. For more details, please refer to CS2103T Constraints at [CS2103T-Constraints](https://nus-cs2103-ay2425s2.github.io/website/admin/tp-constraints.html#tp-constraints).
 
 </box>
 
