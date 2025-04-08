@@ -50,8 +50,6 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
 
-        final float MAX_WIDTH_PERCENTAGE = 0.9f;
-
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
@@ -60,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
 
         personCardPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double maxWidth = newValue.doubleValue() * MAX_WIDTH_PERCENTAGE;
+            double maxWidth = newValue.doubleValue() * 0.9;
             ccas.setMaxWidth(maxWidth);
         });
 
